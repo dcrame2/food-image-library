@@ -1,0 +1,478 @@
+{
+  "items": [
+    {
+      "id": "alfredo-pasta",
+      "name": "Alfredo Pasta",
+      "category": "meals",
+      "tags": [],
+      "file": "/foods/meals/alfredo-pasta.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/alfredo pasta.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "almond-milk",
+      "name": "Almond Milk",
+      "category": "drinks",
+      "tags": [
+        "healthy",
+        "low-cal"
+      ],
+      "file": "/foods/drinks/almond-milk.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/almond milk.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "avocado",
+      "name": "Avocado",
+      "category": "fruits",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/fruits/avocado.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/avacado.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "banana",
+      "name": "Banana",
+      "category": "fruits",
+      "tags": [
+        "healthy",
+        "pre-workout"
+      ],
+      "file": "/foods/fruits/banana.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/banana.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "ben-jerry-s",
+      "name": "Ben & Jerry's",
+      "category": "branded",
+      "tags": [
+        "junk",
+        "dessert"
+      ],
+      "file": "/foods/branded/ben-jerry-s.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/ben_and_jerries.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "berries",
+      "name": "Berries",
+      "category": "fruits",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/fruits/berries.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/berries.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "black-coffee",
+      "name": "Black Coffee",
+      "category": "drinks",
+      "tags": [
+        "coffee",
+        "pre-workout",
+        "low-cal"
+      ],
+      "file": "/foods/drinks/black-coffee.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/black coffee.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "broccoli",
+      "name": "Broccoli",
+      "category": "veggies",
+      "tags": [
+        "healthy",
+        "low-cal"
+      ],
+      "file": "/foods/veggies/broccoli.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/broccoli.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "burger",
+      "name": "Burger",
+      "category": "meals",
+      "tags": [
+        "fast-food"
+      ],
+      "file": "/foods/meals/burger.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/burger.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "catalina-crunch",
+      "name": "Catalina Crunch",
+      "category": "branded",
+      "tags": [
+        "healthy",
+        "snack",
+        "breakfast"
+      ],
+      "file": "/foods/branded/catalina-crunch.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/catalina_crunch.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "cauliflower-rice",
+      "name": "Cauliflower Rice",
+      "category": "veggies",
+      "tags": [
+        "healthy",
+        "low-cal",
+        "keto"
+      ],
+      "file": "/foods/veggies/cauliflower-rice.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/cauliflower rice.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "chicken",
+      "name": "Chicken",
+      "category": "proteins",
+      "tags": [
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/proteins/chicken.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/chicken.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "cinnamon-toast-bread",
+      "name": "Cinnamon Toast Bread",
+      "category": "breakfast",
+      "tags": [
+        "breakfast"
+      ],
+      "file": "/foods/breakfast/cinnamon-toast-bread.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/cinnamon toast bread.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "cinnamon-toast-crunch",
+      "name": "Cinnamon Toast Crunch",
+      "category": "branded",
+      "tags": [
+        "junk",
+        "breakfast",
+        "snack"
+      ],
+      "file": "/foods/branded/cinnamon-toast-crunch.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/cinammon_toast_crunch.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "cooked-egg",
+      "name": "Cooked Egg",
+      "category": "proteins",
+      "tags": [
+        "healthy",
+        "high-protein",
+        "breakfast"
+      ],
+      "file": "/foods/proteins/cooked-egg.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/cooked egg.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "doritos",
+      "name": "Doritos",
+      "category": "branded",
+      "tags": [
+        "junk",
+        "snack"
+      ],
+      "file": "/foods/branded/doritos.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/doritos.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "frozen-treat",
+      "name": "Frozen Treat",
+      "category": "desserts",
+      "tags": [
+        "dessert"
+      ],
+      "file": "/foods/desserts/frozen-treat.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/fronzen_one.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "frozen-yogurt",
+      "name": "Frozen Yogurt",
+      "category": "desserts",
+      "tags": [
+        "dessert"
+      ],
+      "file": "/foods/desserts/frozen-yogurt.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/frozen togurt.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "greek-yogurt",
+      "name": "Greek Yogurt",
+      "category": "dairy",
+      "tags": [
+        "healthy",
+        "high-protein",
+        "breakfast"
+      ],
+      "file": "/foods/dairy/greek-yogurt.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/greek yogurt.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "hard-boiled-egg",
+      "name": "Hard Boiled Egg",
+      "category": "proteins",
+      "tags": [
+        "healthy",
+        "high-protein",
+        "breakfast"
+      ],
+      "file": "/foods/proteins/hard-boiled-egg.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/hard boiled egg.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "kloud-popcorn",
+      "name": "Kloud Popcorn",
+      "category": "branded",
+      "tags": [
+        "snack",
+        "healthy"
+      ],
+      "file": "/foods/branded/kloud-popcorn.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/kloud_popcorn.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "latte",
+      "name": "Latte",
+      "category": "drinks",
+      "tags": [
+        "coffee"
+      ],
+      "file": "/foods/drinks/latte.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/latte.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "legendary-pop-tart",
+      "name": "Legendary Pop Tart",
+      "category": "branded",
+      "tags": [
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/legendary-pop-tart.png",
+      "source": "https://target.scene7.com/is/image/Target/GUEST_08ac35fe-580b-4430-ab0e-1f75c6c34881?wid=750&qlt=80",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "legendary-protein-donuts",
+      "name": "Legendary Protein Donuts",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein",
+        "snack"
+      ],
+      "file": "/foods/branded/legendary-protein-donuts.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/legendary_donuts.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "light-yogurt",
+      "name": "Light Yogurt",
+      "category": "dairy",
+      "tags": [
+        "healthy",
+        "low-cal"
+      ],
+      "file": "/foods/dairy/light-yogurt.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/light yogurt.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "mixed-fruits",
+      "name": "Mixed Fruits",
+      "category": "fruits",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/fruits/mixed-fruits.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/all fruits.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "oreos",
+      "name": "Oreos",
+      "category": "branded",
+      "tags": [
+        "junk",
+        "snack",
+        "dessert"
+      ],
+      "file": "/foods/branded/oreos.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/oreos.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "pb-pretzels",
+      "name": "PB Pretzels",
+      "category": "snacks",
+      "tags": [
+        "snack"
+      ],
+      "file": "/foods/snacks/pb-pretzels.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/pb pretzels.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "pineapple",
+      "name": "Pineapple",
+      "category": "fruits",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/fruits/pineapple.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/pineapple.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "pizza",
+      "name": "Pizza",
+      "category": "meals",
+      "tags": [
+        "junk"
+      ],
+      "file": "/foods/meals/pizza.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/pizza.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "pork-bacon",
+      "name": "Pork Bacon",
+      "category": "proteins",
+      "tags": [
+        "breakfast"
+      ],
+      "file": "/foods/proteins/pork-bacon.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/pork bacon.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "protein-donut",
+      "name": "Protein Donut",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "snack",
+        "healthy"
+      ],
+      "file": "/foods/branded/protein-donut.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/protein donut.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "rice-cake",
+      "name": "Rice Cake",
+      "category": "snacks",
+      "tags": [
+        "healthy",
+        "low-cal",
+        "snack"
+      ],
+      "file": "/foods/snacks/rice-cake.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/rice cake.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "salmon",
+      "name": "Salmon",
+      "category": "proteins",
+      "tags": [
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/proteins/salmon.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/salmon.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "sour-patch-kids",
+      "name": "Sour Patch Kids",
+      "category": "branded",
+      "tags": [
+        "junk",
+        "snack"
+      ],
+      "file": "/foods/branded/sour-patch-kids.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/sour_patch_kids.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "steak",
+      "name": "Steak",
+      "category": "proteins",
+      "tags": [
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/proteins/steak.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/steak.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "sugar-free-candy",
+      "name": "Sugar Free Candy",
+      "category": "snacks",
+      "tags": [
+        "snack"
+      ],
+      "file": "/foods/snacks/sugar-free-candy.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/sugar_free_candy.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "turkey-bacon",
+      "name": "Turkey Bacon",
+      "category": "proteins",
+      "tags": [
+        "healthy",
+        "high-protein",
+        "breakfast"
+      ],
+      "file": "/foods/proteins/turkey-bacon.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/turkey bacon.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "watermelon",
+      "name": "Watermelon",
+      "category": "fruits",
+      "tags": [
+        "healthy",
+        "low-cal"
+      ],
+      "file": "/foods/fruits/watermelon.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/watermelon.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "white-rice",
+      "name": "White Rice",
+      "category": "carbs",
+      "tags": [],
+      "file": "/foods/carbs/white-rice.png",
+      "source": "file:///Users/dylancramer/Downloads/Food images/white rice.png",
+      "added": "2026-05-23"
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+import { CategoryId } from "../src/lib/categories";
+
+export interface SeedEntry {
+  query: string;
+  name: string;
+  category: CategoryId;
+  tags: string[];
+}
+
+// Curated list of ~150 items biased toward fitness/nutrition Reels content.
+// Edit freely before running `npm run seed:bulk`.
+export const SEED_LIST: SeedEntry[] = [
+  // ── Branded protein bars / snacks ───────────────────────────────────────
+  { query: "barbell protein bar chocolate brownie transparent png", name: "Barbell Chocolate Brownie Protein Bar", category: "branded", tags: ["protein-bar", "healthy", "high-protein"] },
+  { query: "barbell protein bar birthday cake transparent png", name: "Barbell Birthday Cake Protein Bar", category: "branded", tags: ["protein-bar", "healthy", "high-protein"] },
+  { query: "barbell protein bar cookies and cream transparent png", name: "Barbell Cookies & Cream Protein Bar", category: "branded", tags: ["protein-bar", "healthy", "high-protein"] },
+  { query: "barbell protein bar smores transparent png", name: "Barbell S'mores Protein Bar", category: "branded", tags: ["protein-bar", "healthy", "high-protein"] },
+  { query: "legendary foods protein pop tarts strawberry transparent png", name: "Legendary Strawberry Pop Tart", category: "branded", tags: ["protein-bar", "healthy", "high-protein", "breakfast"] },
+  { query: "legendary foods protein pop tarts brown sugar cinnamon transparent png", name: "Legendary Brown Sugar Cinnamon Pop Tart", category: "branded", tags: ["protein-bar", "healthy", "high-protein", "breakfast"] },
+  { query: "quest protein bar chocolate chip cookie dough transparent png", name: "Quest Chocolate Chip Cookie Dough Bar", category: "branded", tags: ["protein-bar", "healthy", "high-protein"] },
+  { query: "quest protein bar birthday cake transparent png", name: "Quest Birthday Cake Bar", category: "branded", tags: ["protein-bar", "healthy", "high-protein"] },
+  { query: "quest tortilla chips nacho cheese transparent png", name: "Quest Nacho Cheese Chips", category: "branded", tags: ["snack", "healthy", "high-protein"] },
+  { query: "rx bar chocolate sea salt transparent png", name: "RXBAR Chocolate Sea Salt", category: "branded", tags: ["protein-bar", "healthy"] },
+  { query: "rx bar peanut butter transparent png", name: "RXBAR Peanut Butter", category: "branded", tags: ["protein-bar", "healthy"] },
+  { query: "magic spoon cereal fruity transparent png", name: "Magic Spoon Fruity Cereal", category: "branded", tags: ["breakfast", "healthy", "high-protein"] },
+  { query: "magic spoon cereal cocoa transparent png", name: "Magic Spoon Cocoa Cereal", category: "branded", tags: ["breakfast", "healthy", "high-protein"] },
+  { query: "one protein bar birthday cake transparent png", name: "ONE Birthday Cake Bar", category: "branded", tags: ["protein-bar", "healthy", "high-protein"] },
+  { query: "built protein bar puff transparent png", name: "Built Puff Protein Bar", category: "branded", tags: ["protein-bar", "healthy", "high-protein"] },
+  { query: "kind bar dark chocolate nuts sea salt transparent png", name: "KIND Dark Chocolate Nuts Sea Salt", category: "branded", tags: ["snack", "healthy"] },
+  { query: "perfect bar peanut butter transparent png", name: "Perfect Bar Peanut Butter", category: "branded", tags: ["protein-bar", "healthy"] },
+  { query: "no cow protein bar chunky peanut butter transparent png", name: "No Cow Chunky Peanut Butter Bar", category: "branded", tags: ["protein-bar", "healthy", "high-protein", "vegan"] },
+
+  // ── Branded drinks ──────────────────────────────────────────────────────
+  { query: "liquid death mountain water can transparent png", name: "Liquid Death Mountain Water", category: "branded", tags: ["healthy", "low-cal"] },
+  { query: "celsius energy drink sparkling orange transparent png", name: "Celsius Sparkling Orange", category: "branded", tags: ["energy-drink", "pre-workout"] },
+  { query: "celsius energy drink kiwi guava transparent png", name: "Celsius Kiwi Guava", category: "branded", tags: ["energy-drink", "pre-workout"] },
+  { query: "alani nu energy drink hawaiian shaved ice transparent png", name: "Alani Nu Hawaiian Shaved Ice", category: "branded", tags: ["energy-drink", "pre-workout"] },
+  { query: "alani nu energy drink witch's brew transparent png", name: "Alani Nu Witch's Brew", category: "branded", tags: ["energy-drink", "pre-workout"] },
+  { query: "olipop strawberry vanilla can transparent png", name: "Olipop Strawberry Vanilla", category: "branded", tags: ["healthy"] },
+  { query: "olipop classic root beer can transparent png", name: "Olipop Classic Root Beer", category: "branded", tags: ["healthy"] },
+  { query: "poppi prebiotic soda raspberry rose transparent png", name: "Poppi Raspberry Rose", category: "branded", tags: ["healthy"] },
+  { query: "poppi prebiotic soda strawberry lemon transparent png", name: "Poppi Strawberry Lemon", category: "branded", tags: ["healthy"] },
+  { query: "ghost energy drink sour patch kids transparent png", name: "Ghost Sour Patch Kids Energy", category: "branded", tags: ["energy-drink", "pre-workout"] },
+  { query: "c4 energy drink frozen bombsicle transparent png", name: "C4 Frozen Bombsicle", category: "branded", tags: ["energy-drink", "pre-workout"] },
+  { query: "bloom nutrition pre workout strawberry kiwi transparent png", name: "Bloom Pre-Workout Strawberry Kiwi", category: "branded", tags: ["pre-workout"] },
+  { query: "premier protein shake chocolate transparent png", name: "Premier Protein Chocolate Shake", category: "branded", tags: ["protein-shake", "high-protein", "post-workout"] },
+  { query: "premier protein shake vanilla transparent png", name: "Premier Protein Vanilla Shake", category: "branded", tags: ["protein-shake", "high-protein", "post-workout"] },
+  { query: "fairlife core power vanilla protein shake transparent png", name: "Core Power Vanilla Protein Shake", category: "branded", tags: ["protein-shake", "high-protein", "post-workout"] },
+  { query: "fairlife core power chocolate protein shake transparent png", name: "Core Power Chocolate Protein Shake", category: "branded", tags: ["protein-shake", "high-protein", "post-workout"] },
+  { query: "owyn protein shake chocolate transparent png", name: "OWYN Chocolate Protein Shake", category: "branded", tags: ["protein-shake", "high-protein", "vegan"] },
+  { query: "fairlife milk chocolate transparent png", name: "Fairlife Chocolate Milk", category: "branded", tags: ["high-protein"] },
+  { query: "muscle milk vanilla transparent png", name: "Muscle Milk Vanilla", category: "branded", tags: ["protein-shake", "high-protein", "post-workout"] },
+
+  // ── Branded dairy / yogurt ──────────────────────────────────────────────
+  { query: "oikos triple zero vanilla transparent png", name: "Oikos Triple Zero Vanilla", category: "branded", tags: ["healthy", "high-protein", "breakfast"] },
+  { query: "oikos triple zero strawberry transparent png", name: "Oikos Triple Zero Strawberry", category: "branded", tags: ["healthy", "high-protein", "breakfast"] },
+  { query: "oikos pro yogurt vanilla transparent png", name: "Oikos Pro Vanilla", category: "branded", tags: ["healthy", "high-protein", "breakfast"] },
+  { query: "chobani greek yogurt strawberry transparent png", name: "Chobani Strawberry", category: "branded", tags: ["healthy", "high-protein", "breakfast"] },
+  { query: "two good yogurt vanilla transparent png", name: "Two Good Vanilla", category: "branded", tags: ["healthy", "high-protein", "low-cal", "breakfast"] },
+  { query: "yasso greek yogurt bar mint chocolate chip transparent png", name: "Yasso Mint Chocolate Chip Bar", category: "branded", tags: ["dessert", "healthy"] },
+  { query: "halo top vanilla bean ice cream transparent png", name: "Halo Top Vanilla Bean", category: "branded", tags: ["dessert", "low-cal"] },
+
+  // ── Fast food ───────────────────────────────────────────────────────────
+  { query: "mcdonald's big mac transparent png", name: "McDonald's Big Mac", category: "fast-food", tags: ["junk", "fast-food"] },
+  { query: "mcdonald's french fries transparent png", name: "McDonald's French Fries", category: "fast-food", tags: ["junk", "fast-food"] },
+  { query: "mcdonald's chicken mcnuggets transparent png", name: "McDonald's Chicken McNuggets", category: "fast-food", tags: ["junk", "fast-food"] },
+  { query: "mcdonald's mcchicken sandwich transparent png", name: "McDonald's McChicken", category: "fast-food", tags: ["junk", "fast-food"] },
+  { query: "mcdonald's quarter pounder transparent png", name: "McDonald's Quarter Pounder", category: "fast-food", tags: ["junk", "fast-food"] },
+  { query: "mcdonald's egg mcmuffin transparent png", name: "McDonald's Egg McMuffin", category: "fast-food", tags: ["fast-food", "breakfast"] },
+  { query: "popeyes chicken sandwich transparent png", name: "Popeyes Chicken Sandwich", category: "fast-food", tags: ["junk", "fast-food"] },
+  { query: "popeyes biscuit transparent png", name: "Popeyes Biscuit", category: "fast-food", tags: ["junk", "fast-food"] },
+  { query: "taco bell crunchwrap supreme transparent png", name: "Taco Bell Crunchwrap Supreme", category: "fast-food", tags: ["junk", "fast-food"] },
+  { query: "taco bell doritos locos taco transparent png", name: "Taco Bell Doritos Locos Taco", category: "fast-food", tags: ["junk", "fast-food"] },
+  { query: "chick-fil-a chicken sandwich transparent png", name: "Chick-fil-A Chicken Sandwich", category: "fast-food", tags: ["fast-food"] },
+  { query: "chick-fil-a waffle fries transparent png", name: "Chick-fil-A Waffle Fries", category: "fast-food", tags: ["junk", "fast-food"] },
+  { query: "chick-fil-a nuggets transparent png", name: "Chick-fil-A Nuggets", category: "fast-food", tags: ["fast-food"] },
+  { query: "chipotle burrito bowl transparent png", name: "Chipotle Burrito Bowl", category: "fast-food", tags: ["fast-food", "high-protein"] },
+  { query: "subway turkey sandwich transparent png", name: "Subway Turkey Sandwich", category: "fast-food", tags: ["fast-food"] },
+  { query: "wendys baconator transparent png", name: "Wendy's Baconator", category: "fast-food", tags: ["junk", "fast-food"] },
+
+  // ── Whole foods you don't have yet ──────────────────────────────────────
+  { query: "raw chicken thighs transparent png", name: "Chicken Thighs", category: "proteins", tags: ["healthy", "high-protein"] },
+  { query: "ground beef raw transparent png", name: "Ground Beef", category: "proteins", tags: ["high-protein"] },
+  { query: "salmon fillet raw transparent png", name: "Salmon Fillet", category: "proteins", tags: ["healthy", "high-protein"] },
+  { query: "canned tuna transparent png", name: "Canned Tuna", category: "proteins", tags: ["healthy", "high-protein", "low-cal"] },
+  { query: "cottage cheese bowl transparent png", name: "Cottage Cheese", category: "dairy", tags: ["healthy", "high-protein"] },
+  { query: "sweet potato transparent png", name: "Sweet Potato", category: "carbs", tags: ["healthy"] },
+  { query: "brown rice bowl transparent png", name: "Brown Rice", category: "carbs", tags: ["healthy"] },
+  { query: "quinoa bowl transparent png", name: "Quinoa", category: "carbs", tags: ["healthy", "high-protein"] },
+  { query: "oatmeal bowl transparent png", name: "Oatmeal", category: "breakfast", tags: ["healthy", "breakfast"] },
+  { query: "almonds pile transparent png", name: "Almonds", category: "snacks", tags: ["healthy", "snack"] },
+  { query: "peanut butter jar transparent png", name: "Peanut Butter", category: "snacks", tags: ["high-protein", "snack"] },
+  { query: "olive oil bottle transparent png", name: "Olive Oil", category: "carbs", tags: ["healthy"] },
+  { query: "spinach leaves transparent png", name: "Spinach", category: "veggies", tags: ["healthy", "low-cal"] },
+  { query: "bell peppers transparent png", name: "Bell Peppers", category: "veggies", tags: ["healthy", "low-cal"] },
+  { query: "red onion transparent png", name: "Red Onion", category: "veggies", tags: ["healthy", "low-cal"] },
+  { query: "asparagus bundle transparent png", name: "Asparagus", category: "veggies", tags: ["healthy", "low-cal"] },
+  { query: "shrimp cooked transparent png", name: "Shrimp", category: "proteins", tags: ["healthy", "high-protein", "low-cal"] },
+  { query: "tofu block transparent png", name: "Tofu", category: "proteins", tags: ["healthy", "vegan", "high-protein"] },
+  { query: "blueberries transparent png", name: "Blueberries", category: "fruits", tags: ["healthy"] },
+  { query: "strawberries transparent png", name: "Strawberries", category: "fruits", tags: ["healthy", "low-cal"] },
+  { query: "apple red transparent png", name: "Apple", category: "fruits", tags: ["healthy"] },
+  { query: "orange fruit transparent png", name: "Orange", category: "fruits", tags: ["healthy"] },
+  { query: "grapes transparent png", name: "Grapes", category: "fruits", tags: ["healthy"] },
+
+  // ── Junk for contrast ───────────────────────────────────────────────────
+  { query: "snickers bar transparent png", name: "Snickers", category: "snacks", tags: ["junk", "snack", "dessert"] },
+  { query: "reeses peanut butter cups transparent png", name: "Reese's Peanut Butter Cups", category: "snacks", tags: ["junk", "snack", "dessert"] },
+  { query: "kit kat transparent png", name: "Kit Kat", category: "snacks", tags: ["junk", "snack", "dessert"] },
+  { query: "lays potato chips classic transparent png", name: "Lay's Classic Chips", category: "snacks", tags: ["junk", "snack"] },
+  { query: "cheetos transparent png", name: "Cheetos", category: "snacks", tags: ["junk", "snack"] },
+  { query: "pringles original transparent png", name: "Pringles", category: "snacks", tags: ["junk", "snack"] },
+  { query: "coca cola can transparent png", name: "Coca-Cola", category: "drinks", tags: ["soda", "junk"] },
+  { query: "mountain dew can transparent png", name: "Mountain Dew", category: "drinks", tags: ["soda", "junk"] },
+  { query: "dr pepper can transparent png", name: "Dr Pepper", category: "drinks", tags: ["soda", "junk"] },
+  { query: "red bull can transparent png", name: "Red Bull", category: "drinks", tags: ["energy-drink"] },
+  { query: "monster energy drink transparent png", name: "Monster Energy", category: "drinks", tags: ["energy-drink", "junk"] },
+  { query: "ice cream scoop chocolate transparent png", name: "Chocolate Ice Cream", category: "desserts", tags: ["junk", "dessert"] },
+  { query: "ice cream scoop vanilla transparent png", name: "Vanilla Ice Cream", category: "desserts", tags: ["junk", "dessert"] },
+  { query: "cinnamon roll transparent png", name: "Cinnamon Roll", category: "desserts", tags: ["junk", "dessert", "breakfast"] },
+  { query: "chocolate chip cookie transparent png", name: "Chocolate Chip Cookie", category: "desserts", tags: ["junk", "dessert"] },
+  { query: "glazed donut transparent png", name: "Glazed Donut", category: "desserts", tags: ["junk", "dessert", "breakfast"] },
+  { query: "pizza slice pepperoni transparent png", name: "Pepperoni Pizza Slice", category: "meals", tags: ["junk"] },
+
+  // ── Meals & plates ──────────────────────────────────────────────────────
+  { query: "steak potatoes plate transparent png", name: "Steak & Potatoes Plate", category: "meals", tags: ["high-protein"] },
+  { query: "salmon rice broccoli plate transparent png", name: "Salmon Rice Broccoli Plate", category: "meals", tags: ["healthy", "high-protein"] },
+  { query: "chicken rice vegetables meal prep transparent png", name: "Chicken Rice Veggies Plate", category: "meals", tags: ["healthy", "high-protein", "post-workout"] },
+  { query: "breakfast plate eggs bacon toast transparent png", name: "Breakfast Plate", category: "meals", tags: ["breakfast", "high-protein"] },
+  { query: "caesar salad bowl transparent png", name: "Caesar Salad", category: "meals", tags: ["healthy"] },
+  { query: "smoothie bowl berries transparent png", name: "Smoothie Bowl", category: "meals", tags: ["healthy", "breakfast"] },
+  { query: "burrito bowl chicken transparent png", name: "Burrito Bowl", category: "meals", tags: ["high-protein"] },
+  { query: "sushi roll plate transparent png", name: "Sushi Roll Plate", category: "meals", tags: ["healthy"] },
+  { query: "spaghetti bolognese plate transparent png", name: "Spaghetti Bolognese", category: "meals", tags: [] },
+  { query: "buffalo chicken wings plate transparent png", name: "Buffalo Wings", category: "meals", tags: ["junk", "high-protein"] },
+
+  // ── Drinks ──────────────────────────────────────────────────────────────
+  { query: "red wine glass transparent png", name: "Red Wine Glass", category: "drinks", tags: ["alcohol"] },
+  { query: "white wine glass transparent png", name: "White Wine Glass", category: "drinks", tags: ["alcohol"] },
+  { query: "beer bottle transparent png", name: "Beer Bottle", category: "drinks", tags: ["alcohol"] },
+  { query: "beer mug transparent png", name: "Beer Mug", category: "drinks", tags: ["alcohol"] },
+  { query: "white claw seltzer transparent png", name: "White Claw", category: "drinks", tags: ["alcohol"] },
+  { query: "orange juice glass transparent png", name: "Orange Juice", category: "drinks", tags: ["breakfast"] },
+  { query: "green smoothie glass transparent png", name: "Green Smoothie", category: "drinks", tags: ["healthy", "breakfast"] },
+  { query: "protein shake glass transparent png", name: "Protein Shake", category: "drinks", tags: ["protein-shake", "post-workout"] },
+  { query: "water bottle plastic transparent png", name: "Water Bottle", category: "drinks", tags: ["healthy"] },
+
+  // ── Snacks (generic) ────────────────────────────────────────────────────
+  { query: "trail mix bowl transparent png", name: "Trail Mix", category: "snacks", tags: ["snack", "healthy"] },
+  { query: "string cheese transparent png", name: "String Cheese", category: "snacks", tags: ["snack", "high-protein"] },
+  { query: "beef jerky transparent png", name: "Beef Jerky", category: "snacks", tags: ["snack", "high-protein"] },
+  { query: "hummus bowl with pita transparent png", name: "Hummus & Pita", category: "snacks", tags: ["snack", "healthy"] },
+  { query: "apple slices peanut butter transparent png", name: "Apple Slices & PB", category: "snacks", tags: ["snack", "healthy"] },
+  { query: "popcorn bowl transparent png", name: "Popcorn", category: "snacks", tags: ["snack", "low-cal"] },
+];
