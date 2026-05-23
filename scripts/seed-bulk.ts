@@ -10,7 +10,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { SEED_LIST } from "./seed-list";
-import { searchImages } from "../src/lib/google-cse";
+import { searchImages } from "../src/lib/serper";
 import { fetchAndRemoveBackground } from "../src/lib/bg-removal";
 import { upsertItem, slugify, foodFilePath, hasItem, FoodItem } from "../src/lib/catalog";
 
@@ -53,7 +53,10 @@ async function processOne(entry: (typeof SEED_LIST)[number], index: number) {
   // Try each result in order until one downloads + processes successfully
   for (const r of results) {
     try {
-      const png = await fetchAndRemoveBackground(r.link);
+      // Bulk seed defaults to @imgly to preserve remove.bg credits.
+      // Set SEED_USE_REMOVE_BG=1 to use remove.bg for all 150 items (~$30 in credits).
+      const engine = process.env.SEED_USE_REMOVE_BG === "1" ? "auto" : "imgly";
+      const png = await fetchAndRemoveBackground(r.link, { engine });
       const { absolute, publicPath } = foodFilePath(entry.category, slug);
       await fs.mkdir(path.dirname(absolute), { recursive: true });
       await fs.writeFile(absolute, png);
@@ -82,10 +85,8 @@ async function processOne(entry: (typeof SEED_LIST)[number], index: number) {
 
 async function main() {
   await loadDotenv();
-  if (!process.env.GOOGLE_CSE_API_KEY || !process.env.GOOGLE_CSE_CX) {
-    console.error(
-      "ERROR: GOOGLE_CSE_API_KEY and GOOGLE_CSE_CX must be set in .env.local. See README.md.",
-    );
+  if (!process.env.SERPER_API_KEY) {
+    console.error("ERROR: SERPER_API_KEY must be set in .env.local. See README.md.");
     process.exit(1);
   }
 

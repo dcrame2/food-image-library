@@ -1,6 +1,30 @@
 {
   "items": [
     {
+      "id": "alani-nu-hawaiian-shaved-ice",
+      "name": "Alani Nu Hawaiian Shaved Ice",
+      "category": "branded",
+      "tags": [
+        "energy-drink",
+        "pre-workout"
+      ],
+      "file": "/foods/branded/alani-nu-hawaiian-shaved-ice.png",
+      "source": "https://www.alaninu.com/cdn/shop/files/Rebrand_Energy_HSI_front_1200x.png?v=1719365579",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "alani-nu-witch-s-brew",
+      "name": "Alani Nu Witch's Brew",
+      "category": "branded",
+      "tags": [
+        "energy-drink",
+        "pre-workout"
+      ],
+      "file": "/foods/branded/alani-nu-witch-s-brew.png",
+      "source": "https://contenthandler-raleys.fieldera.com/prod/390413/1/0/0/30051233-Main.jpg",
+      "added": "2026-05-23"
+    },
+    {
       "id": "alfredo-pasta",
       "name": "Alfredo Pasta",
       "category": "meals",
@@ -19,6 +43,53 @@
       ],
       "file": "/foods/drinks/almond-milk.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/almond milk.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "almonds",
+      "name": "Almonds",
+      "category": "snacks",
+      "tags": [
+        "healthy",
+        "snack"
+      ],
+      "file": "/foods/snacks/almonds.png",
+      "source": "https://static.vecteezy.com/system/resources/thumbnails/054/045/337/small/a-pile-of-raw-almonds-isolated-on-a-transparent-background-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "apple",
+      "name": "Apple",
+      "category": "fruits",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/fruits/apple.png",
+      "source": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/25d45014-8cc3-4c98-b02c-5a0cf3a55ddd/dcrjbvx-b5078bbf-03ff-4625-b214-35c3f9fefc4c.png/v1/fill/w_894,h_894/red_apple_on_a_transparent_background__by_prussiaart_dcrjbvx-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6Ii9mLzI1ZDQ1MDE0LThjYzMtNGM5OC1iMDJjLTVhMGNmM2E1NWRkZC9kY3JqYnZ4LWI1MDc4YmJmLTAzZmYtNDYyNS1iMjE0LTM1YzNmOWZlZmM0Yy5wbmciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.bNoHhCv51HDA7SAF2TBLQCnVAUJf2UKEst-hwasB-d0",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "apple-slices-pb",
+      "name": "Apple Slices & PB",
+      "category": "snacks",
+      "tags": [
+        "snack",
+        "healthy"
+      ],
+      "file": "/foods/snacks/apple-slices-pb.png",
+      "source": "https://png.pngtree.com/png-vector/20260110/ourlarge/pngtree-apple-slices-with-peanut-butter-snack-png-image_18377461.webp",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "asparagus",
+      "name": "Asparagus",
+      "category": "veggies",
+      "tags": [
+        "healthy",
+        "low-cal"
+      ],
+      "file": "/foods/veggies/asparagus.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/060/240/923/non_2x/fresh-bundle-of-asparagus-transparent-background-png.png",
       "added": "2026-05-23"
     },
     {
@@ -42,6 +113,116 @@
       ],
       "file": "/foods/fruits/banana.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/banana.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "barbell-birthday-cake-protein-bar",
+      "name": "Barbell Birthday Cake Protein Bar",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/barbell-birthday-cake-protein-bar.png",
+      "source": "https://barebells.com/wp-content/uploads/2024/06/US_BB_Proteinbar_BirthdayCake_L1_low.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "barbell-chocolate-brownie-protein-bar",
+      "name": "Barbell Chocolate Brownie Protein Bar",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/barbell-chocolate-brownie-protein-bar.png",
+      "source": "https://shop.barebells.com/cdn/shop/files/Barebells_Brownie_Batter_fc053a3d.png?v=1772550678&width=1920",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "barbell-cookies-cream-protein-bar",
+      "name": "Barbell Cookies & Cream Protein Bar",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/barbell-cookies-cream-protein-bar.png",
+      "source": "https://barebells.com/wp-content/uploads/2023/08/SE_FI_BB_Proteinbar_CookiesCream_L2.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "barbell-protein-bar",
+      "name": "barbell protein bar",
+      "category": "branded",
+      "tags": [
+        "snack",
+        "high-protein"
+      ],
+      "file": "/foods/branded/barbell-protein-bar.png",
+      "source": "https://barebells.com/wp-content/uploads/2023/08/SE_FI_BB_Proteinbar_CreamyCrisp_L2-1.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "barbell-s-mores-protein-bar",
+      "name": "Barbell S'mores Protein Bar",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/barbell-s-mores-protein-bar.png",
+      "source": "https://www.gnc.com/dw/image/v2/BBLB_PRD/on/demandware.static/-/Sites-master-catalog-gnc/default/dwc3f1ca5d/hi-res/575074_Barebells_Protein_Bar_Camp_Smores_UNIT_Alt1.jpg?sw=480&sh=480&sm=fit",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "beef-jerky",
+      "name": "Beef Jerky",
+      "category": "snacks",
+      "tags": [
+        "snack",
+        "high-protein"
+      ],
+      "file": "/foods/snacks/beef-jerky.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/055/930/331/non_2x/delectable-stacked-beef-jerky-strips-on-transparent-background-free-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "beer-bottle",
+      "name": "Beer Bottle",
+      "category": "drinks",
+      "tags": [
+        "alcohol"
+      ],
+      "file": "/foods/drinks/beer-bottle.png",
+      "source": "https://img.magnific.com/free-photo/cold-bottle-beer-with-drops-isolated-white-background_639032-373.jpg",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "beer-mug",
+      "name": "Beer Mug",
+      "category": "drinks",
+      "tags": [
+        "alcohol"
+      ],
+      "file": "/foods/drinks/beer-mug.png",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Beer_mug_transparent.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "bell-peppers",
+      "name": "Bell Peppers",
+      "category": "veggies",
+      "tags": [
+        "healthy",
+        "low-cal"
+      ],
+      "file": "/foods/veggies/bell-peppers.png",
+      "source": "https://thumbs.dreamstime.com/b/photo-bell-pepper-die-cut-transparent-background-png-297019950.jpg",
       "added": "2026-05-23"
     },
     {
@@ -81,6 +262,40 @@
       "added": "2026-05-23"
     },
     {
+      "id": "bloom-pre-workout-strawberry-kiwi",
+      "name": "Bloom Pre-Workout Strawberry Kiwi",
+      "category": "branded",
+      "tags": [
+        "pre-workout"
+      ],
+      "file": "/foods/branded/bloom-pre-workout-strawberry-kiwi.png",
+      "source": "https://target.scene7.com/is/image/Target/GUEST_70235e48-70cc-42ae-9a08-448b75125df8",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "blueberries",
+      "name": "Blueberries",
+      "category": "fruits",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/fruits/blueberries.png",
+      "source": "https://pngimg.com/uploads/blueberries/blueberries_PNG39.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "breakfast-plate",
+      "name": "Breakfast Plate",
+      "category": "meals",
+      "tags": [
+        "breakfast",
+        "high-protein"
+      ],
+      "file": "/foods/meals/breakfast-plate.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/059/041/427/non_2x/scrambled-eggs-bacon-and-toast-on-a-plate-free-png.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "broccoli",
       "name": "Broccoli",
       "category": "veggies",
@@ -93,6 +308,42 @@
       "added": "2026-05-23"
     },
     {
+      "id": "brown-rice",
+      "name": "Brown Rice",
+      "category": "carbs",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/carbs/brown-rice.png",
+      "source": "https://static.vecteezy.com/system/resources/thumbnails/054/720/982/small_2x/delicious-steamed-brown-rice-bowl-on-transparent-background-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "buffalo-wings",
+      "name": "Buffalo Wings",
+      "category": "meals",
+      "tags": [
+        "junk",
+        "high-protein"
+      ],
+      "file": "/foods/meals/buffalo-wings.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/048/847/065/non_2x/a-plate-of-succulent-buffalo-chicken-wings-arranged-neatly-isolated-on-a-transparent-background-free-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "built-puff-protein-bar",
+      "name": "Built Puff Protein Bar",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/built-puff-protein-bar.png",
+      "source": "https://built.com/cdn/shop/files/stack_1_silo_cb388917-64dc-4849-a679-7c048c0160cc.jpg?v=1760469395&width=2560",
+      "added": "2026-05-23"
+    },
+    {
       "id": "burger",
       "name": "Burger",
       "category": "meals",
@@ -101,6 +352,53 @@
       ],
       "file": "/foods/meals/burger.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/burger.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "burrito-bowl",
+      "name": "Burrito Bowl",
+      "category": "meals",
+      "tags": [
+        "high-protein"
+      ],
+      "file": "/foods/meals/burrito-bowl.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/054/269/820/non_2x/chicken-burrito-bowl-with-black-bowl-transparent-background-free-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "c4-frozen-bombsicle",
+      "name": "C4 Frozen Bombsicle",
+      "category": "branded",
+      "tags": [
+        "energy-drink",
+        "pre-workout"
+      ],
+      "file": "/foods/branded/c4-frozen-bombsicle.png",
+      "source": "https://images.cdn.shoprite.com/detail/00842595106596_1",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "caesar-salad",
+      "name": "Caesar Salad",
+      "category": "meals",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/meals/caesar-salad.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/046/828/252/non_2x/delicious-caesar-salad-in-a-white-bowl-isolated-on-transparent-background-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "canned-tuna",
+      "name": "Canned Tuna",
+      "category": "proteins",
+      "tags": [
+        "healthy",
+        "high-protein",
+        "low-cal"
+      ],
+      "file": "/foods/proteins/canned-tuna.png",
+      "source": "https://image.similarpng.com/file/similarpng/very-thumbnail/2020/08/tasty-Canned-tuna-on-transparent-background-PNG.png",
       "added": "2026-05-23"
     },
     {
@@ -130,6 +428,76 @@
       "added": "2026-05-23"
     },
     {
+      "id": "celsius-kiwi-guava",
+      "name": "Celsius Kiwi Guava",
+      "category": "branded",
+      "tags": [
+        "energy-drink",
+        "pre-workout"
+      ],
+      "file": "/foods/branded/celsius-kiwi-guava.png",
+      "source": "https://www.celsius.com/wp-content/uploads/2023/08/Kiwi-Guava-front.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "celsius-sparkling-orange",
+      "name": "Celsius Sparkling Orange",
+      "category": "branded",
+      "tags": [
+        "energy-drink",
+        "pre-workout"
+      ],
+      "file": "/foods/branded/celsius-sparkling-orange.png",
+      "source": "https://www.celsius.com/wp-content/uploads/2023/08/Orange-front.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "cheetos",
+      "name": "Cheetos",
+      "category": "snacks",
+      "tags": [
+        "junk",
+        "snack"
+      ],
+      "file": "/foods/snacks/cheetos.png",
+      "source": "https://www.pngitem.com/pimgs/m/523-5234858_cheetos-chips-flamin-hot-crunchy-png-download-transparent.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "chick-fil-a-chicken-sandwich",
+      "name": "Chick-fil-A Chicken Sandwich",
+      "category": "fast-food",
+      "tags": [
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/chick-fil-a-chicken-sandwich.png",
+      "source": "https://www.cfacdn.com/img/order/menu/Online/Entrees/Jul19_CFASandwich_pdp.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "chick-fil-a-nuggets",
+      "name": "Chick-fil-A Nuggets",
+      "category": "fast-food",
+      "tags": [
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/chick-fil-a-nuggets.png",
+      "source": "https://www.vhv.rs/dpng/d/27-277301_chick-fil-a-nuggets-hd-png-download.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "chick-fil-a-waffle-fries",
+      "name": "Chick-fil-A Waffle Fries",
+      "category": "fast-food",
+      "tags": [
+        "junk",
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/chick-fil-a-waffle-fries.png",
+      "source": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ec545603-cf4e-48e0-936d-5376ea12fdc0/dgn4hk2-e266970a-529d-4926-8077-adad97dc9ffe.png/v1/fill/w_250,h_292/chick_fil_a_waffle_fries_png_2023_by_wcwjunkbox_dgn4hk2-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MjkyIiwicGF0aCI6Ii9mL2VjNTQ1NjAzLWNmNGUtNDhlMC05MzZkLTUzNzZlYTEyZmRjMC9kZ240aGsyLWUyNjY5NzBhLTUyOWQtNDkyNi04MDc3LWFkYWQ5N2RjOWZmZS5wbmciLCJ3aWR0aCI6Ijw9MjUwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.GnMlhsvEH1siDMsz33GPq-yXZL5QDWwYFbFWwyIrE5M",
+      "added": "2026-05-23"
+    },
+    {
       "id": "chicken",
       "name": "Chicken",
       "category": "proteins",
@@ -139,6 +507,89 @@
       ],
       "file": "/foods/proteins/chicken.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/chicken.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "chicken-rice-veggies-plate",
+      "name": "Chicken Rice Veggies Plate",
+      "category": "meals",
+      "tags": [
+        "healthy",
+        "high-protein",
+        "post-workout"
+      ],
+      "file": "/foods/meals/chicken-rice-veggies-plate.png",
+      "source": "https://png.pngtree.com/png-vector/20260517/ourlarge/pngtree-healthy-meal-prep-container-with-chicken-rice-and-vegetables-png-image_19323487.webp",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "chicken-thighs",
+      "name": "Chicken Thighs",
+      "category": "proteins",
+      "tags": [
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/proteins/chicken-thighs.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/032/479/631/non_2x/raw-fresh-chicken-thighs-on-transparent-background-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "chicken-with-potates-and-green-beans",
+      "name": "chicken with potates and green beans",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/chicken-with-potates-and-green-beans.png",
+      "source": "https://www.lecremedelacrumb.com/wp-content/uploads/2023/05/chicken-potatoes-green-beans-3.jpg",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "chipotle-burrito-bowl",
+      "name": "Chipotle Burrito Bowl",
+      "category": "fast-food",
+      "tags": [
+        "fast-food",
+        "high-protein"
+      ],
+      "file": "/foods/fast-food/chipotle-burrito-bowl.png",
+      "source": "https://www.vhv.rs/dpng/d/24-240772_chipotle-bowl-hd-png-download.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "chocolate-chip-cookie",
+      "name": "Chocolate Chip Cookie",
+      "category": "desserts",
+      "tags": [
+        "junk",
+        "dessert"
+      ],
+      "file": "/foods/desserts/chocolate-chip-cookie.png",
+      "source": "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTA3L3NtYWxsZGVzaWduY29tcGFueTAxX3Bob3RvX29mX2Nob2NvbGF0ZV9jaGlwX2Nvb2tpZV90b3Bfdmlld19pc181MTExNTQyNy0yZDEyLTQwYTctYjA2Mi02ZmY4MTA5YmU3ODEucG5n.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "chocolate-ice-cream",
+      "name": "Chocolate Ice Cream",
+      "category": "desserts",
+      "tags": [
+        "junk",
+        "dessert"
+      ],
+      "file": "/foods/desserts/chocolate-ice-cream.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/060/283/782/non_2x/delicious-chocolate-ice-cream-scoop-on-transparent-background-free-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "cinnamon-roll",
+      "name": "Cinnamon Roll",
+      "category": "desserts",
+      "tags": [
+        "junk",
+        "dessert",
+        "breakfast"
+      ],
+      "file": "/foods/desserts/cinnamon-roll.png",
+      "source": "https://png.pngtree.com/png-vector/20231106/ourmid/pngtree-cinnamon-roll-png-image_10384947.png",
       "added": "2026-05-23"
     },
     {
@@ -166,6 +617,18 @@
       "added": "2026-05-23"
     },
     {
+      "id": "coca-cola",
+      "name": "Coca-Cola",
+      "category": "drinks",
+      "tags": [
+        "soda",
+        "junk"
+      ],
+      "file": "/foods/drinks/coca-cola.png",
+      "source": "https://www.citypng.com/public/uploads/preview/hd-cold-coca-cola-classic-can-png-704081694866202bqvyqxu4bv.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "cooked-egg",
       "name": "Cooked Egg",
       "category": "proteins",
@@ -179,6 +642,44 @@
       "added": "2026-05-23"
     },
     {
+      "id": "core-power-chocolate-protein-shake",
+      "name": "Core Power Chocolate Protein Shake",
+      "category": "branded",
+      "tags": [
+        "protein-shake",
+        "high-protein",
+        "post-workout"
+      ],
+      "file": "/foods/branded/core-power-chocolate-protein-shake.png",
+      "source": "http://shop.fairlife.com/cdn/shop/files/CP_Choco_26g_424x800_8711a62d-71f4-4a9d-a43d-7daf61385f3f_1.png?v=1774991134",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "core-power-vanilla-protein-shake",
+      "name": "Core Power Vanilla Protein Shake",
+      "category": "branded",
+      "tags": [
+        "protein-shake",
+        "high-protein",
+        "post-workout"
+      ],
+      "file": "/foods/branded/core-power-vanilla-protein-shake.png",
+      "source": "https://fairlife.com/wp-content/uploads/2026/03/FL-CP-26g-Strawberry_Banana-wFlavor_Cues-1cp-vanilla-elite-2023-1.webp",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "cottage-cheese",
+      "name": "Cottage Cheese",
+      "category": "dairy",
+      "tags": [
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/dairy/cottage-cheese.png",
+      "source": "https://png.pngtree.com/png-vector/20250321/ourmid/pngtree-bowl-of-fresh-cottage-cheese-with-a-wooden-container-isolated-on-png-image_15841363.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "doritos",
       "name": "Doritos",
       "category": "branded",
@@ -188,6 +689,29 @@
       ],
       "file": "/foods/branded/doritos.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/doritos.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "dr-pepper",
+      "name": "Dr Pepper",
+      "category": "drinks",
+      "tags": [
+        "soda",
+        "junk"
+      ],
+      "file": "/foods/drinks/dr-pepper.png",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/3/36/Dr_Pepper_0%2C33l_Dose_Classic.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "fairlife-chocolate-milk",
+      "name": "Fairlife Chocolate Milk",
+      "category": "branded",
+      "tags": [
+        "high-protein"
+      ],
+      "file": "/foods/branded/fairlife-chocolate-milk.png",
+      "source": "https://fairlife.com/wp-content/uploads/2023/01/ufm-52oz-choc-product.png",
       "added": "2026-05-23"
     },
     {
@@ -213,6 +737,53 @@
       "added": "2026-05-23"
     },
     {
+      "id": "fruit-riot-mango",
+      "name": "fruit riot mango",
+      "category": "branded",
+      "tags": [
+        "snack"
+      ],
+      "file": "/foods/branded/fruit-riot-mango.png",
+      "source": "https://images.albertsons-media.com/is/image/ABS/971300212-C1N1?$ng-ecom-pdp-mobile$&defaultImage=Not_Available",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "ghost-sour-patch-kids-energy",
+      "name": "Ghost Sour Patch Kids Energy",
+      "category": "branded",
+      "tags": [
+        "energy-drink",
+        "pre-workout"
+      ],
+      "file": "/foods/branded/ghost-sour-patch-kids-energy.png",
+      "source": "https://images.cdn.retail.brookshires.com/detail/00810028295988_C1C1.jpeg",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "glazed-donut",
+      "name": "Glazed Donut",
+      "category": "desserts",
+      "tags": [
+        "junk",
+        "dessert",
+        "breakfast"
+      ],
+      "file": "/foods/desserts/glazed-donut.png",
+      "source": "https://png.pngtree.com/png-vector/20240715/ourmid/pngtree-classic-glazed-donut-png-image_13090875.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "grapes",
+      "name": "Grapes",
+      "category": "fruits",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/fruits/grapes.png",
+      "source": "https://png.pngtree.com/png-clipart/20250104/original/pngtree-delicious-black-grapes-png-image_20004046.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "greek-yogurt",
       "name": "Greek Yogurt",
       "category": "dairy",
@@ -226,6 +797,41 @@
       "added": "2026-05-23"
     },
     {
+      "id": "green-smoothie",
+      "name": "Green Smoothie",
+      "category": "drinks",
+      "tags": [
+        "healthy",
+        "breakfast"
+      ],
+      "file": "/foods/drinks/green-smoothie.png",
+      "source": "https://img.magnific.com/free-psd/refreshing-green-smoothie-glass-with-basil-garnish_191095-90810.jpg?w=360",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "ground-beef",
+      "name": "Ground Beef",
+      "category": "proteins",
+      "tags": [
+        "high-protein"
+      ],
+      "file": "/foods/proteins/ground-beef.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/054/125/631/non_2x/side-view-ground-beef-transparent-background-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "halo-top-vanilla-bean",
+      "name": "Halo Top Vanilla Bean",
+      "category": "branded",
+      "tags": [
+        "dessert",
+        "low-cal"
+      ],
+      "file": "/foods/branded/halo-top-vanilla-bean.png",
+      "source": "https://halotop.ca/wp-content/uploads/2024/07/VanillaBean-LidOn-ENG.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "hard-boiled-egg",
       "name": "Hard Boiled Egg",
       "category": "proteins",
@@ -236,6 +842,43 @@
       ],
       "file": "/foods/proteins/hard-boiled-egg.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/hard boiled egg.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "hummus-pita",
+      "name": "Hummus & Pita",
+      "category": "snacks",
+      "tags": [
+        "snack",
+        "healthy"
+      ],
+      "file": "/foods/snacks/hummus-pita.png",
+      "source": "https://static.vecteezy.com/system/resources/thumbnails/055/669/281/small/high-resolution-bowl-of-hummus-with-pita-bread-and-chickpeas-garnished-with-herbs-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "kind-dark-chocolate-nuts-sea-salt",
+      "name": "KIND Dark Chocolate Nuts Sea Salt",
+      "category": "branded",
+      "tags": [
+        "snack",
+        "healthy"
+      ],
+      "file": "/foods/branded/kind-dark-chocolate-nuts-sea-salt.png",
+      "source": "https://www.kindsnacks.com/cdn-cgi/image/width=600,height=600,f=auto,quality=90/sites/g/files/fnmzdf5536/files/migrate-product-files/yxjellnxyv5qwshxogoo.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "kit-kat",
+      "name": "Kit Kat",
+      "category": "snacks",
+      "tags": [
+        "junk",
+        "snack",
+        "dessert"
+      ],
+      "file": "/foods/snacks/kit-kat.png",
+      "source": "https://s7d1.scene7.com/is/image/hersheyprodcloud/0_34000_00246_7_701_24600_073_Item_Front?fmt=webp-alpha&hei=908&qlt=75",
       "added": "2026-05-23"
     },
     {
@@ -262,12 +905,39 @@
       "added": "2026-05-23"
     },
     {
+      "id": "lay-s-classic-chips",
+      "name": "Lay's Classic Chips",
+      "category": "snacks",
+      "tags": [
+        "junk",
+        "snack"
+      ],
+      "file": "/foods/snacks/lay-s-classic-chips.png",
+      "source": "https://www.pngkey.com/png/full/36-367203_free-png-lays-potato-chips-png-images-transparent.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "legendary-brown-sugar-cinnamon-pop-tart",
+      "name": "Legendary Brown Sugar Cinnamon Pop Tart",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein",
+        "breakfast"
+      ],
+      "file": "/foods/branded/legendary-brown-sugar-cinnamon-pop-tart.png",
+      "source": "https://images.kglobalservices.com/www.poptarts.com/en_us/product/product_7167872/prod_img-7369731_00038000330551_c1l1-1280x1280.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "legendary-pop-tart",
       "name": "Legendary Pop Tart",
       "category": "branded",
       "tags": [
         "healthy",
-        "high-protein"
+        "high-protein",
+        "snack"
       ],
       "file": "/foods/branded/legendary-pop-tart.png",
       "source": "https://target.scene7.com/is/image/Target/GUEST_08ac35fe-580b-4430-ab0e-1f75c6c34881?wid=750&qlt=80",
@@ -288,6 +958,20 @@
       "added": "2026-05-23"
     },
     {
+      "id": "legendary-strawberry-pop-tart",
+      "name": "Legendary Strawberry Pop Tart",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein",
+        "breakfast"
+      ],
+      "file": "/foods/branded/legendary-strawberry-pop-tart.png",
+      "source": "https://www.eatlegendary.com/cdn/shop/files/PASTRY_STRAWBERRY__STATIC___A.0.0.webp?v=1767731017&width=1080",
+      "added": "2026-05-23"
+    },
+    {
       "id": "light-yogurt",
       "name": "Light Yogurt",
       "category": "dairy",
@@ -300,6 +984,116 @@
       "added": "2026-05-23"
     },
     {
+      "id": "liquid-death-mountain-water",
+      "name": "Liquid Death Mountain Water",
+      "category": "branded",
+      "tags": [
+        "healthy",
+        "low-cal"
+      ],
+      "file": "/foods/branded/liquid-death-mountain-water.png",
+      "source": "https://liquiddeath.com/cdn/shop/files/Mobile-Still.webp?v=1738354928&width=800",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "magic-spoon-cocoa-cereal",
+      "name": "Magic Spoon Cocoa Cereal",
+      "category": "branded",
+      "tags": [
+        "breakfast",
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/magic-spoon-cocoa-cereal.png",
+      "source": "https://magicspoon.com/cdn/shop/products/MS-COCOA-6PACK-AV072201_1-500293_2048x2048.png?v=1682017925",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "magic-spoon-fruity-cereal",
+      "name": "Magic Spoon Fruity Cereal",
+      "category": "branded",
+      "tags": [
+        "breakfast",
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/magic-spoon-fruity-cereal.png",
+      "source": "https://magicspoon.com/cdn/shop/products/MS_FRUITY_4PACK_3-205297_2048x2048.png?v=1685474641",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "mcdonald-s-big-mac",
+      "name": "McDonald's Big Mac",
+      "category": "fast-food",
+      "tags": [
+        "junk",
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/mcdonald-s-big-mac.png",
+      "source": "https://assets.stickpng.com/images/5882482de81acb96424ffaac.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "mcdonald-s-chicken-mcnuggets",
+      "name": "McDonald's Chicken McNuggets",
+      "category": "fast-food",
+      "tags": [
+        "junk",
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/mcdonald-s-chicken-mcnuggets.png",
+      "source": "https://corporate.mcdonalds.com/content/dam/sites/corp/nfl/newsroom/menu-items-2023/NR_202208_0060_6McNuggets_Broken_2000x2000.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "mcdonald-s-egg-mcmuffin",
+      "name": "McDonald's Egg McMuffin",
+      "category": "fast-food",
+      "tags": [
+        "fast-food",
+        "breakfast"
+      ],
+      "file": "/foods/fast-food/mcdonald-s-egg-mcmuffin.png",
+      "source": "https://corporate.mcdonalds.com/content/dam/sites/corp/nfl/newsroom/menu-items-2023/NR_202004_0046_EggMcMuffin_2000x2000.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "mcdonald-s-french-fries",
+      "name": "McDonald's French Fries",
+      "category": "fast-food",
+      "tags": [
+        "junk",
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/mcdonald-s-french-fries.png",
+      "source": "https://assets.stickpng.com/images/585ac06b4f6ae202fedf293b.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "mcdonald-s-mcchicken",
+      "name": "McDonald's McChicken",
+      "category": "fast-food",
+      "tags": [
+        "junk",
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/mcdonald-s-mcchicken.png",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/8/80/McD-McChicken_%28transparent%29.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "mcdonald-s-quarter-pounder",
+      "name": "McDonald's Quarter Pounder",
+      "category": "fast-food",
+      "tags": [
+        "junk",
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/mcdonald-s-quarter-pounder.png",
+      "source": "https://toppng.com/uploads/preview/mcdonalds-burger-transparent-background-png-quarter-pounder-mcdonalds-11562913944q4dwi4vb8g.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "mixed-fruits",
       "name": "Mixed Fruits",
       "category": "fruits",
@@ -308,6 +1102,176 @@
       ],
       "file": "/foods/fruits/mixed-fruits.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/all fruits.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "monster-energy",
+      "name": "Monster Energy",
+      "category": "drinks",
+      "tags": [
+        "energy-drink",
+        "junk"
+      ],
+      "file": "/foods/drinks/monster-energy.png",
+      "source": "https://www.citypng.com/public/uploads/preview/hd-monster-energy-drink-can-png-704081694866137exxvwcnrhx.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "mountain-dew",
+      "name": "Mountain Dew",
+      "category": "drinks",
+      "tags": [
+        "soda",
+        "junk"
+      ],
+      "file": "/foods/drinks/mountain-dew.png",
+      "source": "https://i.pinimg.com/originals/6b/03/99/6b0399446542ea71c929940aed26e7a1.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "muscle-milk-vanilla",
+      "name": "Muscle Milk Vanilla",
+      "category": "branded",
+      "tags": [
+        "protein-shake",
+        "high-protein",
+        "post-workout"
+      ],
+      "file": "/foods/branded/muscle-milk-vanilla.png",
+      "source": "https://storage.googleapis.com/images-lnb-prd-8936dd0.lnb.prd.v8.commerce.mi9cloud.com/product-images/zoom/00876063002028.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "no-cow-chunky-peanut-butter-bar",
+      "name": "No Cow Chunky Peanut Butter Bar",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein",
+        "vegan"
+      ],
+      "file": "/foods/branded/no-cow-chunky-peanut-butter-bar.png",
+      "source": "https://nocow.com/cdn/shop/files/Chunky_Peanut_Butter_Performance_Bar_Product_Render_New_1.png?v=1774983676&width=800",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "oatmeal",
+      "name": "Oatmeal",
+      "category": "breakfast",
+      "tags": [
+        "healthy",
+        "breakfast"
+      ],
+      "file": "/foods/breakfast/oatmeal.png",
+      "source": "https://png.pngtree.com/png-vector/20241213/ourlarge/pngtree-bowl-of-oatmeal-isolated-png-image_14734163.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "oikos-pro-vanilla",
+      "name": "Oikos Pro Vanilla",
+      "category": "branded",
+      "tags": [
+        "healthy",
+        "high-protein",
+        "breakfast"
+      ],
+      "file": "/foods/branded/oikos-pro-vanilla.png",
+      "source": "https://smartmedia.digital4danone.com/is/image/danonecs/OIKOS_PRO_vanilla_quart_PDP_RENNOVATION?fmt=png-alpha&bfc=on",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "oikos-triple-zero-strawberry",
+      "name": "Oikos Triple Zero Strawberry",
+      "category": "branded",
+      "tags": [
+        "healthy",
+        "high-protein",
+        "breakfast"
+      ],
+      "file": "/foods/branded/oikos-triple-zero-strawberry.png",
+      "source": "https://smartmedia.digital4danone.com/is/image/danonecs/triple-zero-strawberry?$Transparent$",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "oikos-triple-zero-vanilla",
+      "name": "Oikos Triple Zero Vanilla",
+      "category": "branded",
+      "tags": [
+        "healthy",
+        "high-protein",
+        "breakfast"
+      ],
+      "file": "/foods/branded/oikos-triple-zero-vanilla.png",
+      "source": "https://smartmedia.digital4danone.com/is/image/danonecs/triple-zero-vanilla?$Transparent$",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "olipop-classic-root-beer",
+      "name": "Olipop Classic Root Beer",
+      "category": "branded",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/branded/olipop-classic-root-beer.png",
+      "source": "https://drinkolipop.com/cdn/shop/files/classic-root-beer-9g-olipop_gallery-image_single-can_new_asset.webp?v=1779161742&width=1920",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "olipop-strawberry-vanilla",
+      "name": "Olipop Strawberry Vanilla",
+      "category": "branded",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/branded/olipop-strawberry-vanilla.png",
+      "source": "https://drinkolipop.com/cdn/shop/files/strawberry-vanilla-9g-olipop_gallery-main-image_new_asset_grande.webp?v=1779161007",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "olive-oil",
+      "name": "Olive Oil",
+      "category": "carbs",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/carbs/olive-oil.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/047/490/685/non_2x/extra-virgin-olive-oil-bottle-on-transparent-background-free-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "one-birthday-cake-bar",
+      "name": "ONE Birthday Cake Bar",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/one-birthday-cake-bar.png",
+      "source": "https://s7d1.scene7.com/is/image/hersheyprodcloud/7_88434_10809_6_776_10810_012_CND_Box_Closed_Front?fmt=webp-alpha&hei=908&qlt=75",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "orange",
+      "name": "Orange",
+      "category": "fruits",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/fruits/orange.png",
+      "source": "https://cdn.pixabay.com/photo/2016/02/23/17/42/orange-1218158_1280.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "orange-juice",
+      "name": "Orange Juice",
+      "category": "drinks",
+      "tags": [
+        "breakfast"
+      ],
+      "file": "/foods/drinks/orange-juice.png",
+      "source": "https://png.pngtree.com/png-vector/20241111/ourlarge/pngtree-orange-juice-glass-png-image_14387056.png",
       "added": "2026-05-23"
     },
     {
@@ -324,6 +1288,19 @@
       "added": "2026-05-23"
     },
     {
+      "id": "owyn-chocolate-protein-shake",
+      "name": "OWYN Chocolate Protein Shake",
+      "category": "branded",
+      "tags": [
+        "protein-shake",
+        "high-protein",
+        "vegan"
+      ],
+      "file": "/foods/branded/owyn-chocolate-protein-shake.png",
+      "source": "http://liveowyn.com/cdn/shop/files/owyn-008617-dark-chocolate-protein-shake.png?v=1756155502",
+      "added": "2026-05-23"
+    },
+    {
       "id": "pb-pretzels",
       "name": "PB Pretzels",
       "category": "snacks",
@@ -332,6 +1309,41 @@
       ],
       "file": "/foods/snacks/pb-pretzels.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/pb pretzels.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "peanut-butter",
+      "name": "Peanut Butter",
+      "category": "snacks",
+      "tags": [
+        "high-protein",
+        "snack"
+      ],
+      "file": "/foods/snacks/peanut-butter.png",
+      "source": "https://img.freepik.com/premium-psd/peanut-butter-jar-isolated-transparent-background_220739-17486.jpg?w=360",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "pepperoni-pizza-slice",
+      "name": "Pepperoni Pizza Slice",
+      "category": "meals",
+      "tags": [
+        "junk"
+      ],
+      "file": "/foods/meals/pepperoni-pizza-slice.png",
+      "source": "https://as1.ftcdn.net/jpg/06/27/81/36/1000_F_627813626_bjLLoQXww5AlKs1giaxRW8H7g2woTqll.jpg",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "perfect-bar-peanut-butter",
+      "name": "Perfect Bar Peanut Butter",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy"
+      ],
+      "file": "/foods/branded/perfect-bar-peanut-butter.png",
+      "source": "https://cdn.shopify.com/s/files/1/0053/3322/files/carousel-1-render_4692e076-89bd-47c0-905e-678193f148bd.png?v=1721984902",
       "added": "2026-05-23"
     },
     {
@@ -357,6 +1369,64 @@
       "added": "2026-05-23"
     },
     {
+      "id": "popcorn",
+      "name": "Popcorn",
+      "category": "snacks",
+      "tags": [
+        "snack",
+        "low-cal"
+      ],
+      "file": "/foods/snacks/popcorn.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/052/070/660/non_2x/popcorn-in-white-bowl-isolated-in-transparent-background-free-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "popeyes-biscuit",
+      "name": "Popeyes Biscuit",
+      "category": "fast-food",
+      "tags": [
+        "junk",
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/popeyes-biscuit.png",
+      "source": "https://www.popeyes.com/images/czqk28jt/prod_plk_us/6b315636de067ae3d7f0c73cd148b9707610aafb-1446x964.png?q=80&auto=format",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "popeyes-chicken-sandwich",
+      "name": "Popeyes Chicken Sandwich",
+      "category": "fast-food",
+      "tags": [
+        "junk",
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/popeyes-chicken-sandwich.png",
+      "source": "https://www.popeyes.com/images/czqk28jt/prod_plk_us/969b8c7cf2b5f765c29f7ace218580505ac9e2e1-2000x1333.png?q=70&auto=format",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "poppi-raspberry-rose",
+      "name": "Poppi Raspberry Rose",
+      "category": "branded",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/branded/poppi-raspberry-rose.png",
+      "source": "https://i5.peapod.com/c/7P/7PTD8.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "poppi-strawberry-lemon",
+      "name": "Poppi Strawberry Lemon",
+      "category": "branded",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/branded/poppi-strawberry-lemon.png",
+      "source": "https://images.albertsons-media.com/is/image/ABS/971053747-C1N1?$ng-ecom-pdp-desktop$&defaultImage=Not_Available",
+      "added": "2026-05-23"
+    },
+    {
       "id": "pork-bacon",
       "name": "Pork Bacon",
       "category": "proteins",
@@ -365,6 +1435,44 @@
       ],
       "file": "/foods/proteins/pork-bacon.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/pork bacon.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "premier-protein-chocolate-shake",
+      "name": "Premier Protein Chocolate Shake",
+      "category": "branded",
+      "tags": [
+        "protein-shake",
+        "high-protein",
+        "post-workout"
+      ],
+      "file": "/foods/branded/premier-protein-chocolate-shake.png",
+      "source": "https://assets.premierprotein.com/production/a/product/Thumbnail_Chocolate_Tetra_472x542.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "premier-protein-vanilla-shake",
+      "name": "Premier Protein Vanilla Shake",
+      "category": "branded",
+      "tags": [
+        "protein-shake",
+        "high-protein",
+        "post-workout"
+      ],
+      "file": "/foods/branded/premier-protein-vanilla-shake.png",
+      "source": "https://assets.premierprotein.com/production/a/product/Thumbnail_Vanilla_Tetra_472x542.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "pringles",
+      "name": "Pringles",
+      "category": "snacks",
+      "tags": [
+        "junk",
+        "snack"
+      ],
+      "file": "/foods/snacks/pringles.png",
+      "source": "https://www.nicepng.com/png/detail/272-2727502_pringles-original-pringles-original-flavor.png",
       "added": "2026-05-23"
     },
     {
@@ -381,6 +1489,116 @@
       "added": "2026-05-23"
     },
     {
+      "id": "protein-shake",
+      "name": "Protein Shake",
+      "category": "drinks",
+      "tags": [
+        "protein-shake",
+        "post-workout"
+      ],
+      "file": "/foods/drinks/protein-shake.png",
+      "source": "https://png.pngtree.com/png-vector/20250712/ourlarge/pngtree-protein-shake-in-shaker-bottle-with-scoop-of-powder-isolated-on-png-image_16628457.webp",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "quest-birthday-cake-bar",
+      "name": "Quest Birthday Cake Bar",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/quest-birthday-cake-bar.png",
+      "source": "https://www.questnutrition.com/cdn/shop/files/qst-015153-birthday-cake-crispy-hero-bars_1.png?v=1776288890&width=720",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "quest-chocolate-chip-cookie-dough-bar",
+      "name": "Quest Chocolate Chip Cookie Dough Bar",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/quest-chocolate-chip-cookie-dough-bar.png",
+      "source": "http://www.questnutrition.com/cdn/shop/files/qst-003853-chocolate-chip-cookie-dough-protein-bars_1.png?v=1772649648",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "quest-nacho-cheese-chips",
+      "name": "Quest Nacho Cheese Chips",
+      "category": "branded",
+      "tags": [
+        "snack",
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/branded/quest-nacho-cheese-chips.png",
+      "source": "https://www.questnutrition.com/cdn/shop/files/qst-010295-nacho-cheese-tortilla-style-protein-chips_2.png?v=1771629330&width=720",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "quinoa",
+      "name": "Quinoa",
+      "category": "carbs",
+      "tags": [
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/carbs/quinoa.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/050/039/306/non_2x/vegan-healthy-quinoa-salad-isolated-on-transparent-background-free-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "red-bull",
+      "name": "Red Bull",
+      "category": "drinks",
+      "tags": [
+        "energy-drink"
+      ],
+      "file": "/foods/drinks/red-bull.png",
+      "source": "https://www.citypng.com/public/uploads/preview/hd-cold-red-bull-energy-can-png-704081694866460pgcw74jrpi.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "red-onion",
+      "name": "Red Onion",
+      "category": "veggies",
+      "tags": [
+        "healthy",
+        "low-cal"
+      ],
+      "file": "/foods/veggies/red-onion.png",
+      "source": "https://thumbs.dreamstime.com/b/red-oinion-1756119.jpg",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "red-wine-glass",
+      "name": "Red Wine Glass",
+      "category": "drinks",
+      "tags": [
+        "alcohol"
+      ],
+      "file": "/foods/drinks/red-wine-glass.png",
+      "source": "https://gallery.yopriceville.com/downloadfullsize/send/29888",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "reese-s-peanut-butter-cups",
+      "name": "Reese's Peanut Butter Cups",
+      "category": "snacks",
+      "tags": [
+        "junk",
+        "snack",
+        "dessert"
+      ],
+      "file": "/foods/snacks/reese-s-peanut-butter-cups.png",
+      "source": "https://t3.ftcdn.net/jpg/07/99/86/68/360_F_799866853_k0bjqka0F8JJkmiaNDahc3IFbPRH4cGc.jpg",
+      "added": "2026-05-23"
+    },
+    {
       "id": "rice-cake",
       "name": "Rice Cake",
       "category": "snacks",
@@ -391,6 +1609,30 @@
       ],
       "file": "/foods/snacks/rice-cake.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/rice cake.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "rxbar-chocolate-sea-salt",
+      "name": "RXBAR Chocolate Sea Salt",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy"
+      ],
+      "file": "/foods/branded/rxbar-chocolate-sea-salt.png",
+      "source": "https://shop.rxbar.com/media/catalog/product/0/0/00193908001214_c1n1_m5bwhoengi01nbhe.jpeg",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "rxbar-peanut-butter",
+      "name": "RXBAR Peanut Butter",
+      "category": "branded",
+      "tags": [
+        "protein-bar",
+        "healthy"
+      ],
+      "file": "/foods/branded/rxbar-peanut-butter.png",
+      "source": "https://shop.rxbar.com/media/catalog/product/0/0/00193908003713_d1cg_pdp_nx2qdrnp2xu3q54y.png",
       "added": "2026-05-23"
     },
     {
@@ -406,6 +1648,68 @@
       "added": "2026-05-23"
     },
     {
+      "id": "salmon-fillet",
+      "name": "Salmon Fillet",
+      "category": "proteins",
+      "tags": [
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/proteins/salmon-fillet.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/071/023/313/non_2x/raw-salmon-fish-fillets-isolated-on-transparent-background-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "salmon-rice-broccoli-plate",
+      "name": "Salmon Rice Broccoli Plate",
+      "category": "meals",
+      "tags": [
+        "healthy",
+        "high-protein"
+      ],
+      "file": "/foods/meals/salmon-rice-broccoli-plate.png",
+      "source": "https://png.pngtree.com/png-vector/20260421/ourlarge/pngtree-grilled-salmon-with-rice-and-vegetables-png-image_19146405.webp",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "shrimp",
+      "name": "Shrimp",
+      "category": "proteins",
+      "tags": [
+        "healthy",
+        "high-protein",
+        "low-cal"
+      ],
+      "file": "/foods/proteins/shrimp.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/051/715/608/non_2x/cooked-shrimp-isolated-on-transparent-background-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "smoothie-bowl",
+      "name": "Smoothie Bowl",
+      "category": "meals",
+      "tags": [
+        "healthy",
+        "breakfast"
+      ],
+      "file": "/foods/meals/smoothie-bowl.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/059/623/053/non_2x/delicious-berry-smoothie-bowl-with-fresh-fruits-chia-seeds-and-mint-leaves-on-a-transparent-background-free-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "snickers",
+      "name": "Snickers",
+      "category": "snacks",
+      "tags": [
+        "junk",
+        "snack",
+        "dessert"
+      ],
+      "file": "/foods/snacks/snickers.png",
+      "source": "https://assets.stickpng.com/images/580b57fbd9996e24bc43c0c4.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "sour-patch-kids",
       "name": "Sour Patch Kids",
       "category": "branded",
@@ -415,6 +1719,27 @@
       ],
       "file": "/foods/branded/sour-patch-kids.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/sour_patch_kids.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "spaghetti-bolognese",
+      "name": "Spaghetti Bolognese",
+      "category": "meals",
+      "tags": [],
+      "file": "/foods/meals/spaghetti-bolognese.png",
+      "source": "https://png.pngtree.com/png-clipart/20250126/original/pngtree-a-plate-of-spaghetti-isolated-on-transparent-background-png-image_20045929.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "spinach",
+      "name": "Spinach",
+      "category": "veggies",
+      "tags": [
+        "healthy",
+        "low-cal"
+      ],
+      "file": "/foods/veggies/spinach.png",
+      "source": "https://img.freepik.com/premium-psd/fresh-spinach-leaves-png-transparent-background_681002-14988.jpg?w=360",
       "added": "2026-05-23"
     },
     {
@@ -430,6 +1755,52 @@
       "added": "2026-05-23"
     },
     {
+      "id": "steak-potatoes-plate",
+      "name": "Steak & Potatoes Plate",
+      "category": "meals",
+      "tags": [
+        "high-protein"
+      ],
+      "file": "/foods/meals/steak-potatoes-plate.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/054/237/285/non_2x/a-plate-with-a-steak-and-potatoes-on-it-free-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "strawberries",
+      "name": "Strawberries",
+      "category": "fruits",
+      "tags": [
+        "healthy",
+        "low-cal"
+      ],
+      "file": "/foods/fruits/strawberries.png",
+      "source": "https://www.citypng.com/public/uploads/preview/strawberries-strawberry-fruit-png-704081694800092z47txocpzi.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "string-cheese",
+      "name": "String Cheese",
+      "category": "snacks",
+      "tags": [
+        "snack",
+        "high-protein"
+      ],
+      "file": "/foods/snacks/string-cheese.png",
+      "source": "https://thumbs.dreamstime.com/b/string-cheese-isolated-transparent-background-string-cheese-isolated-transparent-background-360910553.jpg",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "subway-turkey-sandwich",
+      "name": "Subway Turkey Sandwich",
+      "category": "fast-food",
+      "tags": [
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/subway-turkey-sandwich.png",
+      "source": "https://emea.newsroom.subway.com/download/Cali+Turkey+Footlong-0.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "sugar-free-candy",
       "name": "Sugar Free Candy",
       "category": "snacks",
@@ -438,6 +1809,77 @@
       ],
       "file": "/foods/snacks/sugar-free-candy.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/Snacks/sugar_free_candy.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "sushi-roll-plate",
+      "name": "Sushi Roll Plate",
+      "category": "meals",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/meals/sushi-roll-plate.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/048/947/329/non_2x/maki-sushi-roll-on-plate-on-a-transparent-background-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "sweet-potato",
+      "name": "Sweet Potato",
+      "category": "carbs",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/carbs/sweet-potato.png",
+      "source": "https://img.magnific.com/free-psd/whole-uncooked-sweet-potato-with-textured-reddish-orange-skin-shown-solid-black-background_84443-62566.jpg?semt=ais_hybrid&w=740&q=80",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "taco-bell-crunchwrap-supreme",
+      "name": "Taco Bell Crunchwrap Supreme",
+      "category": "fast-food",
+      "tags": [
+        "junk",
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/taco-bell-crunchwrap-supreme.png",
+      "source": "https://www.pngitem.com/pimgs/m/679-6798790_taco-bell-crunchwrap-supreme-hd-png-download.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "taco-bell-doritos-locos-taco",
+      "name": "Taco Bell Doritos Locos Taco",
+      "category": "fast-food",
+      "tags": [
+        "junk",
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/taco-bell-doritos-locos-taco.png",
+      "source": "https://as2.ftcdn.net/jpg/13/34/15/07/1000_F_1334150718_VDW1lEWWX1dOeDoE5C2Yif4GlWLSN0n2.jpg",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "tofu",
+      "name": "Tofu",
+      "category": "proteins",
+      "tags": [
+        "healthy",
+        "vegan",
+        "high-protein"
+      ],
+      "file": "/foods/proteins/tofu.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/051/339/420/non_2x/tofu-block-isolated-on-transparent-background-png.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "trail-mix",
+      "name": "Trail Mix",
+      "category": "snacks",
+      "tags": [
+        "snack",
+        "healthy"
+      ],
+      "file": "/foods/snacks/trail-mix.png",
+      "source": "https://static.vecteezy.com/system/resources/previews/065/283/553/non_2x/trail-mix-snack-in-wooden-bowl-healthy-nuts-seeds-and-dried-fruit-mix-png.png",
       "added": "2026-05-23"
     },
     {
@@ -454,6 +1896,43 @@
       "added": "2026-05-23"
     },
     {
+      "id": "two-good-vanilla",
+      "name": "Two Good Vanilla",
+      "category": "branded",
+      "tags": [
+        "healthy",
+        "high-protein",
+        "low-cal",
+        "breakfast"
+      ],
+      "file": "/foods/branded/two-good-vanilla.png",
+      "source": "https://storage.googleapis.com/images-lnb-prd-8936dd0.lnb.prd.v8.commerce.mi9cloud.com/product-images/zoom/00036632039200_Left.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "vanilla-ice-cream",
+      "name": "Vanilla Ice Cream",
+      "category": "desserts",
+      "tags": [
+        "junk",
+        "dessert"
+      ],
+      "file": "/foods/desserts/vanilla-ice-cream.png",
+      "source": "https://png.pngtree.com/png-vector/20250103/ourmid/pngtree-vanilla-ice-cream-scoop-creamy-dessert-design-isolated-on-transparent-background-png-image_15029207.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "water-bottle",
+      "name": "Water Bottle",
+      "category": "drinks",
+      "tags": [
+        "healthy"
+      ],
+      "file": "/foods/drinks/water-bottle.png",
+      "source": "https://www.citypng.com/public/uploads/preview/hd-plastic-water-bottle-png-704081694866681qerl21csnz.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "watermelon",
       "name": "Watermelon",
       "category": "fruits",
@@ -466,12 +1945,58 @@
       "added": "2026-05-23"
     },
     {
+      "id": "wendy-s-baconator",
+      "name": "Wendy's Baconator",
+      "category": "fast-food",
+      "tags": [
+        "junk",
+        "fast-food"
+      ],
+      "file": "/foods/fast-food/wendy-s-baconator.png",
+      "source": "https://www.vhv.rs/dpng/d/602-6021409_baconator-wendys-hd-png-download.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "white-claw",
+      "name": "White Claw",
+      "category": "drinks",
+      "tags": [
+        "alcohol"
+      ],
+      "file": "/foods/drinks/white-claw.png",
+      "source": "https://toppng.com/uploads/preview/white-claw-pure-can-beer-bottle-11563850000knxkl04zq2.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "white-rice",
       "name": "White Rice",
       "category": "carbs",
       "tags": [],
       "file": "/foods/carbs/white-rice.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/white rice.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "white-wine-glass",
+      "name": "White Wine Glass",
+      "category": "drinks",
+      "tags": [
+        "alcohol"
+      ],
+      "file": "/foods/drinks/white-wine-glass.png",
+      "source": "https://png.pngtree.com/png-vector/20240515/ourmid/pngtree-white-wine-glass-realistic-png-image_12444654.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "yasso-mint-chocolate-chip-bar",
+      "name": "Yasso Mint Chocolate Chip Bar",
+      "category": "branded",
+      "tags": [
+        "dessert",
+        "healthy"
+      ],
+      "file": "/foods/branded/yasso-mint-chocolate-chip-bar.png",
+      "source": "https://assets.unileversolutions.com/v1/130227757.png",
       "added": "2026-05-23"
     }
   ]

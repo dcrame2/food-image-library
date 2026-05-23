@@ -17,24 +17,38 @@ Two ways:
 1. **Paste URL** (works immediately, no setup): in the app, click `+ Add Food`, switch to the "Paste URL" tab, paste an image address (right-click any image in your browser → "Copy image address"), fill in name + category, save. The image is fetched server-side, background is auto-removed, and it lands in the library.
 2. **Google Search** (needs API key setup, see below): type a query like "oikos triple zero vanilla", pick the best result from 8 thumbnails, save.
 
-## Google CSE setup (one-time, ~5 min — required for search + bulk seed)
+## remove.bg setup (recommended — best background-removal quality)
 
-1. Go to https://programmablesearchengine.google.com → **Create a search engine**
-   - Sites to search: choose **Search the entire web**
-   - Toggle **Image search** ON
-2. Copy the **Search engine ID** (this is your `CX`) from the control panel
-3. Go to https://console.cloud.google.com/apis/library/customsearch.googleapis.com → enable Custom Search API
-4. Go to https://console.cloud.google.com/apis/credentials → create an **API key**
-5. Copy `.env.local.example` to `.env.local` and paste in both values:
+The free local `@imgly` model struggles with branded product photography (gradient backgrounds, light halos). [remove.bg](https://www.remove.bg/api) is built exactly for this case.
+
+1. Sign up at https://www.remove.bg/api and grab an API key
+2. Add to `.env.local`:
+
+```
+REMOVE_BG_API_KEY=your_key_here
+```
+
+Free tier: 50 images/month — plenty for ad-hoc adds. After that it's pay-as-you-go (~$0.20/credit at the smallest pack).
+
+When the key is set, the app uses remove.bg by default. Without it, the app falls back to `@imgly` automatically. The dialog lets you override per-image if you want to save a credit on something that's already transparent.
+
+**Bulk seed** (~150 items) defaults to `@imgly` to avoid burning your remove.bg quota. To use remove.bg for the bulk seed anyway, run `SEED_USE_REMOVE_BG=1 npm run seed:bulk`.
+
+## Image search setup (Serper.dev — required for search + bulk seed)
+
+Google closed their Custom Search JSON API to new projects in 2026, so we use Serper.dev which returns actual Google image results.
+
+1. Sign up at https://serper.dev (just an email, no credit card)
+2. Copy your API key from the dashboard
+3. Add to `.env.local`:
 
 ```bash
 cp .env.local.example .env.local
 # edit .env.local
-GOOGLE_CSE_API_KEY=...
-GOOGLE_CSE_CX=...
+SERPER_API_KEY=...
 ```
 
-Free tier: 100 queries/day.
+Free tier: 2,500 queries/month.
 
 ## Bulk seed (one-time, builds the starter library)
 

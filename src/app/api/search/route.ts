@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { searchImages, CSEConfigError } from "@/lib/google-cse";
+import { searchImages, ImageSearchConfigError } from "@/lib/serper";
 
 export const runtime = "nodejs";
 
@@ -14,8 +14,11 @@ export async function GET(request: Request) {
     const results = await searchImages(q, { transparent: true, num: 8 });
     return NextResponse.json({ results });
   } catch (err) {
-    if (err instanceof CSEConfigError) {
-      return NextResponse.json({ error: err.message, code: "CSE_NOT_CONFIGURED" }, { status: 503 });
+    if (err instanceof ImageSearchConfigError) {
+      return NextResponse.json(
+        { error: err.message, code: "SEARCH_NOT_CONFIGURED" },
+        { status: 503 },
+      );
     }
     const message = err instanceof Error ? err.message : "Unknown error";
     return NextResponse.json({ error: message }, { status: 500 });

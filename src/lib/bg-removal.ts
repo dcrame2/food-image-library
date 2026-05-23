@@ -1,19 +1,36 @@
 import { removeBackground } from "@imgly/background-removal-node";
+import { PNG } from "pngjs";
+import {
+  removeBgFromBuffer,
+  isRemoveBgConfigured,
+  RemoveBgQuotaExceededError,
+} from "./remove-bg";
 
-let warmed = false;
+export type BgEngine = "auto" | "remove-bg" | "imgly" | "skip";
 
 export interface BgRemovalOptions {
-  // If false, skips bg-removal and just returns the input PNG as-is.
-  // Useful when we trust the source is already transparent.
-  skip?: boolean;
+  /**
+   * Which engine to use:
+   *  - "auto" (default): remove.bg if API key is set, otherwise @imgly
+   *  - "remove-bg": force remove.bg (errors if no key)
+   *  - "imgly": force local @imgly (free, lower quality)
+   *  - "skip": don't run bg-removal at all (source is already transparent)
+   */
+  engine?: BgEngine;
+  /**
+   * If true (default), auto-detects whether the source PNG is already transparent
+   * (alpha < 250 in any corner). If so, skips bg-removal — running an already-
+   * transparent image through any model often degrades quality.
+   */
+  autoDetect?: boolean;
+  /**
+   * If true (default), runs a post-process alpha-boost pass that pushes near-0
+   * alpha to 0 and near-255 alpha to 255. Fixes soft-edge artifacts. Only
+   * applied when @imgly was used — remove.bg output is already clean.
+   */
+  alphaBoost?: boolean;
 }
 
-/**
- * Downloads the image at `url` and returns a transparent-background PNG buffer.
- * The @imgly library uses an ONNX U2Net-style model that runs locally.
- * First call downloads ~80MB of model weights and is slow (~30s).
- * Subsequent calls are fast (~2-5s per image).
- */
 export async function fetchAndRemoveBackground(
   url: string,
   options: BgRemovalOptions = {},
@@ -29,22 +46,81 @@ export async function fetchAndRemoveBackground(
   }
   const arrayBuf = await response.arrayBuffer();
   const inputBuffer = Buffer.from(arrayBuf);
-
-  if (options.skip) return inputBuffer;
-  return removeBackgroundFromBuffer(inputBuffer);
+  return processBuffer(inputBuffer, options);
 }
 
-export async function removeBackgroundFromBuffer(input: Buffer): Promise<Buffer> {
-  // @imgly expects a Blob in Node. Cast through as it accepts Blob-like objects.
+export async function processBuffer(
+  input: Buffer,
+  options: BgRemovalOptions = {},
+): Promise<Buffer> {
+  const { engine = "auto", autoDetect = true, alphaBoost = true } = options;
+
+  if (engine === "skip") return input;
+
+  if (autoDetect && isAlreadyTransparent(input)) {
+    return alphaBoost ? boostAlpha(input) : input;
+  }
+
+  const resolvedEngine = engine === "auto" ? (isRemoveBgConfigured() ? "remove-bg" : "imgly") : engine;
+
+  if (resolvedEngine === "remove-bg") {
+    try {
+      // remove.bg output is professionally clean — no need to alpha-boost.
+      return await removeBgFromBuffer(input, { type: "auto", size: "auto" });
+    } catch (err) {
+      if (err instanceof RemoveBgQuotaExceededError && engine === "auto") {
+        console.warn("remove.bg quota exceeded, falling back to @imgly");
+        // fall through to @imgly
+      } else {
+        throw err;
+      }
+    }
+  }
+
+  // @imgly path
+  const after = await imglyRemove(input);
+  return alphaBoost ? boostAlpha(after) : after;
+}
+
+async function imglyRemove(input: Buffer): Promise<Buffer> {
   const blob = new Blob([new Uint8Array(input)], { type: "image/png" });
   const outBlob = (await removeBackground(blob, {
-    output: { format: "image/png", quality: 0.9 },
+    model: "medium",
+    output: { format: "image/png", quality: 1.0 },
   })) as Blob;
-  const outBuf = Buffer.from(await outBlob.arrayBuffer());
-  warmed = true;
-  return outBuf;
+  return Buffer.from(await outBlob.arrayBuffer());
 }
 
-export function isWarmed(): boolean {
-  return warmed;
+function isAlreadyTransparent(buffer: Buffer): boolean {
+  let decoded;
+  try {
+    decoded = PNG.sync.read(buffer);
+  } catch {
+    return false;
+  }
+  const { width, height, data } = decoded;
+  const px = (x: number, y: number) => data[(y * width + x) * 4 + 3];
+  const corners = [px(0, 0), px(width - 1, 0), px(0, height - 1), px(width - 1, height - 1)];
+  return corners.some((a) => a < 250);
+}
+
+function boostAlpha(buffer: Buffer): Buffer {
+  let png;
+  try {
+    png = PNG.sync.read(buffer);
+  } catch {
+    return buffer;
+  }
+  const { data } = png;
+  for (let i = 3; i < data.length; i += 4) {
+    const a = data[i];
+    if (a < 32) data[i] = 0;
+    else if (a > 224) data[i] = 255;
+    else {
+      const t = (a - 32) / (224 - 32);
+      const boosted = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      data[i] = Math.round(boosted * 255);
+    }
+  }
+  return PNG.sync.write(png);
 }

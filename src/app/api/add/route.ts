@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
-import { fetchAndRemoveBackground } from "@/lib/bg-removal";
+import { fetchAndRemoveBackground, BgEngine } from "@/lib/bg-removal";
 import {
   foodFilePath,
   slugify,
@@ -19,7 +19,7 @@ interface AddBody {
   name: string;
   category: string;
   tags?: string[];
-  skipBgRemoval?: boolean;
+  engine?: BgEngine;
   source?: string;
 }
 
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const png = await fetchAndRemoveBackground(body.url, { skip: body.skipBgRemoval });
+    const png = await fetchAndRemoveBackground(body.url, { engine: body.engine ?? "auto" });
     const { absolute, publicPath } = foodFilePath(body.category, slug);
     await fs.mkdir(path.dirname(absolute), { recursive: true });
     await fs.writeFile(absolute, png);

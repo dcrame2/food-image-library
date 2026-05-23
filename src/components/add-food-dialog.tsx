@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { CATEGORIES, CategoryId, COMMON_TAGS } from "@/lib/categories";
 import { FoodItem } from "@/lib/catalog";
-import { CSEImageResult } from "@/lib/google-cse";
-import { X, Search, Loader2, Link as LinkIcon } from "lucide-react";
+import { ImageSearchResult } from "@/lib/serper";
+import { X, Search, Loader2, Link as LinkIcon, Sparkles } from "lucide-react";
 import clsx from "clsx";
 
 interface AddFoodDialogProps {
@@ -14,11 +14,12 @@ interface AddFoodDialogProps {
 }
 
 type Mode = "search" | "url";
+type Engine = "auto" | "remove-bg" | "imgly" | "skip";
 
 export function AddFoodDialog({ open, onClose, onAdded }: AddFoodDialogProps) {
   const [mode, setMode] = useState<Mode>("search");
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<CSEImageResult[]>([]);
+  const [results, setResults] = useState<ImageSearchResult[]>([]);
   const [searching, setSearching] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,11 +28,17 @@ export function AddFoodDialog({ open, onClose, onAdded }: AddFoodDialogProps) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState<CategoryId>("branded");
   const [tags, setTags] = useState<string[]>([]);
-  const [skipBgRemoval, setSkipBgRemoval] = useState(false);
+  const [engine, setEngine] = useState<Engine>("auto");
+  const [removeBgConfigured, setRemoveBgConfigured] = useState(false);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (!open) {
+    if (open) {
+      fetch("/api/config")
+        .then((r) => r.json())
+        .then((d) => setRemoveBgConfigured(Boolean(d.removeBgConfigured)))
+        .catch(() => {});
+    } else {
       setQuery("");
       setResults([]);
       setSelectedUrl(null);
@@ -40,7 +47,7 @@ export function AddFoodDialog({ open, onClose, onAdded }: AddFoodDialogProps) {
       setTags([]);
       setError(null);
       setMode("search");
-      setSkipBgRemoval(false);
+      setEngine("auto");
     }
   }, [open]);
 
@@ -58,9 +65,9 @@ export function AddFoodDialog({ open, onClose, onAdded }: AddFoodDialogProps) {
       const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
       const data = await res.json();
       if (!res.ok) {
-        if (data.code === "CSE_NOT_CONFIGURED") {
+        if (data.code === "SEARCH_NOT_CONFIGURED") {
           setError(
-            "Google CSE isn't set up. Add GOOGLE_CSE_API_KEY and GOOGLE_CSE_CX to .env.local (see README). Or use 'Paste URL' tab.",
+            "Serper isn't set up. Add SERPER_API_KEY to .env.local (see README) and restart the dev server. Or use the 'Paste URL' tab.",
           );
         } else {
           setError(data.error ?? "Search failed");
@@ -89,7 +96,7 @@ export function AddFoodDialog({ open, onClose, onAdded }: AddFoodDialogProps) {
           name: name.trim(),
           category,
           tags,
-          skipBgRemoval,
+          engine,
         }),
       });
       const data = await res.json();
@@ -292,14 +299,47 @@ export function AddFoodDialog({ open, onClose, onAdded }: AddFoodDialogProps) {
               </div>
             </div>
 
-            <label className="flex items-center gap-2 text-xs text-muted-foreground">
-              <input
-                type="checkbox"
-                checked={skipBgRemoval}
-                onChange={(e) => setSkipBgRemoval(e.target.checked)}
-              />
-              Skip background removal (source is already transparent)
-            </label>
+            <div>
+              <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                Background removal
+              </label>
+              <div className="grid grid-cols-2 gap-1">
+                {(
+                  [
+                    { id: "auto", label: removeBgConfigured ? "Auto (remove.bg)" : "Auto (@imgly)", icon: Sparkles },
+                    { id: "remove-bg", label: "remove.bg", icon: Sparkles, disabled: !removeBgConfigured },
+                    { id: "imgly", label: "@imgly (free)", icon: null },
+                    { id: "skip", label: "Skip (already transparent)", icon: null },
+                  ] as const
+                ).map((opt) => (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => "disabled" in opt && opt.disabled ? null : setEngine(opt.id as Engine)}
+                    disabled={"disabled" in opt ? opt.disabled : false}
+                    className={clsx(
+                      "rounded-md border px-2 py-1.5 text-xs transition-colors",
+                      engine === opt.id
+                        ? "border-primary bg-primary/15 text-primary"
+                        : "border-white/10 text-muted-foreground hover:text-foreground",
+                      "disabled" in opt && opt.disabled && "cursor-not-allowed opacity-40",
+                    )}
+                    title={
+                      "disabled" in opt && opt.disabled
+                        ? "REMOVE_BG_API_KEY not set — see README"
+                        : undefined
+                    }
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+              {!removeBgConfigured && (
+                <p className="mt-1.5 text-xs text-muted-foreground">
+                  Best quality needs a remove.bg API key — see README.
+                </p>
+              )}
+            </div>
 
             <button
               type="button"
