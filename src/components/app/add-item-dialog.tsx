@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import type { LibraryItem } from "@/lib/items";
 import type { Me } from "@/lib/me";
@@ -15,8 +15,16 @@ import {
   Zap,
   ChevronDown,
   Sparkles,
+  Upload,
+  ImageIcon,
 } from "lucide-react";
 import clsx from "clsx";
+
+const MAX_UPLOAD_BYTES = 15 * 1024 * 1024;
+
+function nameFromFile(filename: string): string {
+  return filename.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ").trim();
+}
 
 interface AddItemDialogProps {
   onClose: () => void;
@@ -26,7 +34,7 @@ interface AddItemDialogProps {
   collections: string[];
 }
 
-type Mode = "search" | "url";
+type Mode = "search" | "upload" | "url";
 type Engine = "auto" | "remove-bg" | "imgly" | "skip";
 
 /**
@@ -43,6 +51,8 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
 
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
   const [pastedUrl, setPastedUrl] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [filePreview, setFilePreview] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [collection, setCollection] = useState("");
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -50,9 +60,28 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
     me?.plan === "pro" ? "auto" : "imgly",
   );
   const [saving, setSaving] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const remaining = me ? Math.max(me.limit - me.used, 0) : null;
   const activeUrl = mode === "search" ? selectedUrl : pastedUrl.trim() || null;
+  const hasSource = mode === "upload" ? Boolean(file) : Boolean(activeUrl);
+
+  function onPickFile(picked: File | undefined) {
+    if (!picked) return;
+    if (!picked.type.startsWith("image/")) {
+      setError("That file is not an image.");
+      return;
+    }
+    if (picked.size > MAX_UPLOAD_BYTES) {
+      setError("Image must be under 15MB.");
+      return;
+    }
+    setError(null);
+    if (filePreview) URL.revokeObjectURL(filePreview);
+    setFile(picked);
+    setFilePreview(URL.createObjectURL(picked));
+    if (!name.trim()) setName(nameFromFile(picked.name));
+  }
 
   async function doSearch() {
     if (!query.trim()) return;
@@ -81,21 +110,31 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
   }
 
   async function doSave() {
-    if (!activeUrl || !name.trim()) return;
+    if (!hasSource || !name.trim()) return;
     setSaving(true);
     setError(null);
     setQuotaHit(false);
     try {
-      const res = await fetch("/api/add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          url: activeUrl,
-          name: name.trim(),
-          collection: collection.trim() || undefined,
-          engine,
-        }),
-      });
+      let res: Response;
+      if (mode === "upload" && file) {
+        const form = new FormData();
+        form.append("file", file);
+        form.append("name", name.trim());
+        if (collection.trim()) form.append("collection", collection.trim());
+        form.append("engine", engine);
+        res = await fetch("/api/add", { method: "POST", body: form });
+      } else {
+        res = await fetch("/api/add", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            url: activeUrl,
+            name: name.trim(),
+            collection: collection.trim() || undefined,
+            engine,
+          }),
+        });
+      }
       const data = await res.json();
       if (!res.ok) {
         if (res.status === 429 && data.upgrade) setQuotaHit(true);
@@ -150,7 +189,8 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
         <div className="flex gap-1 border-b border-border px-4">
           {(
             [
-              { id: "search", label: "Search the web", icon: Search },
+              { id: "search", label: "Search", icon: Search },
+              { id: "upload", label: "Upload", icon: Upload },
               { id: "url", label: "Paste URL", icon: LinkIcon },
             ] as const
           ).map((tab) => (
@@ -232,6 +272,58 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
                   </div>
                 )}
               </>
+            ) : mode === "upload" ? (
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => onPickFile(e.target.files?.[0])}
+                />
+                {file && filePreview ? (
+                  <div>
+                    <div className="checkered-bg relative overflow-hidden rounded-lg">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={filePreview}
+                        alt="Selected"
+                        className="aspect-square w-full object-contain p-3"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (filePreview) URL.revokeObjectURL(filePreview);
+                          setFile(null);
+                          setFilePreview(null);
+                          if (fileInputRef.current) fileInputRef.current.value = "";
+                        }}
+                        className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/80"
+                        aria-label="Remove image"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                    <p className="mt-2 truncate text-xs text-muted-foreground">{file.name}</p>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="flex aspect-square w-full flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-border text-center transition-colors hover:border-primary/50 hover:bg-muted/40"
+                  >
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                      <ImageIcon className="h-6 w-6 text-primary" />
+                    </span>
+                    <span className="px-6 text-sm font-medium">
+                      Tap to choose a photo
+                    </span>
+                    <span className="px-6 text-xs text-muted-foreground">
+                      Upload from your device or take a photo. PNG or JPG, up to 15MB.
+                    </span>
+                  </button>
+                )}
+              </div>
             ) : (
               <div>
                 <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
@@ -371,7 +463,7 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
             <button
               type="button"
               onClick={doSave}
-              disabled={!activeUrl || !name.trim() || saving}
+              disabled={!hasSource || !name.trim() || saving}
               className="mt-4 mb-[max(0rem,env(safe-area-inset-bottom))] w-full rounded-md bg-primary py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 disabled:opacity-50"
             >
               {saving ? (

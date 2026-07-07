@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { fetchAndRemoveBackground, BgEngine } from "@/lib/bg-removal";
+import {
+  fetchAndRemoveBackground,
+  processBuffer,
+  BgEngine,
+} from "@/lib/bg-removal";
 import { slugify } from "@/lib/slugify";
 import { UNSORTED } from "@/lib/collections";
 import { createClient } from "@/lib/supabase/server";
@@ -11,14 +15,17 @@ import { fromOwnedRow } from "@/lib/items";
 export const runtime = "nodejs";
 export const maxDuration = 120;
 
-interface AddBody {
-  url: string;
+const MAX_UPLOAD_BYTES = 15 * 1024 * 1024;
+
+interface AddInput {
   name: string;
-  /** Optional free-text collection name; slugified server-side. */
   collection?: string;
   tags?: string[];
   engine?: BgEngine;
+  /** One of `url` or `file` must be present. */
+  url?: string;
   source?: string;
+  file?: Buffer;
 }
 
 const imglyEnabled = () => process.env.BG_ENGINE_IMGLY_ENABLED !== "false";
@@ -33,6 +40,43 @@ function resolveEngine(requested: BgEngine, planId: "free" | "pro"): BgEngine {
   return requested;
 }
 
+async function parseInput(request: Request): Promise<AddInput | { error: string }> {
+  const contentType = request.headers.get("content-type") ?? "";
+
+  if (contentType.includes("multipart/form-data")) {
+    const form = await request.formData();
+    const file = form.get("file");
+    if (!(file instanceof File)) return { error: "No file uploaded" };
+    if (!file.type.startsWith("image/")) return { error: "File must be an image" };
+    if (file.size > MAX_UPLOAD_BYTES) return { error: "Image must be under 15MB" };
+
+    const name = String(form.get("name") ?? "").trim();
+    const rawTags = form.get("tags");
+    let tags: string[] | undefined;
+    if (typeof rawTags === "string" && rawTags) {
+      try {
+        tags = JSON.parse(rawTags);
+      } catch {
+        tags = undefined;
+      }
+    }
+
+    return {
+      name,
+      collection: (form.get("collection") as string) ?? undefined,
+      engine: (form.get("engine") as BgEngine) ?? undefined,
+      tags,
+      file: Buffer.from(await file.arrayBuffer()),
+    };
+  }
+
+  try {
+    return (await request.json()) as AddInput;
+  } catch {
+    return { error: "Invalid request body" };
+  }
+}
+
 export async function POST(request: Request) {
   const supabase = await createClient();
   const {
@@ -42,16 +86,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Not signed in" }, { status: 401 });
   }
 
-  let body: AddBody;
-  try {
-    body = (await request.json()) as AddBody;
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  const parsed = await parseInput(request);
+  if ("error" in parsed) {
+    return NextResponse.json({ error: parsed.error }, { status: 400 });
   }
+  const body = parsed;
 
-  if (!body.url || !body.name) {
+  if (!body.name || (!body.url && !body.file)) {
     return NextResponse.json(
-      { error: "url and name are required" },
+      { error: "name and an image (url or file) are required" },
       { status: 400 },
     );
   }
@@ -116,7 +159,10 @@ export async function POST(request: Request) {
   const storagePath = `${user.id}/${collection}/${slug}.png`;
 
   try {
-    const png = await fetchAndRemoveBackground(body.url, { engine });
+    // Uploaded file: process bytes directly. URL: fetch server-side first.
+    const png = body.file
+      ? await processBuffer(body.file, { engine })
+      : await fetchAndRemoveBackground(body.url!, { engine });
 
     const { error: uploadError } = await admin.storage
       .from("cutouts")
@@ -139,7 +185,7 @@ export async function POST(request: Request) {
         category: collection,
         tags: body.tags ?? [],
         storage_path: storagePath,
-        source_url: body.source ?? body.url,
+        source_url: body.file ? null : (body.source ?? body.url ?? null),
         bytes: png.byteLength,
       })
       .select()
