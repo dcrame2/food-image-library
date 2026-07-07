@@ -145,6 +145,20 @@ function ItemCard({
           <div className="pointer-events-none absolute right-0 bottom-0 left-0 hidden truncate bg-gradient-to-t from-black/85 to-transparent px-2 pt-6 pb-2 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100 md:block">
             {item.name}
           </div>
+
+          {/* Mobile: always-visible quick save (touch has no hover). */}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSave(item);
+            }}
+            className="absolute right-1.5 bottom-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm active:bg-black md:hidden"
+            aria-label={`Save ${item.name}`}
+            title="Save to device"
+          >
+            <Download className="h-4 w-4" />
+          </button>
         </>
       )}
     </motion.div>

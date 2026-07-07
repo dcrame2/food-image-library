@@ -62,48 +62,56 @@ export function AppHeader({
 
   const nearLimit = me && me.limit > 0 && me.used / me.limit >= 0.8;
 
+  const searchField = (
+    <>
+      <Search className="pointer-events-none absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+      <input
+        value={query}
+        onChange={(e) => onQueryChange(e.target.value)}
+        placeholder="Search your cutouts"
+        className="w-full rounded-md border border-border bg-card py-2 pr-8 pl-8 text-sm outline-none focus:border-primary"
+      />
+      {query && (
+        <button
+          type="button"
+          onClick={() => onQueryChange("")}
+          className="absolute top-1/2 right-2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground"
+          aria-label="Clear search"
+        >
+          <X className="h-3.5 w-3.5" />
+        </button>
+      )}
+    </>
+  );
+
   return (
-    <header className="sticky top-0 z-40 flex items-center gap-2 border-b border-border bg-background/80 px-3 py-3 backdrop-blur sm:gap-3 sm:px-4">
-      <button
-        type="button"
-        onClick={onOpenFilters}
-        className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border text-muted-foreground hover:text-foreground md:hidden"
-        aria-label="Open filters"
-      >
-        <SlidersHorizontal className="h-4.5 w-4.5" />
-        {activeFilterCount > 0 && (
-          <span className="absolute -top-1.5 -right-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
-            {activeFilterCount}
-          </span>
-        )}
-      </button>
+    <header className="sticky top-0 z-40 border-b border-border bg-background/80 px-3 py-2.5 backdrop-blur sm:px-4 sm:py-3">
+      <div className="flex items-center gap-2 sm:gap-3">
+        <button
+          type="button"
+          onClick={onOpenFilters}
+          className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border text-muted-foreground hover:text-foreground md:hidden"
+          aria-label="Open filters"
+        >
+          <SlidersHorizontal className="h-4.5 w-4.5" />
+          {activeFilterCount > 0 && (
+            <span className="absolute -top-1.5 -right-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+              {activeFilterCount}
+            </span>
+          )}
+        </button>
 
-      <Link href="/app" className="shrink-0" aria-label="Cutout Aura">
-        <Logo className="hidden text-base lg:inline-flex" />
-        <LogoMark className="h-7 w-7 lg:hidden" />
-      </Link>
+        <Link href="/app" className="shrink-0" aria-label="Cutout Aura">
+          <Logo className="hidden text-base sm:inline-flex" />
+          <LogoMark className="h-8 w-8 sm:hidden" />
+        </Link>
 
-      <div className="relative min-w-0 flex-1 sm:max-w-md">
-        <Search className="pointer-events-none absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <input
-          value={query}
-          onChange={(e) => onQueryChange(e.target.value)}
-          placeholder="Search your cutouts"
-          className="w-full rounded-md border border-border bg-card py-2 pr-8 pl-8 text-sm outline-none focus:border-primary"
-        />
-        {query && (
-          <button
-            type="button"
-            onClick={() => onQueryChange("")}
-            className="absolute top-1/2 right-2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground"
-            aria-label="Clear search"
-          >
-            <X className="h-3.5 w-3.5" />
-          </button>
-        )}
-      </div>
+        {/* Search: inline on desktop, moves to its own row on mobile. */}
+        <div className="relative hidden min-w-0 flex-1 sm:block sm:max-w-md">
+          {searchField}
+        </div>
 
-      <div className="ml-auto flex shrink-0 items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2">
         <button
           type="button"
           onClick={onToggleSelectMode}
@@ -237,8 +245,12 @@ export function AppHeader({
               </form>
             </div>
           )}
+          </div>
         </div>
       </div>
+
+      {/* Mobile-only search row, sits below the top row. */}
+      <div className="relative mt-2.5 sm:hidden">{searchField}</div>
     </header>
   );
 }
