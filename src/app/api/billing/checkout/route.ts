@@ -36,6 +36,10 @@ export async function POST() {
       success_url: `${appUrl}/app?checkout=success`,
       cancel_url: `${appUrl}/app`,
       allow_promotion_codes: true,
+      // Skip the card field whenever nothing is due now (e.g. a 100%-off
+      // "forever" promo code for friends and family). Paying customers still
+      // get the card field as normal.
+      payment_method_collection: "if_required",
       metadata: { supabase_user_id: user.id },
       subscription_data: { metadata: { supabase_user_id: user.id } },
     });
