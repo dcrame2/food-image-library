@@ -16,6 +16,7 @@ import { ItemDetailSheet } from "@/components/app/item-detail-sheet";
 import { AddItemDialog } from "@/components/app/add-item-dialog";
 import { WelcomeToProDialog } from "@/components/app/welcome-to-pro-dialog";
 import { UpgradePro } from "@/components/app/upgrade-pro";
+import { UsageMeter } from "@/components/app/usage-meter";
 import { GridSkeleton, NoResults, EmptyPersonalLibrary } from "@/components/app/empty-state";
 
 const FREE_BULK_LIMIT = 10;
@@ -299,14 +300,21 @@ export default function LibraryPage() {
           <div className="flex-1 overflow-y-auto">
             <FilterPanel {...filterPanelProps} />
           </div>
-          {me && me.plan !== "pro" && (
-            <div className="border-t border-border p-3">
-              <UpgradePro me={me} variant="card" />
+          {me && (
+            <div className="space-y-3 border-t border-border p-3">
+              <UsageMeter me={me} />
+              {me.plan !== "pro" && <UpgradePro me={me} variant="card" />}
             </div>
           )}
         </aside>
 
         <main className="flex-1 overflow-y-auto p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:p-4">
+          {me && (
+            <div className="mb-3 rounded-lg border border-border bg-card/50 p-3 md:hidden">
+              <UsageMeter me={me} />
+            </div>
+          )}
+
           {me && me.plan !== "pro" && (
             <div className="mb-3 md:hidden">
               <UpgradePro me={me} variant="bar" />
