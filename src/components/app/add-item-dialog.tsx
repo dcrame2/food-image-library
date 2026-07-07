@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { LibraryItem } from "@/lib/items";
 import type { Me } from "@/lib/me";
 import { collectionLabel } from "@/lib/collections";
 import { startCheckout } from "@/lib/billing-client";
+import { PLANS } from "@/lib/plans";
 import { ImageSearchResult } from "@/lib/serper";
 import {
   X,
@@ -62,6 +63,18 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
   const [saving, setSaving] = useState(false);
   const [upgrading, setUpgrading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Escape closes; lock body scroll while open (same pattern as the other
+  // overlays). No backdrop-click close: a stray tap should not lose form state.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
 
   async function goPro() {
     setUpgrading(true);
@@ -371,7 +384,8 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
                   You are out of cutouts this month
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Pro gets you 300 cutouts a month plus premium edge quality.
+                  Pro gets you {PLANS.pro.cutoutsPerMonth} cutouts a month plus premium
+                  edge quality.
                 </p>
                 <button
                   type="button"

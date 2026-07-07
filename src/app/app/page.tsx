@@ -303,7 +303,11 @@ export default function LibraryPage() {
           {me && (
             <div className="space-y-3 border-t border-border p-3">
               <UsageMeter me={me} />
-              {me.plan !== "pro" && <UpgradePro me={me} variant="card" />}
+              {/* Hide the upsell while the welcome dialog is up: right after
+                  checkout the webhook may not have flipped the plan yet. */}
+              {me.plan !== "pro" && !showWelcomePro && (
+                <UpgradePro me={me} variant="card" />
+              )}
             </div>
           )}
         </aside>
@@ -315,7 +319,7 @@ export default function LibraryPage() {
             </div>
           )}
 
-          {me && me.plan !== "pro" && (
+          {me && me.plan !== "pro" && !showWelcomePro && (
             <div className="mb-3 md:hidden">
               <UpgradePro me={me} variant="bar" />
             </div>

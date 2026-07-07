@@ -30,6 +30,7 @@ import {
   type ThemeMode,
 } from "@/lib/theme";
 import { openBillingPortal, startCheckout } from "@/lib/billing-client";
+import { PLANS } from "@/lib/plans";
 
 function Section({
   icon: Icon,
@@ -229,8 +230,10 @@ export default function SettingsPage() {
           ) : (
             <>
               <p className="text-sm text-muted-foreground">
-                You are on the Free plan: {me?.limit ?? 10} cutouts a month with the
-                standard engine. Pro gets 300 a month plus premium edge quality.
+                You are on the Free plan: {me?.limit ?? PLANS.free.cutoutsPerMonth}{" "}
+                cutouts a month with the standard engine. Pro gets{" "}
+                {PLANS.pro.cutoutsPerMonth} a month plus premium edge quality for $
+                {PLANS.pro.priceMonthly} per month.
               </p>
               <button
                 type="button"

@@ -19,8 +19,9 @@ const DEMO_TILES = [
   { src: "/marketing/cutouts/taco-bell-doritos-locos-taco.png", name: "Doritos Taco" },
 ];
 
+// Illustrative numbers; keep "All" equal to the category sum.
 const DEMO_CATEGORIES = [
-  { label: "All", count: 128, active: true },
+  { label: "All", count: 115, active: true },
   { label: "Branded", count: 58 },
   { label: "Drinks", count: 17 },
   { label: "Snacks", count: 17 },

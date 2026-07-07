@@ -4,7 +4,9 @@ import { Logo } from '@/components/logo';
 import { MarketingNav } from '@/components/marketing/marketing-nav';
 
 export const metadata: Metadata = {
-  title: 'Cutout Aura: Clean Cutouts of Anything',
+  // absolute: suppress the root "%s | Cutout Aura" template, which would
+  // otherwise double the brand in the home page title.
+  title: { absolute: 'Cutout Aura: Clean Cutouts of Anything' },
   description:
     'Search anything, get a crisp transparent PNG in seconds, and build a library you can pull from forever. Starter cutouts included on day one.',
   openGraph: {
@@ -62,7 +64,7 @@ export default function MarketingLayout({
             </Link>
           </div>
           <p className='text-xs text-muted-foreground'>
-            {new Date().getFullYear()} Cutout Aura
+            &copy; {new Date().getFullYear()} Cutout Aura
           </p>
         </div>
       </footer>

@@ -18,6 +18,17 @@ const CONFETTI_COLORS = ["#8b5cf6", "#c4b5fd", "#f0abfc", "#fde68a", "#ffffff"];
 export function WelcomeToProDialog({ onClose }: WelcomeToProDialogProps) {
   const pro = PLANS.pro;
 
+  // Escape closes; lock body scroll while open (same pattern as the other overlays).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
   // Celebrate the upgrade with a confetti burst on mount.
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
