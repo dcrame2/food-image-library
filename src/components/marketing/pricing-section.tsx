@@ -89,7 +89,7 @@ export function PricingSection() {
             <span className="text-sm font-normal text-muted-foreground"> per month</span>
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
-            For creators who post like it is their job. Maybe it is.
+            For anyone cutting out images all day. Creators, sellers, and busy teams.
           </p>
           <ul className="mt-6 space-y-2.5">
             {PRO_POINTS.map((p) => (
