@@ -77,9 +77,9 @@ export function MarketingNav() {
         </button>
       </div>
 
-      {/* Mobile menu panel */}
+      {/* Mobile menu panel: floats below the bar instead of growing it. */}
       {menuOpen && (
-        <div className="border-t border-border bg-background px-4 py-4 sm:hidden">
+        <div className="absolute inset-x-0 top-full z-40 border-b border-border bg-background px-4 py-4 shadow-xl sm:hidden">
           <div className="flex flex-col">
             {LINKS.map((l) => (
               <Link

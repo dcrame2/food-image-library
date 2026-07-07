@@ -53,6 +53,9 @@ function LoginForm() {
       provider: "google",
       options: {
         redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+        // Always show Google's account chooser so users can pick a different
+        // account instead of being silently re-signed into the last one.
+        queryParams: { prompt: "select_account" },
       },
     });
     if (error) {
