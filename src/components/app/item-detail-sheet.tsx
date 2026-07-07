@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, Copy, Trash2, Loader2, Check } from "lucide-react";
+import { X, Download, Copy, Trash2, Loader2, Check, Pencil } from "lucide-react";
 import clsx from "clsx";
 import type { LibraryItem } from "@/lib/items";
 import { UNSORTED, collectionLabel } from "@/lib/collections";
@@ -13,6 +13,7 @@ interface ItemDetailSheetProps {
   onSave: (item: LibraryItem) => Promise<void> | void;
   onCopy: (item: LibraryItem) => Promise<void> | void;
   onDelete: (item: LibraryItem) => Promise<void> | void;
+  onRename: (item: LibraryItem, name: string) => Promise<void> | void;
 }
 
 function isIOS(): boolean {
@@ -32,6 +33,7 @@ export function ItemDetailSheet({
   onSave,
   onCopy,
   onDelete,
+  onRename,
 }: ItemDetailSheetProps) {
   useEffect(() => {
     if (!item) return;
@@ -64,6 +66,7 @@ export function ItemDetailSheet({
             onSave={onSave}
             onCopy={onCopy}
             onDelete={onDelete}
+            onRename={onRename}
           />
         </div>
       )}
@@ -77,15 +80,36 @@ function SheetBody({
   onSave,
   onCopy,
   onDelete,
+  onRename,
 }: {
   item: LibraryItem;
   onClose: () => void;
   onSave: (item: LibraryItem) => Promise<void> | void;
   onCopy: (item: LibraryItem) => Promise<void> | void;
   onDelete: (item: LibraryItem) => Promise<void> | void;
+  onRename: (item: LibraryItem, name: string) => Promise<void> | void;
 }) {
   const [saving, setSaving] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [editingName, setEditingName] = useState(false);
+  const [nameDraft, setNameDraft] = useState(item.name);
+  const [renaming, setRenaming] = useState(false);
+
+  async function commitRename() {
+    const next = nameDraft.trim();
+    if (!next || next === item.name) {
+      setEditingName(false);
+      setNameDraft(item.name);
+      return;
+    }
+    setRenaming(true);
+    try {
+      await onRename(item, next);
+      setEditingName(false);
+    } finally {
+      setRenaming(false);
+    }
+  }
 
   const categoryLabel =
     item.category === UNSORTED ? null : collectionLabel(item.category);
@@ -120,8 +144,55 @@ function SheetBody({
 
         <div className="p-4 sm:p-5">
           <div className="flex items-start justify-between gap-3">
-            <div>
-              <h2 className="text-lg font-semibold leading-tight">{item.name}</h2>
+            <div className="min-w-0 flex-1">
+              {editingName ? (
+                <div className="flex items-center gap-2">
+                  <input
+                    autoFocus
+                    value={nameDraft}
+                    maxLength={120}
+                    onChange={(e) => setNameDraft(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") commitRename();
+                      if (e.key === "Escape") {
+                        setEditingName(false);
+                        setNameDraft(item.name);
+                      }
+                    }}
+                    className="min-w-0 flex-1 rounded-md border border-border bg-background px-2 py-1 text-lg font-semibold outline-none focus:border-primary"
+                  />
+                  <button
+                    type="button"
+                    onClick={commitRename}
+                    disabled={renaming}
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground hover:opacity-90 disabled:opacity-60"
+                    aria-label="Save name"
+                  >
+                    {renaming ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Check className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1.5">
+                  <h2 className="truncate text-lg font-semibold leading-tight">{item.name}</h2>
+                  {item.owned && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setNameDraft(item.name);
+                        setEditingName(true);
+                      }}
+                      className="shrink-0 rounded-md p-1 text-muted-foreground hover:text-foreground"
+                      aria-label="Rename"
+                    >
+                      <Pencil className="h-3.5 w-3.5" />
+                    </button>
+                  )}
+                </div>
+              )}
               <p className="mt-0.5 text-sm text-muted-foreground">
                 {categoryLabel && (
                   <>

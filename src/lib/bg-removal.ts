@@ -1,4 +1,3 @@
-import { removeBackground } from "@imgly/background-removal-node";
 import { PNG } from "pngjs";
 import {
   removeBgFromBuffer,
@@ -83,6 +82,10 @@ export async function processBuffer(
 }
 
 async function imglyRemove(input: Buffer): Promise<Buffer> {
+  // Loaded lazily so the native onnxruntime binary is only required when imgly
+  // is actually the selected engine. On serverless (Vercel) imgly is disabled
+  // via BG_ENGINE_IMGLY_ENABLED=false, so this import never runs there.
+  const { removeBackground } = await import("@imgly/background-removal-node");
   const blob = new Blob([new Uint8Array(input)], { type: "image/png" });
   const outBlob = (await removeBackground(blob, {
     model: "medium",

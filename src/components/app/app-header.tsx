@@ -6,6 +6,7 @@ import {
   Plus,
   Search,
   Download,
+  Trash2,
   CheckSquare,
   Square,
   X,
@@ -27,7 +28,8 @@ interface AppHeaderProps {
   selectMode: boolean;
   onToggleSelectMode: () => void;
   selectedCount: number;
-  onZip: () => void;
+  onSaveSelected: () => void;
+  onDeleteSelected: () => void;
   onAdd: () => void;
   onOpenFilters: () => void;
   activeFilterCount: number;
@@ -40,7 +42,8 @@ export function AppHeader({
   selectMode,
   onToggleSelectMode,
   selectedCount,
-  onZip,
+  onSaveSelected,
+  onDeleteSelected,
   onAdd,
   onOpenFilters,
   activeFilterCount,
@@ -101,9 +104,15 @@ export function AppHeader({
           )}
         </button>
 
-        <Link href="/app" className="shrink-0" aria-label="Cutout Aura">
-          <Logo className="hidden text-base sm:inline-flex" />
-          <LogoMark className="h-8 w-8 sm:hidden" />
+        <Link href="/" className="flex shrink-0 items-center" aria-label="Cutout Aura">
+          {/* Wrapper spans own the show/hide so nothing fights the Logo's
+              baked-in `inline-flex`. Exactly one is ever visible. */}
+          <span className="hidden sm:block">
+            <Logo className="text-base" />
+          </span>
+          <span className="sm:hidden">
+            <LogoMark className="h-8 w-8" />
+          </span>
         </Link>
 
         {/* Search: inline on desktop, moves to its own row on mobile. */}
@@ -127,24 +136,37 @@ export function AppHeader({
         </button>
 
         {selectMode && selectedCount > 0 && (
-          <button
-            type="button"
-            onClick={onZip}
-            className="flex h-10 items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground hover:opacity-90"
-          >
-            <Download className="h-4 w-4" />
-            Zip ({selectedCount})
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={onSaveSelected}
+              className="flex h-10 items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground hover:opacity-90"
+            >
+              <Download className="h-4 w-4" />
+              <span className="hidden sm:inline">Save </span>({selectedCount})
+            </button>
+            <button
+              type="button"
+              onClick={onDeleteSelected}
+              className="flex h-10 items-center gap-1.5 rounded-md border border-destructive/60 px-3 text-sm font-medium text-destructive transition-colors hover:bg-destructive hover:text-destructive-foreground"
+              aria-label={`Delete ${selectedCount} selected`}
+            >
+              <Trash2 className="h-4 w-4" />
+              <span className="hidden sm:inline">Delete</span>
+            </button>
+          </>
         )}
 
-        <button
-          type="button"
-          onClick={onAdd}
-          className="flex h-10 items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground hover:opacity-90"
-        >
-          <Plus className="h-4 w-4" />
-          <span className="hidden sm:inline">Add</span>
-        </button>
+        {!(selectMode && selectedCount > 0) && (
+          <button
+            type="button"
+            onClick={onAdd}
+            className="flex h-10 items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground hover:opacity-90"
+          >
+            <Plus className="h-4 w-4" />
+            <span className="hidden sm:inline">Add</span>
+          </button>
+        )}
 
         <div className="relative" ref={menuRef}>
           <button
@@ -162,7 +184,7 @@ export function AppHeader({
           </button>
 
           {menuOpen && (
-            <div className="absolute top-12 right-0 w-64 overflow-hidden rounded-xl border border-border bg-card shadow-2xl">
+            <div className="absolute top-12 right-0 z-50 w-64 overflow-hidden rounded-xl border border-border bg-card shadow-2xl">
               <div className="border-b border-border p-3.5">
                 <p className="truncate text-sm font-medium">{me?.email ?? "Signed in"}</p>
                 <div className="mt-2 flex items-center justify-between">

@@ -36,7 +36,9 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const next = searchParams.get("next") ?? "/app";
 
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "signup">(
+    searchParams.get("mode") === "signup" ? "signup" : "signin",
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState<"google" | "email" | null>(null);

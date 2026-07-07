@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
+import { MarketingNav } from "@/components/marketing/marketing-nav";
 
 export const metadata: Metadata = {
   title: "Cutout Aura: clean cutouts of anything",
@@ -13,38 +14,7 @@ export default function MarketingLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="flex min-h-dvh flex-col">
-      <nav className="sticky top-0 z-40 border-b border-border bg-background/70 backdrop-blur-lg">
-        <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4 sm:px-6">
-          <Link href="/" className="text-base">
-            <Logo />
-          </Link>
-          <div className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
-            <Link href="/#features" className="hover:text-foreground">
-              Features
-            </Link>
-            <Link href="/pricing" className="hover:text-foreground">
-              Pricing
-            </Link>
-            <Link href="/#faq" className="hover:text-foreground">
-              FAQ
-            </Link>
-          </div>
-          <div className="ml-auto flex items-center gap-2">
-            <Link
-              href="/login"
-              className="rounded-lg px-3 py-2 text-sm text-muted-foreground hover:text-foreground"
-            >
-              Sign in
-            </Link>
-            <Link
-              href="/app"
-              className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[0_0_24px_-4px_hsl(var(--primary)/0.5)] hover:opacity-90"
-            >
-              Open the app
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <MarketingNav />
 
       <main className="flex-1">{children}</main>
 

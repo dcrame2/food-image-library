@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { HeroCta } from "@/components/marketing/hero-cta";
 
 // Real cutouts from the starter library, bundled locally so the landing page
 // never depends on storage being reachable.
@@ -35,27 +34,10 @@ export function Hero() {
         </h1>
         <p className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
           Search anything on the web and get a crisp, transparent PNG in seconds.
-          No lasso tool, no green screen, no Photoshop degree. Just clean cutouts,
-          organized and ready whenever you are.
+          No manual erasing, no green screen, no Photoshop degree. Just clean
+          cutouts, organized and ready whenever you are.
         </p>
-        <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
-          <Link
-            href="/login"
-            className="flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.6)] transition-transform hover:scale-[1.02]"
-          >
-            Start cutting, free
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link
-            href="/pricing"
-            className="rounded-xl border border-border px-6 py-3 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
-          >
-            See pricing
-          </Link>
-        </div>
-        <p className="mt-4 text-xs text-muted-foreground">
-          Free plan included. No card required.
-        </p>
+        <HeroCta />
       </div>
 
       <div className="relative overflow-hidden pb-10 [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">

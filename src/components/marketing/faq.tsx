@@ -1,3 +1,5 @@
+import { ChevronDown } from "lucide-react";
+
 const FAQS = [
   {
     q: "What exactly is a cutout?",
@@ -38,8 +40,9 @@ export function Faq() {
               key={f.q}
               className="group rounded-xl border border-border bg-background/60 px-5 py-4"
             >
-              <summary className="cursor-pointer list-none text-sm font-semibold marker:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold marker:hidden">
                 {f.q}
+                <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
               </summary>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
             </details>

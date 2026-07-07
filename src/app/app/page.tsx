@@ -1,13 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import JSZip from "jszip";
 import clsx from "clsx";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import { fromOwnedRow, fromPublicRow, type LibraryItem } from "@/lib/items";
 import { UNSORTED, collectionLabel } from "@/lib/collections";
-import { saveItem, copyItemToClipboard } from "@/lib/download";
+import { saveItem, saveManyItems, copyItemToClipboard } from "@/lib/download";
 import type { Me } from "@/lib/me";
 import { AppHeader } from "@/components/app/app-header";
 import { FilterPanel, type Source } from "@/components/app/filter-panel";
@@ -17,7 +16,7 @@ import { ItemDetailSheet } from "@/components/app/item-detail-sheet";
 import { AddItemDialog } from "@/components/app/add-item-dialog";
 import { GridSkeleton, NoResults, EmptyPersonalLibrary } from "@/components/app/empty-state";
 
-const FREE_ZIP_LIMIT = 10;
+const FREE_BULK_LIMIT = 10;
 
 export default function LibraryPage() {
   const supabase = useMemo(() => createClient(), []);
@@ -164,38 +163,83 @@ export default function LibraryPage() {
     });
   }
 
-  async function downloadSelectedAsZip() {
+  async function handleRename(item: LibraryItem, name: string) {
+    const trimmed = name.trim();
+    if (!trimmed || trimmed === item.name) return;
+    const res = await fetch("/api/rename", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: item.id, name: trimmed }),
+    });
+    if (res.ok) {
+      setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, name: trimmed } : i)));
+      setDetailItem((prev) => (prev && prev.id === item.id ? { ...prev, name: trimmed } : prev));
+      toast.success("Renamed");
+    } else {
+      const data = await res.json().catch(() => null);
+      toast.error(data?.error ?? "Rename failed");
+    }
+  }
+
+  // Bulk save: mobile shares every PNG to Photos in one sheet, desktop zips.
+  async function saveSelected() {
     if (selectedIds.size === 0) return;
-    if (me?.plan !== "pro" && selectedIds.size > FREE_ZIP_LIMIT) {
-      toast.error(`Free plan zips up to ${FREE_ZIP_LIMIT} cutouts at a time. Pro is unlimited.`);
+    if (me?.plan !== "pro" && selectedIds.size > FREE_BULK_LIMIT) {
+      toast.error(`Free plan saves up to ${FREE_BULK_LIMIT} cutouts at once. Pro is unlimited.`);
       return;
     }
     const targets = items.filter((i) => selectedIds.has(i.id));
-    const zipToast = toast.loading(`Zipping ${targets.length} cutouts...`);
-    try {
-      const zip = new JSZip();
-      await Promise.all(
-        targets.map(async (item) => {
-          const res = await fetch(item.publicUrl);
-          const blob = await res.blob();
-          zip.file(`${item.category}/${item.slug}.png`, blob);
-        }),
-      );
-      const blob = await zip.generateAsync({ type: "blob" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `cutouts-${new Date().toISOString().slice(0, 10)}.zip`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      toast.success("Zip ready", { id: zipToast });
-      setSelectMode(false);
-      setSelectedIds(new Set());
-    } catch {
-      toast.error("Zip failed", { id: zipToast });
+    const saveToast = toast.loading(`Saving ${targets.length} cutouts...`);
+    const result = await saveManyItems(targets);
+    if (result === "cancelled") {
+      toast.dismiss(saveToast);
+      return;
     }
+    if (result === "failed") {
+      toast.error("Save failed", { id: saveToast });
+      return;
+    }
+    toast.success(result === "shared" ? "Saved" : "Zip ready", { id: saveToast });
+    setSelectMode(false);
+    setSelectedIds(new Set());
+  }
+
+  // Bulk delete: only the user's own items can be removed.
+  function deleteSelected() {
+    const targets = items.filter((i) => selectedIds.has(i.id) && i.owned);
+    if (targets.length === 0) {
+      toast.error("Starter cutouts can't be deleted.");
+      return;
+    }
+    toast(`Delete ${targets.length} cutout${targets.length > 1 ? "s" : ""}?`, {
+      action: {
+        label: "Delete",
+        onClick: async () => {
+          const delToast = toast.loading(`Deleting ${targets.length}...`);
+          const results = await Promise.all(
+            targets.map((item) =>
+              fetch("/api/delete", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: item.id }),
+              }).then((res) => ({ id: item.id, ok: res.ok })),
+            ),
+          );
+          const deleted = new Set(results.filter((r) => r.ok).map((r) => r.id));
+          setItems((prev) => prev.filter((i) => !deleted.has(i.id)));
+          setSelectedIds(new Set());
+          setSelectMode(false);
+          const failed = results.length - deleted.size;
+          if (failed > 0) {
+            toast.error(`Deleted ${deleted.size}, ${failed} failed`, { id: delToast });
+          } else {
+            toast.success(`Deleted ${deleted.size} cutout${deleted.size > 1 ? "s" : ""}`, {
+              id: delToast,
+            });
+          }
+        },
+      },
+    });
   }
 
   const filterPanelProps = {
@@ -224,7 +268,8 @@ export default function LibraryPage() {
           setSelectedIds(new Set());
         }}
         selectedCount={selectedIds.size}
-        onZip={downloadSelectedAsZip}
+        onSaveSelected={saveSelected}
+        onDeleteSelected={deleteSelected}
         onAdd={() => setShowAdd(true)}
         onOpenFilters={() => setShowFilters(true)}
         activeFilterCount={activeFilterCount}
@@ -346,6 +391,7 @@ export default function LibraryPage() {
         onSave={handleSave}
         onCopy={handleCopy}
         onDelete={doDelete}
+        onRename={handleRename}
       />
 
       {showAdd && (
