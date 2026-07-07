@@ -94,6 +94,13 @@ async function imglyRemove(input: Buffer): Promise<Buffer> {
   return Buffer.from(await outBlob.arrayBuffer());
 }
 
+/**
+ * A genuine cutout has a transparent background all the way around the
+ * subject, so we require most of the border ring to be transparent. Checking
+ * only corners false-positives on white-background images that merely have
+ * transparent rounded corners or padding, which then skip bg-removal and come
+ * out with the background still baked in.
+ */
 function isAlreadyTransparent(buffer: Buffer): boolean {
   let decoded;
   try {
@@ -102,9 +109,24 @@ function isAlreadyTransparent(buffer: Buffer): boolean {
     return false;
   }
   const { width, height, data } = decoded;
-  const px = (x: number, y: number) => data[(y * width + x) * 4 + 3];
-  const corners = [px(0, 0), px(width - 1, 0), px(0, height - 1), px(width - 1, height - 1)];
-  return corners.some((a) => a < 250);
+  if (width < 2 || height < 2) return false;
+  const alpha = (x: number, y: number) => data[(y * width + x) * 4 + 3];
+
+  let transparent = 0;
+  let total = 0;
+  const stepX = Math.max(1, Math.floor(width / 64));
+  const stepY = Math.max(1, Math.floor(height / 64));
+  for (let x = 0; x < width; x += stepX) {
+    total += 2;
+    if (alpha(x, 0) < 250) transparent++;
+    if (alpha(x, height - 1) < 250) transparent++;
+  }
+  for (let y = 0; y < height; y += stepY) {
+    total += 2;
+    if (alpha(0, y) < 250) transparent++;
+    if (alpha(width - 1, y) < 250) transparent++;
+  }
+  return transparent / total >= 0.6;
 }
 
 function boostAlpha(buffer: Buffer): Buffer {

@@ -42,7 +42,13 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState<"google" | "email" | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  // The auth callback redirects here with ?error=auth when a link is expired
+  // or was opened in a different browser than the one that requested it.
+  const [error, setError] = useState<string | null>(() =>
+    searchParams.get("error") === "auth"
+      ? "That link did not work or has expired. Sign in below, or create your account again."
+      : null,
+  );
   const [notice, setNotice] = useState<string | null>(null);
 
   async function signInWithGoogle() {

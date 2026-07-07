@@ -1,11 +1,34 @@
 import JSZip from "jszip";
 import { downloadUrlFor, type LibraryItem } from "@/lib/items";
 
-export type SaveResult = "shared" | "downloaded" | "cancelled";
-export type SaveManyResult = "shared" | "zipped" | "cancelled" | "failed";
+export type SaveResult = "shared" | "downloaded" | "cancelled" | "retry";
+export type SaveManyResult = "shared" | "zipped" | "cancelled" | "failed" | "retry";
 
 function isTouchDevice(): boolean {
   return typeof navigator !== "undefined" && navigator.maxTouchPoints > 0;
+}
+
+/**
+ * Prepared share files, keyed by URL. iOS Safari only allows navigator.share
+ * inside a fresh user gesture, and awaiting a network fetch can consume it.
+ * When that happens we cache the file and ask for a second tap: the retry
+ * shares from cache with no await in the way, so the gesture survives.
+ */
+const fileCache = new Map<string, File>();
+const FILE_CACHE_MAX = 24;
+
+async function fileFor(url: string, filename: string): Promise<File> {
+  const cached = fileCache.get(url);
+  if (cached) return cached;
+  const res = await fetch(url, { cache: "force-cache" });
+  const blob = await res.blob();
+  const file = new File([blob], filename, { type: "image/png" });
+  if (fileCache.size >= FILE_CACHE_MAX) {
+    const oldest = fileCache.keys().next().value;
+    if (oldest) fileCache.delete(oldest);
+  }
+  fileCache.set(url, file);
+  return file;
 }
 
 /**
@@ -18,11 +41,11 @@ export async function saveItem(item: LibraryItem): Promise<SaveResult> {
   const filename = `${item.slug}.png`;
 
   if (isTouchDevice() && typeof navigator.canShare === "function") {
+    let shareSupported = false;
     try {
-      const res = await fetch(item.publicUrl);
-      const blob = await res.blob();
-      const file = new File([blob], filename, { type: "image/png" });
+      const file = await fileFor(item.publicUrl, filename);
       if (navigator.canShare({ files: [file] })) {
+        shareSupported = true;
         await navigator.share({ files: [file] });
         return "shared";
       }
@@ -30,6 +53,9 @@ export async function saveItem(item: LibraryItem): Promise<SaveResult> {
       if (err instanceof DOMException && err.name === "AbortError") {
         return "cancelled";
       }
+      // Share is supported but the tap's permission window expired while the
+      // image downloaded. It is cached now; a second tap will share instantly.
+      if (shareSupported) return "retry";
       // Fall through to the anchor download.
     }
   }
@@ -48,15 +74,13 @@ export async function saveManyItems(items: LibraryItem[]): Promise<SaveManyResul
   if (items.length === 0) return "failed";
 
   if (isTouchDevice() && typeof navigator.canShare === "function") {
+    let shareSupported = false;
     try {
       const files = await Promise.all(
-        items.map(async (item) => {
-          const res = await fetch(item.publicUrl);
-          const blob = await res.blob();
-          return new File([blob], `${item.slug}.png`, { type: "image/png" });
-        }),
+        items.map((item) => fileFor(item.publicUrl, `${item.slug}.png`)),
       );
       if (navigator.canShare({ files })) {
+        shareSupported = true;
         await navigator.share({ files });
         return "shared";
       }
@@ -64,6 +88,8 @@ export async function saveManyItems(items: LibraryItem[]): Promise<SaveManyResul
       if (err instanceof DOMException && err.name === "AbortError") {
         return "cancelled";
       }
+      // Same gesture-expiry case as saveItem: files are cached, retry works.
+      if (shareSupported) return "retry";
       // Fall through to the zip download.
     }
   }

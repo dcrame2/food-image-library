@@ -153,6 +153,7 @@ export default function LibraryPage() {
     const result = await saveItem(item);
     if (result === "downloaded") toast.success("Downloading");
     else if (result === "shared") toast.success("Saved");
+    else if (result === "retry") toast("Ready. Tap save again to open the share sheet.");
   }
 
   async function handleCopy(item: LibraryItem) {
@@ -212,6 +213,10 @@ export default function LibraryPage() {
     const result = await saveManyItems(targets);
     if (result === "cancelled") {
       toast.dismiss(saveToast);
+      return;
+    }
+    if (result === "retry") {
+      toast("Ready. Tap save again to open the share sheet.", { id: saveToast });
       return;
     }
     if (result === "failed") {
