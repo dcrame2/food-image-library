@@ -1,6 +1,6 @@
 "use client";
 
-import { CATEGORIES, CategoryId } from "@/lib/categories";
+import { CATEGORY_GROUPS, CategoryId } from "@/lib/categories";
 import clsx from "clsx";
 
 interface CategorySidebarProps {
@@ -57,28 +57,37 @@ export function CategorySidebar({
         <span className="text-xs opacity-60">{totalCount}</span>
       </button>
 
-      <div className="space-y-0.5">
-        {CATEGORIES.map((c) => {
-          const isOn = selected.has(c.id);
-          const n = counts[c.id] ?? 0;
-          return (
-            <button
-              key={c.id}
-              type="button"
-              onClick={() => onToggle(c.id)}
-              className={clsx(
-                "flex w-full items-center justify-between rounded-md px-2.5 py-1.5 text-sm transition-colors",
-                isOn
-                  ? "bg-primary/15 text-primary"
-                  : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground",
-                n === 0 && !isOn && "opacity-50",
-              )}
-            >
-              <span>{c.label}</span>
-              <span className="text-xs opacity-60">{n}</span>
-            </button>
-          );
-        })}
+      <div className="space-y-3">
+        {CATEGORY_GROUPS.map((group) => (
+          <div key={group.id}>
+            <h3 className="mb-1 px-2.5 text-[10px] font-semibold tracking-wider text-muted-foreground/70 uppercase">
+              {group.label}
+            </h3>
+            <div className="space-y-0.5">
+              {group.categories.map((c) => {
+                const isOn = selected.has(c.id);
+                const n = counts[c.id] ?? 0;
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => onToggle(c.id)}
+                    className={clsx(
+                      "flex w-full items-center justify-between rounded-md px-2.5 py-1.5 text-sm transition-colors",
+                      isOn
+                        ? "bg-primary/15 text-primary"
+                        : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground",
+                      n === 0 && !isOn && "opacity-50",
+                    )}
+                  >
+                    <span>{c.label}</span>
+                    <span className="text-xs opacity-60">{n}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
 
       {availableTags.length > 0 && (

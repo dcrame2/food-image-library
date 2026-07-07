@@ -93,6 +93,15 @@
       "added": "2026-05-23"
     },
     {
+      "id": "avacado-toast-with-eggs",
+      "name": "avacado toast with eggs",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/avacado-toast-with-eggs.png",
+      "source": "https://png.pngtree.com/png-clipart/20250507/original/pngtree-a-slice-of-avocado-toast-topped-with-hard-boiled-eggs-against-png-image_20794866.png",
+      "added": "2026-06-29"
+    },
+    {
       "id": "avocado",
       "name": "Avocado",
       "category": "fruits",
@@ -102,6 +111,24 @@
       "file": "/foods/fruits/avocado.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/avacado.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "bagel",
+      "name": "bagel",
+      "category": "carbs",
+      "tags": [],
+      "file": "/foods/carbs/bagel.png",
+      "source": "https://png.pngtree.com/png-vector/20241228/ourlarge/pngtree-bagel-transparent-image-png-image_14929050.png",
+      "added": "2026-06-06"
+    },
+    {
+      "id": "bagel-with-peanut-butter",
+      "name": "bagel with peanut butter",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/bagel-with-peanut-butter.png",
+      "source": "https://c8.alamy.com/comp/CRXM1E/bagel-with-peanut-butter-CRXM1E.jpg",
+      "added": "2026-06-29"
     },
     {
       "id": "banana",
@@ -282,6 +309,15 @@
       "file": "/foods/fruits/blueberries.png",
       "source": "https://pngimg.com/uploads/blueberries/blueberries_PNG39.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "bpn-go-gel",
+      "name": "BPN go gel",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/bpn-go-gel.png",
+      "source": "https://cdn.shopify.com/s/files/1/1515/2714/files/BPN_GoGel_AppleCinn_NSF_SS.png?v=1739380085",
+      "added": "2026-06-17"
     },
     {
       "id": "breakfast-plate",
@@ -510,6 +546,15 @@
       "added": "2026-05-23"
     },
     {
+      "id": "chicken-and-rice",
+      "name": "chicken and rice",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/chicken-and-rice.png",
+      "source": "https://png.pngtree.com/png-clipart/20250118/original/pngtree-a-bowl-of-greek-yogurt-with-fresh-berries-on-transparent-background-png-image_20059698.png",
+      "added": "2026-06-29"
+    },
+    {
       "id": "chicken-rice-veggies-plate",
       "name": "Chicken Rice Veggies Plate",
       "category": "meals",
@@ -617,6 +662,15 @@
       "added": "2026-05-23"
     },
     {
+      "id": "clif-bloks",
+      "name": "clif bloks",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/clif-bloks.png",
+      "source": "http://www.velodrom.cc/cdn/shop/files/clif-bloks-energy-chews-strawberry1200105000007.webp?v=1729996250",
+      "added": "2026-06-17"
+    },
+    {
       "id": "coca-cola",
       "name": "Coca-Cola",
       "category": "drinks",
@@ -680,6 +734,17 @@
       "added": "2026-05-23"
     },
     {
+      "id": "dairy-queen-blizzard",
+      "name": "dairy queen blizzard",
+      "category": "branded",
+      "tags": [
+        "dessert"
+      ],
+      "file": "/foods/branded/dairy-queen-blizzard.png",
+      "source": "https://www.nicepng.com/png/detail/321-3212909_dq-blizzard.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "doritos",
       "name": "Doritos",
       "category": "branded",
@@ -704,6 +769,15 @@
       "added": "2026-05-23"
     },
     {
+      "id": "electrolytes-lmnt",
+      "name": "electrolytes lmnt",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/electrolytes-lmnt.png",
+      "source": "https://res.cloudinary.com/drinklmnt/image/upload/f_auto,q_auto/f_auto,q_auto/v1745346374/lmnt-stick-pack-lemonade_hvv3ze.webp",
+      "added": "2026-06-06"
+    },
+    {
       "id": "fairlife-chocolate-milk",
       "name": "Fairlife Chocolate Milk",
       "category": "branded",
@@ -713,6 +787,15 @@
       "file": "/foods/branded/fairlife-chocolate-milk.png",
       "source": "https://fairlife.com/wp-content/uploads/2023/01/ufm-52oz-choc-product.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "fairlife-protein-shake",
+      "name": "fairlife protein shake",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/fairlife-protein-shake.png",
+      "source": "https://fairlife.com/wp-content/uploads/2026/03/FL-CP-26g-Strawberry_Banana-wFlavor_Cues-1cp-elite-chocolate-2023-1.webp",
+      "added": "2026-06-06"
     },
     {
       "id": "frozen-treat",
@@ -746,6 +829,15 @@
       "file": "/foods/branded/fruit-riot-mango.png",
       "source": "https://images.albertsons-media.com/is/image/ABS/971300212-C1N1?$ng-ecom-pdp-mobile$&defaultImage=Not_Available",
       "added": "2026-05-23"
+    },
+    {
+      "id": "g1m-carb-mix",
+      "name": "g1m carb mix",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/g1m-carb-mix.png",
+      "source": "https://m.media-amazon.com/images/I/71OCLp66NIL._AC_UF1000,1000_QL80_.jpg",
+      "added": "2026-06-08"
     },
     {
       "id": "ghost-sour-patch-kids-energy",
@@ -797,6 +889,15 @@
       "added": "2026-05-23"
     },
     {
+      "id": "greek-yogurt-with-fruit",
+      "name": "greek yogurt with fruit",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/greek-yogurt-with-fruit.png",
+      "source": "https://png.pngtree.com/png-clipart/20250118/original/pngtree-a-bowl-of-greek-yogurt-with-fresh-berries-on-transparent-background-png-image_20059698.png",
+      "added": "2026-06-29"
+    },
+    {
       "id": "green-smoothie",
       "name": "Green Smoothie",
       "category": "drinks",
@@ -818,6 +919,33 @@
       "file": "/foods/proteins/ground-beef.png",
       "source": "https://static.vecteezy.com/system/resources/previews/054/125/631/non_2x/side-view-ground-beef-transparent-background-png.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "ground-beef-with-rice-and-veggies",
+      "name": "ground beef with rice and veggies",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/ground-beef-with-rice-and-veggies.png",
+      "source": "https://png.pngtree.com/png-vector/20250829/ourlarge/pngtree-grilled-chicken-alfredo-pasta-isolated-on-transparent-background-is-a-delicious-png-image_17203541.webp",
+      "added": "2026-06-29"
+    },
+    {
+      "id": "gu-gel",
+      "name": "gu gel",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/gu-gel.png",
+      "source": "https://portlandrunning.com/cdn/shop/files/geltransparent_16.png?v=1684438260&width=1214",
+      "added": "2026-06-17"
+    },
+    {
+      "id": "gu-roctane-carb-mix",
+      "name": "gu roctane carb mix",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/gu-roctane-carb-mix.png",
+      "source": "https://guenergy.com/cdn/shop/files/GU_Roctane_DrinkMix_Single_-_Lemon_Berry.png?v=1676402202&width=996",
+      "added": "2026-06-17"
     },
     {
       "id": "halo-top-vanilla-bean",
@@ -845,6 +973,42 @@
       "added": "2026-05-23"
     },
     {
+      "id": "hoka-clifton-10s",
+      "name": "hoka clifton 10s",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/hoka-clifton-10s.png",
+      "source": "https://runninglabstore.com/cdn/shop/files/1162050-CRDS_1.png?v=1743082773",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "hoka-mach-7s",
+      "name": "hoka mach 7s",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/hoka-mach-7s.png",
+      "source": "https://www.confluencerunning.com/cdn/shop/files/1171938-FTRS_6.png?v=1765830792",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "honey-stinger-gel",
+      "name": "honey stinger gel",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/honey-stinger-gel.png",
+      "source": "https://cdn.shopify.com/s/files/1/1515/2714/files/honeystinger_energygel_raspberrylemonade_ss.png?v=1775748896",
+      "added": "2026-06-17"
+    },
+    {
+      "id": "honey-stinger-gels",
+      "name": "honey stinger gels",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/honey-stinger-gels.png",
+      "source": "https://cdn.shopify.com/s/files/1/1515/2714/files/honeystinger_fruitsmoothie_ss_1200x1200.png?v=1777073539",
+      "added": "2026-06-06"
+    },
+    {
       "id": "hummus-pita",
       "name": "Hummus & Pita",
       "category": "snacks",
@@ -855,6 +1019,42 @@
       "file": "/foods/snacks/hummus-pita.png",
       "source": "https://static.vecteezy.com/system/resources/thumbnails/055/669/281/small/high-resolution-bowl-of-hummus-with-pita-bread-and-chickpeas-garnished-with-herbs-png.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "instagram-icon-logo",
+      "name": "instagram icon logo",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/instagram-icon-logo.png",
+      "source": "https://img.magnific.com/premium-vector/instagram-vector-logo-icon-social-media-logotype_901408-392.jpg?semt=ais_hybrid&w=740&q=80",
+      "added": "2026-06-18"
+    },
+    {
+      "id": "ironman-california",
+      "name": "ironman california",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/ironman-california.png",
+      "source": "https://assets.simpleviewinc.com/simpleview/image/upload/v1/clients/sacramento/IRONMANCalifornia_01_3326695e-0ef1-41a9-8a42-ae9d1c8af286.png",
+      "added": "2026-06-17"
+    },
+    {
+      "id": "ironman-logo",
+      "name": "ironman logo",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/ironman-logo.png",
+      "source": "https://images.seeklogo.com/logo-png/30/1/ironman-logo-png_seeklogo-306622.png",
+      "added": "2026-06-17"
+    },
+    {
+      "id": "ironman-logo-white",
+      "name": "ironman logo white",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/ironman-logo-white.png",
+      "source": "https://cdn.freebiesupply.com/logos/large/2x/ironman-logo-png-transparent.png",
+      "added": "2026-06-17"
     },
     {
       "id": "kind-dark-chocolate-nuts-sea-salt",
@@ -1022,6 +1222,33 @@
       "added": "2026-05-23"
     },
     {
+      "id": "maurten-bars",
+      "name": "maurten bars",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/maurten-bars.png",
+      "source": "https://kitathletic.cc/cdn/shop/files/MAURTENSOLIDC1601_800x.png?v=1754389709",
+      "added": "2026-06-17"
+    },
+    {
+      "id": "maurten-carb-mix",
+      "name": "maurten carb mix",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/maurten-carb-mix.png",
+      "source": "https://cdn.shopify.com/s/files/1/1515/2714/files/MaurtenDrinkMix_160.png?v=1762198175",
+      "added": "2026-06-08"
+    },
+    {
+      "id": "maurten-gels",
+      "name": "maurten gels",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/maurten-gels.png",
+      "source": "https://cdn.shopify.com/s/files/1/1515/2714/files/Maurten100_Gel_Update25.png?v=1762198230",
+      "added": "2026-06-06"
+    },
+    {
       "id": "mcdonald-s-big-mac",
       "name": "McDonald's Big Mac",
       "category": "fast-food",
@@ -1117,6 +1344,15 @@
       "added": "2026-05-23"
     },
     {
+      "id": "mortal-hydration",
+      "name": "mortal hydration",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/mortal-hydration.png",
+      "source": "https://cdn.shopify.com/s/files/1/1515/2714/files/MortalHydration_Render_ss_007_1200x1200.png?v=1781130119",
+      "added": "2026-06-17"
+    },
+    {
       "id": "mountain-dew",
       "name": "Mountain Dew",
       "category": "drinks",
@@ -1127,6 +1363,15 @@
       "file": "/foods/drinks/mountain-dew.png",
       "source": "https://i.pinimg.com/originals/6b/03/99/6b0399446542ea71c929940aed26e7a1.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "muffin",
+      "name": "muffin",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/muffin.png",
+      "source": "https://assets.stickpng.com/images/589605c8cba9841eabab60f1.png",
+      "added": "2026-06-29"
     },
     {
       "id": "muscle-milk-vanilla",
@@ -1142,6 +1387,33 @@
       "added": "2026-05-23"
     },
     {
+      "id": "myfitnesspal-app-icon",
+      "name": "MyFitnessPal App Icon",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/myfitnesspal-app-icon.png",
+      "source": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQR98fh5guIEm0mGwWrXzYUFOcq0bHsVU9Rw&s",
+      "added": "2026-06-18"
+    },
+    {
+      "id": "nerds-clusers",
+      "name": "nerds clusers",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/nerds-clusers.png",
+      "source": "https://www.nerdscandy.com/sites/default/files/2024-10/Nerds_Gummy_Clusters_Packshots_en-gb_0.png",
+      "added": "2026-06-29"
+    },
+    {
+      "id": "nike-hoodie",
+      "name": "nike hoodie",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/nike-hoodie.png",
+      "source": "https://assets.stickpng.com/images/58e38d00204d556bbd97b162.png",
+      "added": "2026-05-23"
+    },
+    {
       "id": "no-cow-chunky-peanut-butter-bar",
       "name": "No Cow Chunky Peanut Butter Bar",
       "category": "branded",
@@ -1154,6 +1426,15 @@
       "file": "/foods/branded/no-cow-chunky-peanut-butter-bar.png",
       "source": "https://nocow.com/cdn/shop/files/Chunky_Peanut_Butter_Performance_Bar_Product_Render_New_1.png?v=1774983676&width=800",
       "added": "2026-05-23"
+    },
+    {
+      "id": "nuun",
+      "name": "nuun",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/nuun.png",
+      "source": "https://nuunlife.com/cdn/shop/files/Nuun_Tube_Upright_withTabs_Strawberry_lemonade_web.png?v=1744037007&width=800",
+      "added": "2026-06-17"
     },
     {
       "id": "oatmeal",
@@ -1347,6 +1628,15 @@
       "added": "2026-05-23"
     },
     {
+      "id": "pickle-juice-shots",
+      "name": "pickle juice shots",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/pickle-juice-shots.png",
+      "source": "https://cdn.shopify.com/s/files/1/1515/2714/files/PickleJuice_transp_1200x1200.png?v=1780962055",
+      "added": "2026-06-17"
+    },
+    {
       "id": "pineapple",
       "name": "Pineapple",
       "category": "fruits",
@@ -1436,6 +1726,42 @@
       "file": "/foods/proteins/pork-bacon.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/pork bacon.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "potatoes",
+      "name": "potatoes",
+      "category": "carbs",
+      "tags": [],
+      "file": "/foods/carbs/potatoes.png",
+      "source": "https://www.freeiconspng.com/uploads/potato-png-6.png",
+      "added": "2026-06-06"
+    },
+    {
+      "id": "precision-hydration-carb-mix",
+      "name": "precision hydration carb mix",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/precision-hydration-carb-mix.png",
+      "source": "https://cdn.shopify.com/s/files/1/0334/2368/7725/files/PFCarbElectrolyteDrinkMix-Front.webp?v=1692962317",
+      "added": "2026-06-08"
+    },
+    {
+      "id": "precision-hydration-chews",
+      "name": "precision hydration chews",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/precision-hydration-chews.png",
+      "source": "https://cdn.shopify.com/s/files/1/1515/2714/files/PF_60Chew_MintLemon.png?v=1743436639",
+      "added": "2026-06-17"
+    },
+    {
+      "id": "precision-hydration-gel",
+      "name": "precision hydration gel",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/precision-hydration-gel.png",
+      "source": "https://cdn.shopify.com/s/files/1/1515/2714/files/pf30_gel30_clipped.png?v=1757622404",
+      "added": "2026-06-17"
     },
     {
       "id": "premier-protein-chocolate-shake",
@@ -1552,6 +1878,15 @@
       "added": "2026-05-23"
     },
     {
+      "id": "recovery-boots",
+      "name": "recovery boots",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/recovery-boots.png",
+      "source": "https://hyperice.com/cdn/shop/files/Normatec3Legs1.png?v=1781803460&width=1920",
+      "added": "2026-06-23"
+    },
+    {
       "id": "red-bull",
       "name": "Red Bull",
       "category": "drinks",
@@ -1561,6 +1896,24 @@
       "file": "/foods/drinks/red-bull.png",
       "source": "https://www.citypng.com/public/uploads/preview/hd-cold-red-bull-energy-can-png-704081694866460pgcw74jrpi.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "red-lacrosse-ball",
+      "name": "red lacrosse ball",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/red-lacrosse-ball.png",
+      "source": "https://www.fitnesssuperstore.com/cdn/shop/files/FF-LB-2_main.webp",
+      "added": "2026-06-23"
+    },
+    {
+      "id": "red-light-therapy-panel",
+      "name": "red light therapy panel",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/red-light-therapy-panel.png",
+      "source": "https://gimmethegoodstuff.org/cdn/shop/files/IMG_5036-_E6_96_B0_E6_AC_BEv-930x930.png?v=1762442452",
+      "added": "2026-06-23"
     },
     {
       "id": "red-onion",
@@ -1610,6 +1963,15 @@
       "file": "/foods/snacks/rice-cake.png",
       "source": "file:///Users/dylancramer/Downloads/Food images/rice cake.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "running-waffles",
+      "name": "running waffles",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/running-waffles.png",
+      "source": "https://www.sefiles.net/images/library/large/honey-stinger-organic-waffle-235530-111.png",
+      "added": "2026-06-29"
     },
     {
       "id": "rxbar-chocolate-sea-salt",
@@ -1672,6 +2034,15 @@
       "added": "2026-05-23"
     },
     {
+      "id": "salt-stick-tabs",
+      "name": "salt stick tabs",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/salt-stick-tabs.png",
+      "source": "https://cdn.shopify.com/s/files/1/1515/2714/files/saltstick_pink-lemonade_ss.png?v=1766075416",
+      "added": "2026-06-06"
+    },
+    {
       "id": "shrimp",
       "name": "Shrimp",
       "category": "proteins",
@@ -1683,6 +2054,33 @@
       "file": "/foods/proteins/shrimp.png",
       "source": "https://static.vecteezy.com/system/resources/previews/051/715/608/non_2x/cooked-shrimp-isolated-on-transparent-background-png.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "sidekick-scraper",
+      "name": "sidekick scraper",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/sidekick-scraper.png",
+      "source": "https://mobility-doc.com/wp-content/uploads/2023/11/Screenshot-2023-11-02-at-11.03.38%E2%80%AFAM.png",
+      "added": "2026-06-23"
+    },
+    {
+      "id": "skratch-electrolytes",
+      "name": "skratch electrolytes",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/skratch-electrolytes.png",
+      "source": "https://cdn.shopify.com/s/files/1/1515/2714/files/Skratch_Hydration_LemonLime_001_1200x1200.png?v=1752879490",
+      "added": "2026-06-17"
+    },
+    {
+      "id": "smoothie",
+      "name": "smoothie",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/smoothie.png",
+      "source": "https://png.pngtree.com/png-vector/20240807/ourmid/pngtree-sweet-strawberry-smoothie-with-a-burst-of-flavor-perfect-for-refreshing-png-image_13402838.png",
+      "added": "2026-06-29"
     },
     {
       "id": "smoothie-bowl",
@@ -1707,6 +2105,17 @@
       ],
       "file": "/foods/snacks/snickers.png",
       "source": "https://assets.stickpng.com/images/580b57fbd9996e24bc43c0c4.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "solely-dried-mango-strips",
+      "name": "solely dried mango strips",
+      "category": "branded",
+      "tags": [
+        "snack"
+      ],
+      "file": "/foods/branded/solely-dried-mango-strips.png",
+      "source": "https://d2lnr5mha7bycj.cloudfront.net/product-image/file/large_5ef8d78f-7b73-491a-b56f-e3e9371cd1fd.jpg",
       "added": "2026-05-23"
     },
     {
@@ -1764,6 +2173,15 @@
       "file": "/foods/meals/steak-potatoes-plate.png",
       "source": "https://static.vecteezy.com/system/resources/previews/054/237/285/non_2x/a-plate-with-a-steak-and-potatoes-on-it-free-png.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "strava-icon-logo",
+      "name": "strava icon logo",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/strava-icon-logo.png",
+      "source": "https://images.icon-icons.com/2108/PNG/512/strava_icon_130820.png",
+      "added": "2026-06-18"
     },
     {
       "id": "strawberries",
@@ -1858,6 +2276,15 @@
       "added": "2026-05-23"
     },
     {
+      "id": "tailwind-carb-mix",
+      "name": "tailwind carb mix",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/tailwind-carb-mix.png",
+      "source": "https://tailwindnutrition.com/cdn/shop/files/TW_LG_SUP_Front_Lem_1_1500x.png?v=1775511790",
+      "added": "2026-06-17"
+    },
+    {
       "id": "tofu",
       "name": "Tofu",
       "category": "proteins",
@@ -1869,6 +2296,15 @@
       "file": "/foods/proteins/tofu.png",
       "source": "https://static.vecteezy.com/system/resources/previews/051/339/420/non_2x/tofu-block-isolated-on-transparent-background-png.png",
       "added": "2026-05-23"
+    },
+    {
+      "id": "toloco-massage-gun",
+      "name": "toloco massage gun",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/toloco-massage-gun.png",
+      "source": "https://i5.walmartimages.com/asr/2588d1a0-5ade-4c93-a33b-03f835802d79.2e3aac46f2e603ad09ee75ac6af7f2ca.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF",
+      "added": "2026-06-23"
     },
     {
       "id": "trail-mix",
@@ -1997,6 +2433,15 @@
       ],
       "file": "/foods/branded/yasso-mint-chocolate-chip-bar.png",
       "source": "https://assets.unileversolutions.com/v1/130227757.png",
+      "added": "2026-05-23"
+    },
+    {
+      "id": "yoga-downward-dog",
+      "name": "yoga downward dog",
+      "category": "branded",
+      "tags": [],
+      "file": "/foods/branded/yoga-downward-dog.png",
+      "source": "https://png.pngtree.com/png-clipart/20230421/original/pngtree-downward-facing-dog-yoga-pose-picture-image_9118801.png",
       "added": "2026-05-23"
     }
   ]

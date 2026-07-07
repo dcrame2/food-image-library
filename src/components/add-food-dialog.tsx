@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CATEGORIES, CategoryId, COMMON_TAGS } from "@/lib/categories";
+import { CATEGORY_GROUPS, CategoryId, COMMON_TAGS } from "@/lib/categories";
 import { FoodItem } from "@/lib/catalog";
 import { ImageSearchResult } from "@/lib/serper";
-import { X, Search, Loader2, Link as LinkIcon, Sparkles } from "lucide-react";
+import { X, Search, Loader2, Link as LinkIcon, Sparkles, Check } from "lucide-react";
 import clsx from "clsx";
 
 interface AddFoodDialogProps {
@@ -121,7 +121,7 @@ export function AddFoodDialog({ open, onClose, onAdded }: AddFoodDialogProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
       <div className="flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-xl border border-white/10 bg-card">
         <div className="flex items-center justify-between border-b border-white/10 p-4">
-          <h2 className="text-lg font-semibold">Add Food Image</h2>
+          <h2 className="text-lg font-semibold">Add Item</h2>
           <button
             type="button"
             onClick={onClose}
@@ -169,7 +169,7 @@ export function AddFoodDialog({ open, onClose, onAdded }: AddFoodDialogProps) {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && doSearch()}
-                    placeholder='e.g. "oikos triple zero vanilla"'
+                    placeholder='e.g. "nike pegasus 41" or "oikos triple zero"'
                     className="flex-1 rounded-md border border-white/10 bg-background px-3 py-2 text-sm outline-none focus:border-primary"
                   />
                   <button
@@ -184,27 +184,40 @@ export function AddFoodDialog({ open, onClose, onAdded }: AddFoodDialogProps) {
 
                 {results.length > 0 && (
                   <div className="mt-4 grid grid-cols-3 gap-2">
-                    {results.map((r) => (
-                      <button
-                        key={r.link}
-                        type="button"
-                        onClick={() => setSelectedUrl(r.link)}
-                        className={clsx(
-                          "checkered-bg overflow-hidden rounded-md border-2 transition-colors",
-                          selectedUrl === r.link
-                            ? "border-primary"
-                            : "border-transparent hover:border-white/30",
-                        )}
-                        title={r.title}
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={r.thumbnail}
-                          alt={r.title}
-                          className="aspect-square w-full object-contain p-1"
-                        />
-                      </button>
-                    ))}
+                    {results.map((r) => {
+                      const isSelected = selectedUrl === r.link;
+                      return (
+                        <button
+                          key={r.link}
+                          type="button"
+                          onClick={() => setSelectedUrl(r.link)}
+                          className={clsx(
+                            "checkered-bg relative overflow-hidden rounded-md border-2 transition-all",
+                            isSelected
+                              ? "border-primary ring-2 ring-primary/40"
+                              : "border-transparent hover:border-white/30",
+                          )}
+                          title={r.title}
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={r.thumbnail}
+                            alt={r.title}
+                            className="aspect-square w-full object-contain p-1"
+                          />
+                          <span
+                            className={clsx(
+                              "absolute top-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full border transition-all",
+                              isSelected
+                                ? "border-primary bg-primary text-primary-foreground"
+                                : "border-white/40 bg-black/40 text-transparent",
+                            )}
+                          >
+                            <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 )}
               </>
@@ -251,7 +264,7 @@ export function AddFoodDialog({ open, onClose, onAdded }: AddFoodDialogProps) {
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Oikos Triple Zero Vanilla"
+                placeholder="e.g. Nike Pegasus 41"
                 className="w-full rounded-md border border-white/10 bg-background px-3 py-2 text-sm outline-none focus:border-primary"
               />
             </div>
@@ -265,10 +278,14 @@ export function AddFoodDialog({ open, onClose, onAdded }: AddFoodDialogProps) {
                 onChange={(e) => setCategory(e.target.value as CategoryId)}
                 className="w-full rounded-md border border-white/10 bg-background px-3 py-2 text-sm outline-none focus:border-primary"
               >
-                {CATEGORIES.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.label}
-                  </option>
+                {CATEGORY_GROUPS.map((group) => (
+                  <optgroup key={group.id} label={group.label}>
+                    {group.categories.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.label}
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
             </div>

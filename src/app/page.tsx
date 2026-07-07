@@ -120,7 +120,7 @@ export default function HomePage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `food-images-${new Date().toISOString().slice(0, 10)}.zip`;
+    a.download = `cutouts-${new Date().toISOString().slice(0, 10)}.zip`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -142,7 +142,7 @@ export default function HomePage() {
   return (
     <div className="flex h-screen flex-col">
       <header className="sticky top-0 z-10 flex items-center gap-3 border-b border-white/10 bg-background/80 px-4 py-3 backdrop-blur">
-        <h1 className="hidden text-base font-semibold sm:block">Food Library</h1>
+        <h1 className="hidden text-base font-semibold sm:block">Cutout Library</h1>
         <div className="relative flex-1 max-w-md">
           <Search className="pointer-events-none absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
@@ -197,7 +197,7 @@ export default function HomePage() {
             className="flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
             <Plus className="h-4 w-4" />
-            <span className="hidden sm:inline">Add Food</span>
+            <span className="hidden sm:inline">Add Item</span>
           </button>
         </div>
       </header>
