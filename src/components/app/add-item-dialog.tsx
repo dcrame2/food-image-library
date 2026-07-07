@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Link from "next/link";
 import type { LibraryItem } from "@/lib/items";
 import type { Me } from "@/lib/me";
 import { collectionLabel } from "@/lib/collections";
+import { startCheckout } from "@/lib/billing-client";
 import { ImageSearchResult } from "@/lib/serper";
 import {
   X,
@@ -60,7 +60,15 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
     me?.plan === "pro" ? "auto" : "imgly",
   );
   const [saving, setSaving] = useState(false);
+  const [upgrading, setUpgrading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function goPro() {
+    setUpgrading(true);
+    // Redirects to Stripe on success; only returns here on failure.
+    await startCheckout();
+    setUpgrading(false);
+  }
 
   const remaining = me ? Math.max(me.limit - me.used, 0) : null;
   const activeUrl = mode === "search" ? selectedUrl : pastedUrl.trim() || null;
@@ -365,12 +373,15 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
                 <p className="mt-1 text-xs text-muted-foreground">
                   Pro gets you 300 cutouts a month plus premium edge quality.
                 </p>
-                <Link
-                  href="/pricing"
-                  className="mt-2 inline-block rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90"
+                <button
+                  type="button"
+                  onClick={goPro}
+                  disabled={upgrading}
+                  className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90 disabled:opacity-60"
                 >
+                  {upgrading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
                   Upgrade to Pro
-                </Link>
+                </button>
               </div>
             )}
           </div>
@@ -452,9 +463,14 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
                 {me?.plan !== "pro" && (
                   <p className="px-1 pt-1 text-[11px] text-muted-foreground">
                     Premium edge quality is a Pro feature.{" "}
-                    <Link href="/pricing" className="text-primary hover:underline">
-                      See plans
-                    </Link>
+                    <button
+                      type="button"
+                      onClick={goPro}
+                      disabled={upgrading}
+                      className="text-primary hover:underline disabled:opacity-60"
+                    >
+                      Upgrade
+                    </button>
                   </p>
                 )}
               </div>

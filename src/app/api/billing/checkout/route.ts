@@ -34,7 +34,7 @@ export async function POST() {
       customer: customerId,
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${appUrl}/app?checkout=success`,
-      cancel_url: `${appUrl}/pricing`,
+      cancel_url: `${appUrl}/app`,
       allow_promotion_codes: true,
       metadata: { supabase_user_id: user.id },
       subscription_data: { metadata: { supabase_user_id: user.id } },

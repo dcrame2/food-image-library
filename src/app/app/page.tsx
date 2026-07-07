@@ -14,6 +14,8 @@ import { FilterDrawer } from "@/components/app/filter-drawer";
 import { ItemGrid } from "@/components/app/item-grid";
 import { ItemDetailSheet } from "@/components/app/item-detail-sheet";
 import { AddItemDialog } from "@/components/app/add-item-dialog";
+import { WelcomeToProDialog } from "@/components/app/welcome-to-pro-dialog";
+import { UpgradePro } from "@/components/app/upgrade-pro";
 import { GridSkeleton, NoResults, EmptyPersonalLibrary } from "@/components/app/empty-state";
 
 const FREE_BULK_LIMIT = 10;
@@ -33,6 +35,7 @@ export default function LibraryPage() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [showAdd, setShowAdd] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [showWelcomePro, setShowWelcomePro] = useState(false);
   const [detailItem, setDetailItem] = useState<LibraryItem | null>(null);
 
   const loadItems = useCallback(async () => {
@@ -65,6 +68,21 @@ export default function LibraryPage() {
     loadItems();
     loadMe();
   }, [loadItems, loadMe]);
+
+  // Post-checkout: Stripe redirects back with ?checkout=success. Show the
+  // welcome modal, strip the param so it won't reappear on refresh, and
+  // refresh the plan/quota (the webhook can land a beat after the redirect).
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("checkout") !== "success") return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setShowWelcomePro(true);
+    params.delete("checkout");
+    const query = params.toString();
+    window.history.replaceState(null, "", query ? `?${query}` : window.location.pathname);
+    const timers = [1000, 3000, 6000].map((ms) => setTimeout(loadMe, ms));
+    return () => timers.forEach(clearTimeout);
+  }, [loadMe]);
 
   const ownedItems = useMemo(() => items.filter((i) => i.owned), [items]);
   const starterItems = useMemo(() => items.filter((i) => !i.owned), [items]);
@@ -277,11 +295,24 @@ export default function LibraryPage() {
       />
 
       <div className="flex flex-1 overflow-hidden">
-        <aside className="hidden w-60 shrink-0 overflow-y-auto border-r border-border bg-card/50 md:block">
-          <FilterPanel {...filterPanelProps} />
+        <aside className="hidden w-60 shrink-0 flex-col border-r border-border bg-card/50 md:flex">
+          <div className="flex-1 overflow-y-auto">
+            <FilterPanel {...filterPanelProps} />
+          </div>
+          {me && me.plan !== "pro" && (
+            <div className="border-t border-border p-3">
+              <UpgradePro me={me} variant="card" />
+            </div>
+          )}
         </aside>
 
         <main className="flex-1 overflow-y-auto p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:p-4">
+          {me && me.plan !== "pro" && (
+            <div className="mb-3 md:hidden">
+              <UpgradePro me={me} variant="bar" />
+            </div>
+          )}
+
           <div className="mb-3 flex items-center justify-between gap-3">
             {/* Mobile source switcher; desktop uses the sidebar. */}
             <div className="flex rounded-lg border border-border p-0.5 md:hidden">
@@ -393,6 +424,8 @@ export default function LibraryPage() {
         onDelete={doDelete}
         onRename={handleRename}
       />
+
+      {showWelcomePro && <WelcomeToProDialog onClose={() => setShowWelcomePro(false)} />}
 
       {showAdd && (
         <AddItemDialog

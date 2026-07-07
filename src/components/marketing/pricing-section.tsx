@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Loader2 } from "lucide-react";
 import { PLANS } from "@/lib/plans";
 
@@ -20,15 +20,41 @@ const PRO_POINTS = [
   "Cancel anytime, keep what you cut",
 ];
 
+type Viewer = "loading" | "signedOut" | "free" | "pro";
+
 export function PricingSection() {
   const [busy, setBusy] = useState(false);
+  // Who is looking at the page? Drives both cards' CTAs.
+  const [viewer, setViewer] = useState<Viewer>("loading");
 
-  async function upgrade() {
+  useEffect(() => {
+    fetch("/api/me", { cache: "no-store" })
+      .then(async (res) => {
+        if (res.status === 401) return setViewer("signedOut");
+        if (!res.ok) return setViewer("signedOut");
+        const me = await res.json();
+        setViewer(me.plan === "pro" ? "pro" : "free");
+      })
+      .catch(() => setViewer("signedOut"));
+  }, []);
+
+  async function handleProCta() {
+    if (viewer === "pro") {
+      window.location.href = "/app";
+      return;
+    }
+    // Signed out: sign up and land in the app, where the library is ready and
+    // the in-app Go Pro buttons are one click away. New users should try the
+    // product before being pushed into checkout.
+    if (viewer !== "free") {
+      window.location.href = "/login?mode=signup";
+      return;
+    }
     setBusy(true);
     try {
       const res = await fetch("/api/billing/checkout", { method: "POST" });
       if (res.status === 401) {
-        window.location.href = "/login?next=/pricing";
+        window.location.href = "/login?mode=signup";
         return;
       }
       const data = await res.json();
@@ -41,6 +67,15 @@ export function PricingSection() {
       setBusy(false);
     }
   }
+
+  const proLabel =
+    viewer === "loading"
+      ? null
+      : viewer === "signedOut"
+        ? "Sign up"
+        : viewer === "free"
+          ? "Go Pro"
+          : "You are on Pro. Open the app";
 
   return (
     <section id="pricing" className="mx-auto max-w-4xl px-4 py-20 sm:px-6 sm:py-28">
@@ -72,10 +107,10 @@ export function PricingSection() {
             ))}
           </ul>
           <a
-            href="/login"
+            href={viewer === "free" || viewer === "pro" ? "/app" : "/login?mode=signup"}
             className="mt-7 block rounded-lg border border-border py-2.5 text-center text-sm font-medium hover:bg-muted"
           >
-            Get started
+            {viewer === "free" || viewer === "pro" ? "Open the app" : "Get started"}
           </a>
         </div>
 
@@ -101,12 +136,12 @@ export function PricingSection() {
           </ul>
           <button
             type="button"
-            onClick={upgrade}
-            disabled={busy}
+            onClick={handleProCta}
+            disabled={busy || viewer === "loading"}
             className="mt-7 flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 disabled:opacity-60"
           >
-            {busy && <Loader2 className="h-4 w-4 animate-spin" />}
-            Go Pro
+            {(busy || viewer === "loading") && <Loader2 className="h-4 w-4 animate-spin" />}
+            {proLabel}
           </button>
         </div>
       </div>
