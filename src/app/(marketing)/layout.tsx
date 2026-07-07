@@ -13,11 +13,20 @@ export const metadata: Metadata = {
     url: '/',
     siteName: 'Cutout Aura',
     type: 'website',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Cutout Aura: Clean Cutouts of Anything',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Cutout Aura',
     description: 'Clean cutouts of anything. Search it, cut it, keep it forever.',
+    images: ['/opengraph-image'],
   },
 };
 
