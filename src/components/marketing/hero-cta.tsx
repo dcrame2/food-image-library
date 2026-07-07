@@ -18,19 +18,13 @@ export function HeroCta() {
 
   return (
     <>
-      <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
+      <div className="mt-8 flex justify-center">
         <Link
           href={primaryHref}
           className="flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.6)] transition-transform hover:scale-[1.02]"
         >
           {primaryLabel}
           <ArrowRight className="h-4 w-4" />
-        </Link>
-        <Link
-          href="/pricing"
-          className="rounded-xl border border-border px-6 py-3 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
-        >
-          See pricing
         </Link>
       </div>
       {!authed && (

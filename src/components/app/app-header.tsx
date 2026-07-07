@@ -20,7 +20,7 @@ import {
 import clsx from "clsx";
 import type { Me } from "@/lib/me";
 import { openBillingPortal } from "@/lib/billing-client";
-import { Logo, LogoMark } from "@/components/logo";
+import { Logo } from "@/components/logo";
 
 interface AppHeaderProps {
   query: string;
@@ -105,14 +105,7 @@ export function AppHeader({
         </button>
 
         <Link href="/" className="flex shrink-0 items-center" aria-label="Cutout Aura">
-          {/* Wrapper spans own the show/hide so nothing fights the Logo's
-              baked-in `inline-flex`. Exactly one is ever visible. */}
-          <span className="hidden sm:block">
-            <Logo className="text-base" />
-          </span>
-          <span className="sm:hidden">
-            <LogoMark className="h-8 w-8" />
-          </span>
+          <Logo className="text-base" markClassName="h-7 w-7" />
         </Link>
 
         {/* Search: inline on desktop, moves to its own row on mobile. */}

@@ -83,6 +83,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* iOS Safari zooms the page when a focused input's font-size is under 16px.
+   Hold form controls at 16px on small screens so focusing never zooms. */
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
