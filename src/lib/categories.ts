@@ -45,9 +45,13 @@ export const CATEGORY_GROUPS = [
   },
 ] as const;
 
-export const CATEGORIES = CATEGORY_GROUPS.flatMap((g) => g.categories);
+type Category = (typeof CATEGORY_GROUPS)[number]["categories"][number];
 
-export type CategoryId = (typeof CATEGORIES)[number]["id"];
+export const CATEGORIES: readonly Category[] = CATEGORY_GROUPS.flatMap(
+  (g) => g.categories as readonly Category[],
+);
+
+export type CategoryId = Category["id"];
 
 export const CATEGORY_IDS: readonly CategoryId[] = CATEGORIES.map((c) => c.id);
 

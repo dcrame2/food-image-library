@@ -7,7 +7,7 @@
   --card-foreground: 0 0% 98%;
   --popover: 240 10% 5.5%;
   --popover-foreground: 0 0% 98%;
-  --primary: 142 76% 46%;
+  --primary: 0 84% 60%;
   --primary-foreground: 0 0% 98%;
   --secondary: 240 3.7% 15.9%;
   --secondary-foreground: 0 0% 98%;
@@ -19,8 +19,30 @@
   --destructive-foreground: 0 0% 98%;
   --border: 240 3.7% 18%;
   --input: 240 3.7% 18%;
-  --ring: 142 76% 46%;
+  --ring: 0 84% 60%;
   --radius: 0.5rem;
+}
+
+/* Light mode: applied by adding the `light` class to <html>. Accent (--primary
+   / --ring) is set separately by the accent picker and inherited here. */
+.light {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 240 5% 98%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 5% 94%;
+  --secondary-foreground: 240 6% 10%;
+  --muted: 240 5% 94%;
+  --muted-foreground: 240 4% 42%;
+  --accent: 240 5% 94%;
+  --accent-foreground: 240 6% 10%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 240 6% 88%;
+  --input: 240 6% 88%;
 }
 
 @theme inline {
@@ -79,14 +101,56 @@ body {
   background-color: hsl(var(--muted-foreground) / 0.5);
 }
 
-/* Checkered transparency pattern for image tiles */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-marquee {
+    animation: none !important;
+  }
+}
+
+.animate-float {
+  animation: float 7s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+/* Checkered transparency pattern for image tiles. Theme-aware via --checker. */
+:root {
+  --checker-a: 240 3.7% 12%;
+  --checker-b: 240 3.7% 8%;
+}
+.light {
+  --checker-a: 240 5% 84%;
+  --checker-b: 240 6% 92%;
+}
 .checkered-bg {
   background-image:
-    linear-gradient(45deg, hsl(240 3.7% 12%) 25%, transparent 25%),
-    linear-gradient(-45deg, hsl(240 3.7% 12%) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, hsl(240 3.7% 12%) 75%),
-    linear-gradient(-45deg, transparent 75%, hsl(240 3.7% 12%) 75%);
+    linear-gradient(45deg, hsl(var(--checker-a)) 25%, transparent 25%),
+    linear-gradient(-45deg, hsl(var(--checker-a)) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, hsl(var(--checker-a)) 75%),
+    linear-gradient(-45deg, transparent 75%, hsl(var(--checker-a)) 75%);
   background-size: 16px 16px;
   background-position: 0 0, 0 8px, 8px -8px, -8px 0;
-  background-color: hsl(240 3.7% 8%);
+  background-color: hsl(var(--checker-b));
 }

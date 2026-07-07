@@ -1,9 +1,23 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Toaster } from "sonner";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
+import { ThemeSync } from "@/components/theme-sync";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Cutout Library",
-  description: "Personal library of transparent-background cutouts for reels",
+  title: {
+    default: "Cutout Aura",
+    template: "%s | Cutout Aura",
+  },
+  description:
+    "Clean, transparent cutouts of anything. Search it, cut it, ship it.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0a0a0b",
 };
 
 export default function RootLayout({
@@ -11,7 +25,14 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
+      <body>
+        <ThemeSync />
+        {children}
+        <Toaster theme="system" position="bottom-center" richColors />
+      </body>
     </html>
   );
 }

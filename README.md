@@ -1,72 +1,112 @@
-# Food Image Library
+# Cutout Aura
 
-Personal library of transparent-background food images for Instagram reels. Browse a grid, filter by category/tag, click to download, or bulk-zip selections. Add new items by pasting a URL or searching Google Images — background removal happens locally and automatically.
+Clean, transparent cutouts of anything. Search the web, remove the background,
+build a library. Next.js 16 + Supabase + Stripe.
 
-## Quick start
+- Marketing site at `/`, app at `/app`, auth at `/login`.
+- Shares its Supabase project (database, storage, users) with the Cutout Aura
+  mobile app (`../cutout-library`).
+- Free plan: 10 cutouts/month, local @imgly engine. Pro ($9/mo via Stripe):
+  300 cutouts/month, premium remove.bg engine.
+
+## One-time setup
+
+### 1. Environment
+
+Copy `.env.local.example` to `.env.local` and fill in:
+
+| Variable | Where to get it |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Already set (shared project) |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Already set (shared project) |
+| `SUPABASE_SECRET_KEY` | Supabase dashboard > Project Settings > API Keys > secret key (`sb_secret_...`) |
+| `SERPER_API_KEY` | serper.dev (free 2,500 searches/mo) |
+| `REMOVE_BG_API_KEY` | remove.bg/api (Pro engine) |
+| `STRIPE_SECRET_KEY` | Stripe dashboard > Developers > API keys |
+| `STRIPE_WEBHOOK_SECRET` | Created with the webhook (step 4) |
+| `STRIPE_PRICE_PRO_MONTHLY` | Created with the product (step 4) |
+| `NEXT_PUBLIC_APP_URL` | `http://localhost:3000` locally, prod URL in prod |
+| `BG_ENGINE_IMGLY_ENABLED` | `true`; set `false` in prod if imgly cannot run there |
+
+### 2. Database migration
+
+Run `supabase/migrations/0002_web_public_and_billing.sql` in the Supabase SQL
+editor (dashboard > SQL Editor > paste > run). It is additive and idempotent:
+adds `public_items`, `stripe_subscriptions`, `bg_removals.web_count`, and the
+quota functions. The mobile app is unaffected.
+
+(The same file is mirrored to `../cutout-library/supabase/migrations/` so that
+repo's migration history stays canonical.)
+
+### 3. Auth redirect URLs
+
+Supabase dashboard > Authentication > URL Configuration:
+
+- Site URL: your production domain (once you have it).
+- Additional redirect URLs: `http://localhost:3000/auth/callback` and
+  `https://<prod-domain>/auth/callback`.
+
+Google is already enabled on the project (used by the mobile app); no Google
+Cloud changes needed.
+
+### 4. Stripe
+
+1. Create product "Cutout Aura Pro" with a $9/month recurring price. Put the
+   price id in `STRIPE_PRICE_PRO_MONTHLY`.
+2. Enable the customer portal (Settings > Billing > Customer portal).
+3. Webhook endpoint `https://<domain>/api/billing/webhook` with events:
+   `checkout.session.completed`, `customer.subscription.created`,
+   `customer.subscription.updated`, `customer.subscription.deleted`.
+   Put the signing secret in `STRIPE_WEBHOOK_SECRET`.
+
+Local testing: `stripe listen --forward-to localhost:3000/api/billing/webhook`
+(use the printed `whsec_` as `STRIPE_WEBHOOK_SECRET`), card `4242 4242 4242 4242`.
+
+### 5. Seed the starter library
+
+Uploads local PNGs to the `cutouts` bucket under `starter/` and fills
+`public_items`. Defaults to a curated 10-item pack; `--all` migrates the full
+216-item catalog. Idempotent; needs `SUPABASE_SECRET_KEY`.
 
 ```bash
-npm install
-npm run migrate          # import existing PNGs from ~/Downloads/Food images/
-npm run dev              # http://localhost:3000
+npm run migrate:supabase          # curated pack
+npm run migrate:supabase -- --all # everything
 ```
 
-## Adding new food images
+After confirming the starter library works in the app, the local copies
+(`data/catalog.json`, `public/foods/`) and the legacy scripts
+(`scripts/migrate-existing.ts`, `scripts/seed-*.ts`) can be deleted. Keep
+`public/marketing/cutouts/` - the landing page uses those.
 
-Two ways:
-
-1. **Paste URL** (works immediately, no setup): in the app, click `+ Add Food`, switch to the "Paste URL" tab, paste an image address (right-click any image in your browser → "Copy image address"), fill in name + category, save. The image is fetched server-side, background is auto-removed, and it lands in the library.
-2. **Google Search** (needs API key setup, see below): type a query like "oikos triple zero vanilla", pick the best result from 8 thumbnails, save.
-
-## remove.bg setup (recommended — best background-removal quality)
-
-The free local `@imgly` model struggles with branded product photography (gradient backgrounds, light halos). [remove.bg](https://www.remove.bg/api) is built exactly for this case.
-
-1. Sign up at https://www.remove.bg/api and grab an API key
-2. Add to `.env.local`:
-
-```
-REMOVE_BG_API_KEY=your_key_here
-```
-
-Free tier: 50 images/month — plenty for ad-hoc adds. After that it's pay-as-you-go (~$0.20/credit at the smallest pack).
-
-When the key is set, the app uses remove.bg by default. Without it, the app falls back to `@imgly` automatically. The dialog lets you override per-image if you want to save a credit on something that's already transparent.
-
-**Bulk seed** (~150 items) defaults to `@imgly` to avoid burning your remove.bg quota. To use remove.bg for the bulk seed anyway, run `SEED_USE_REMOVE_BG=1 npm run seed:bulk`.
-
-## Image search setup (Serper.dev — required for search + bulk seed)
-
-Google closed their Custom Search JSON API to new projects in 2026, so we use Serper.dev which returns actual Google image results.
-
-1. Sign up at https://serper.dev (just an email, no credit card)
-2. Copy your API key from the dashboard
-3. Add to `.env.local`:
+## Develop
 
 ```bash
-cp .env.local.example .env.local
-# edit .env.local
-SERPER_API_KEY=...
+npm run dev
 ```
 
-Free tier: 2,500 queries/month.
+## Deploy (Vercel)
 
-## Bulk seed (one-time, builds the starter library)
+1. Import the repo, set every env var from `.env.local` (with prod values for
+   `NEXT_PUBLIC_APP_URL`, `STRIPE_WEBHOOK_SECRET`).
+2. `api/add` needs long function duration (background removal can take 30s+).
+   Vercel Pro with fluid compute covers the configured `maxDuration = 120`.
+3. The @imgly engine gate: the local ONNX model may exceed serverless bundle
+   limits. If the deploy fails or `api/add` times out on the imgly path, set
+   `BG_ENGINE_IMGLY_ENABLED=false`; free-tier adds then fall back to remove.bg
+   (mind per-image API costs) - or move the imgly path to a small worker.
+4. After the first deploy: set the Supabase Site URL + prod redirect URL
+   (step 3) and create the prod Stripe webhook (step 4).
 
-After CSE is configured:
+## Architecture notes
 
-```bash
-npm run seed:bulk
-```
-
-Reads `scripts/seed-list.ts` (~150 curated items: branded protein bars, drinks, yogurts, fast food, whole foods, junk for contrast, meal plates), queries CSE, downloads the first transparent PNG result, removes the background, saves into the library. Edit `seed-list.ts` to customize the list before running. Re-running is safe — it skips items already added.
-
-## How it works
-
-- **Catalog**: `data/catalog.json` is the source of truth — one entry per image with `{id, name, category, tags, file, source, added}`
-- **Images**: served from `public/foods/[category]/[slug].png`
-- **Background removal**: `@imgly/background-removal-node` (ONNX model, runs locally, ~2-5s per image, free, no API limits)
-- **Search**: Google Custom Search API filtered to `fileType=png&imgColorType=trans`
-
-## Stack
-
-Next.js 16, React 19, TypeScript, Tailwind CSS v4, Framer Motion, Lucide icons, JSZip.
+- `src/proxy.ts` guards `/app/*` (Next 16 proxy + @supabase/ssr session refresh).
+- API routes re-check auth with `getUser()`; the browser reads `items` /
+  `public_items` directly through RLS.
+- Storage paths: `cutouts/<user_id>/<category>/<slug>.png` for user items
+  (folder-must-match-uid RLS), `cutouts/starter/...` for the public library
+  (service-role writes only).
+- Quota: `consume_web_bg_quota()` atomically increments
+  `bg_removals.web_count`; `skip`-engine adds are unmetered. The mobile app's
+  `count` column is untouched.
+- Web billing lives in `stripe_subscriptions`; the mobile app's RevenueCat
+  `profiles.pro_until` is never written by this app.

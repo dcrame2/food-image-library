@@ -1,5 +1,5 @@
 {
-  "name": "food-image-library",
+  "name": "cutout-aura",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,10 +8,13 @@
     "start": "next start",
     "lint": "eslint",
     "migrate": "tsx scripts/migrate-existing.ts",
+    "migrate:supabase": "tsx scripts/migrate-to-supabase.ts",
     "seed:bulk": "tsx scripts/seed-bulk.ts"
   },
   "dependencies": {
     "@imgly/background-removal-node": "^1.4.5",
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.109.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.4",
     "jszip": "^3.10.1",
@@ -19,7 +22,9 @@
     "next": "16.1.6",
     "pngjs": "^7.0.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "sonner": "^2.0.7",
+    "stripe": "^22.3.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -27,10 +32,12 @@
     "@types/pngjs": "^6.0.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/ws": "^8.18.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
     "tsx": "^4.19.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "ws": "^8.21.0"
   }
 }
