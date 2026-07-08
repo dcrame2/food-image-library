@@ -76,7 +76,7 @@ export function UpgradePro({ me, variant, className }: UpgradeProProps) {
         <p className='text-sm font-semibold'>Upgrade to Pro</p>
       </div>
       <p className='mt-2 text-xs text-muted-foreground'>
-        {pro.cutoutsPerMonth} cutouts a month plus premium edge quality.
+        {pro.cutoutsPerMonth} cutouts a month plus unlimited bulk saves.
       </p>
       <button
         type='button'

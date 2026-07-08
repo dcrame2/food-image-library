@@ -40,8 +40,8 @@ export default function PrivacyPage() {
           <p className="mt-2">
             Your data is stored with Supabase (database, authentication, and
             file storage). Payments run through Stripe. Image searches are
-            processed through a search provider; background removal for premium
-            cutouts is processed by remove.bg. Each provider handles data under
+            processed through a search provider; background removal is
+            processed by remove.bg. Each provider handles data under
             its own privacy policy.
           </p>
         </section>

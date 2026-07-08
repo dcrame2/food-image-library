@@ -231,8 +231,7 @@ export default function SettingsPage() {
             <>
               <p className="text-sm text-muted-foreground">
                 You are on the Free plan: {me?.limit ?? PLANS.free.cutoutsPerMonth}{" "}
-                cutouts a month with the standard engine. Pro gets{" "}
-                {PLANS.pro.cutoutsPerMonth} a month plus premium edge quality for $
+                cutouts a month. Pro gets {PLANS.pro.cutoutsPerMonth} a month for $
                 {PLANS.pro.priceMonthly} per month.
               </p>
               <button

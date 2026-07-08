@@ -7,14 +7,13 @@ import { PLANS } from "@/lib/plans";
 const FREE_POINTS = [
   `${PLANS.free.cutoutsPerMonth} cutouts a month`,
   "Curated starter library included",
-  "Standard background removal",
+  "Premium background removal",
   "Categories, tags, and search",
   "Save to phone and zip up to 10",
 ];
 
 const PRO_POINTS = [
   `${PLANS.pro.cutoutsPerMonth} cutouts a month`,
-  "Premium removal engine for tricky edges",
   "Unlimited zip exports",
   "Everything in Free",
   "Cancel anytime, keep what you cut",

@@ -9,7 +9,7 @@ const FEATURES = [
   {
     icon: Scissors,
     title: "Edges that do not embarrass you",
-    body: "Pro runs a premium removal engine tuned for hair, steam, straws, and every other edge case that ruins a cutout.",
+    body: "Every cutout runs through a premium removal engine tuned for hair, steam, straws, and every other edge case that ruins a cutout.",
   },
   {
     icon: Library,

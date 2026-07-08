@@ -6,7 +6,7 @@ import { CtaFooter } from "@/components/marketing/cta-footer";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Start free with a curated starter library and 10 cutouts of your own each month. Go Pro for 300 cutouts a month and premium edge quality.",
+    "Start free with a curated starter library and 10 premium cutouts of your own each month. Go Pro for 300 cutouts a month.",
 };
 
 export default function PricingPage() {

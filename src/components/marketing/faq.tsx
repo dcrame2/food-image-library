@@ -7,11 +7,11 @@ const FAQS = [
   },
   {
     q: "What do I get for free?",
-    a: "A curated starter library of cutouts, plus 10 of your own every month with the standard removal engine. No card required.",
+    a: "A curated starter library of cutouts, plus 10 of your own every month with the same premium removal engine Pro uses. No card required.",
   },
   {
-    q: "What makes Pro removal premium?",
-    a: "Pro runs a commercial-grade engine that handles the hard stuff: hair, fur, glass, thin straps, busy backgrounds. Standard is solid; premium is noticeably cleaner on tricky images.",
+    q: "What does Pro add?",
+    a: "Volume. 300 cutouts a month instead of 10, plus unlimited zip exports for batch work. The removal quality is identical on both plans.",
   },
   {
     q: "How does the monthly limit work?",

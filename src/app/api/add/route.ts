@@ -30,14 +30,15 @@ interface AddInput {
 
 const imglyEnabled = () => process.env.BG_ENGINE_IMGLY_ENABLED !== "false";
 
-function resolveEngine(requested: BgEngine, planId: "free" | "pro"): BgEngine {
+/**
+ * Every plan runs the premium remove.bg engine by default ("auto" prefers
+ * remove.bg and falls back to the local model only if its quota is hit).
+ * The local engine stays available as an explicit opt-in where it can run.
+ */
+function resolveEngine(requested: BgEngine): BgEngine {
   if (requested === "skip") return "skip";
-  if (planId === "free") {
-    // Free tier never runs the paid remove.bg engine.
-    return imglyEnabled() ? "imgly" : "auto";
-  }
-  if (requested === "imgly" && !imglyEnabled()) return "auto";
-  return requested;
+  if (requested === "imgly" && imglyEnabled()) return "imgly";
+  return "auto";
 }
 
 async function parseInput(request: Request): Promise<AddInput | { error: string }> {
@@ -125,7 +126,7 @@ export async function POST(request: Request) {
 
   const admin = createAdminClient();
   const plan = await getWebPlan(user.id);
-  const engine = resolveEngine(body.engine ?? "auto", plan.id);
+  const engine = resolveEngine(body.engine ?? "auto");
   const month = currentQuotaMonth();
   let quotaConsumed = false;
 

@@ -82,9 +82,15 @@ export async function processBuffer(
 }
 
 async function imglyRemove(input: Buffer): Promise<Buffer> {
+  // On serverless (Vercel) imgly is disabled via BG_ENGINE_IMGLY_ENABLED=false;
+  // fail with a clear message instead of a native-module import crash.
+  if (process.env.BG_ENGINE_IMGLY_ENABLED === "false") {
+    throw new Error(
+      "Background removal is temporarily unavailable. Please try again later.",
+    );
+  }
   // Loaded lazily so the native onnxruntime binary is only required when imgly
-  // is actually the selected engine. On serverless (Vercel) imgly is disabled
-  // via BG_ENGINE_IMGLY_ENABLED=false, so this import never runs there.
+  // is actually the selected engine.
   const { removeBackground } = await import("@imgly/background-removal-node");
   const blob = new Blob([new Uint8Array(input)], { type: "image/png" });
   const outBlob = (await removeBackground(blob, {

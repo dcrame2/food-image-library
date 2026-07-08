@@ -14,7 +14,7 @@ export const PLANS: Record<PlanId, Plan> = {
     id: "free",
     label: "Free",
     cutoutsPerMonth: 10,
-    engines: ["imgly", "skip"],
+    engines: ["remove-bg", "imgly", "skip"],
     priceMonthly: 0,
   },
   pro: {

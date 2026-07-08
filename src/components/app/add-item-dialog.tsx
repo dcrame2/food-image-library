@@ -57,9 +57,7 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
   const [name, setName] = useState("");
   const [collection, setCollection] = useState("");
   const [showAdvanced, setShowAdvanced] = useState(false);
-  const [engine, setEngine] = useState<Engine>(() =>
-    me?.plan === "pro" ? "auto" : "imgly",
-  );
+  const [engine, setEngine] = useState<Engine>("auto");
   const [saving, setSaving] = useState(false);
   const [upgrading, setUpgrading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -384,8 +382,7 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
                   You are out of cutouts this month
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Pro gets you {PLANS.pro.cutoutsPerMonth} cutouts a month plus premium
-                  edge quality.
+                  Pro gets you {PLANS.pro.cutoutsPerMonth} cutouts a month.
                 </p>
                 <button
                   type="button"
@@ -447,16 +444,12 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
 
             {showAdvanced && (
               <div className="mt-2 space-y-1.5 rounded-lg border border-border p-2.5">
-                {(me?.plan === "pro"
-                  ? ([
-                      { id: "auto", label: "Premium", hint: "best edges, uses quota", icon: Sparkles },
-                      { id: "imgly", label: "Standard", hint: "included, uses quota", icon: null },
-                      { id: "skip", label: "No removal", hint: "image is already transparent, free", icon: null },
-                    ] as const)
-                  : ([
-                      { id: "imgly", label: "Standard", hint: "included, uses quota", icon: null },
-                      { id: "skip", label: "No removal", hint: "image is already transparent, free", icon: null },
-                    ] as const)
+                {(
+                  [
+                    { id: "auto", label: "Premium", hint: "best edges, uses quota", icon: Sparkles },
+                    { id: "imgly", label: "Standard", hint: "included, uses quota", icon: null },
+                    { id: "skip", label: "No removal", hint: "image is already transparent, free", icon: null },
+                  ] as const
                 ).map((opt) => (
                   <button
                     key={opt.id}
@@ -474,19 +467,6 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
                     <span className="ml-auto text-[10px] text-muted-foreground">{opt.hint}</span>
                   </button>
                 ))}
-                {me?.plan !== "pro" && (
-                  <p className="px-1 pt-1 text-[11px] text-muted-foreground">
-                    Premium edge quality is a Pro feature.{" "}
-                    <button
-                      type="button"
-                      onClick={goPro}
-                      disabled={upgrading}
-                      className="text-primary hover:underline disabled:opacity-60"
-                    >
-                      Upgrade
-                    </button>
-                  </p>
-                )}
               </div>
             )}
 

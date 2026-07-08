@@ -103,8 +103,8 @@ export function WelcomeToProDialog({ onClose }: WelcomeToProDialogProps) {
         <ul className="mt-5 space-y-2.5 text-left">
           {[
             `${pro.cutoutsPerMonth} cutouts every month`,
-            "Premium background removal for the cleanest edges",
-            "Unlimited bulk saves",
+            "Unlimited bulk saves and zip exports",
+            "Cancel anytime, keep everything you cut",
           ].map((feature) => (
             <li key={feature} className="flex items-start gap-2.5 text-sm">
               <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15">
