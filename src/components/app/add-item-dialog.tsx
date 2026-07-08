@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import type { LibraryItem } from "@/lib/items";
 import type { Me } from "@/lib/me";
 import { collectionLabel } from "@/lib/collections";
-import { startCheckout } from "@/lib/billing-client";
 import { PLANS } from "@/lib/plans";
 import { ImageSearchResult } from "@/lib/serper";
 import {
@@ -30,6 +29,8 @@ function nameFromFile(filename: string): string {
 interface AddItemDialogProps {
   onClose: () => void;
   onAdded: (item: LibraryItem) => void;
+  /** Opens the shared upgrade dialog (yearly/monthly picker) above this one. */
+  onUpgrade: () => void;
   me: Me | null;
   /** Existing collection slugs for the autocomplete. */
   collections: string[];
@@ -42,7 +43,7 @@ type Engine = "auto" | "remove-bg" | "imgly" | "skip";
  * Mount this only while open ({show && <AddItemDialog .../>}); state resets
  * naturally on unmount.
  */
-export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDialogProps) {
+export function AddItemDialog({ onClose, onAdded, onUpgrade, me, collections }: AddItemDialogProps) {
   const [mode, setMode] = useState<Mode>("search");
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<ImageSearchResult[]>([]);
@@ -59,7 +60,6 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [engine, setEngine] = useState<Engine>("auto");
   const [saving, setSaving] = useState(false);
-  const [upgrading, setUpgrading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Escape closes; lock body scroll while open (same pattern as the other
@@ -73,13 +73,6 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
       document.body.style.overflow = "";
     };
   }, [onClose]);
-
-  async function goPro() {
-    setUpgrading(true);
-    // Redirects to Stripe on success; only returns here on failure.
-    await startCheckout();
-    setUpgrading(false);
-  }
 
   const remaining = me ? Math.max(me.limit - me.used, 0) : null;
   const activeUrl = mode === "search" ? selectedUrl : pastedUrl.trim() || null;
@@ -386,11 +379,9 @@ export function AddItemDialog({ onClose, onAdded, me, collections }: AddItemDial
                 </p>
                 <button
                   type="button"
-                  onClick={goPro}
-                  disabled={upgrading}
-                  className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90 disabled:opacity-60"
+                  onClick={onUpgrade}
+                  className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90"
                 >
-                  {upgrading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
                   Upgrade to Pro
                 </button>
               </div>

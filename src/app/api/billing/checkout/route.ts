@@ -5,7 +5,7 @@ import { getStripe } from "@/lib/stripe";
 
 export const runtime = "nodejs";
 
-export async function POST() {
+export async function POST(request: Request) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -19,9 +19,29 @@ export async function POST() {
     return NextResponse.json({ error: "You are already on Pro" }, { status: 400 });
   }
 
-  const priceId = process.env.STRIPE_PRICE_PRO_MONTHLY;
+  // Optional body: { interval: "month" | "year" }. Defaults to monthly.
+  let interval: "month" | "year" = "month";
+  try {
+    const body = await request.json();
+    if (body?.interval === "year") interval = "year";
+  } catch {
+    // No body: keep the monthly default.
+  }
+
+  const priceId =
+    interval === "year"
+      ? process.env.STRIPE_PRICE_PRO_YEARLY
+      : process.env.STRIPE_PRICE_PRO_MONTHLY;
   if (!priceId) {
-    return NextResponse.json({ error: "Billing is not configured" }, { status: 503 });
+    return NextResponse.json(
+      {
+        error:
+          interval === "year"
+            ? "Yearly billing is not configured"
+            : "Billing is not configured",
+      },
+      { status: 503 },
+    );
   }
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";

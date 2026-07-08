@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 import type { Me } from "@/lib/me";
-import { openBillingPortal, startCheckout } from "@/lib/billing-client";
+import { openBillingPortal } from "@/lib/billing-client";
 import { Logo } from "@/components/logo";
 
 interface AppHeaderProps {
@@ -32,6 +32,8 @@ interface AppHeaderProps {
   onDeleteSelected: () => void;
   onAdd: () => void;
   onOpenFilters: () => void;
+  /** Opens the shared upgrade dialog (yearly/monthly picker). */
+  onUpgrade: () => void;
   activeFilterCount: number;
   me: Me | null;
 }
@@ -46,6 +48,7 @@ export function AppHeader({
   onDeleteSelected,
   onAdd,
   onOpenFilters,
+  onUpgrade,
   activeFilterCount,
   me,
 }: AppHeaderProps) {
@@ -234,7 +237,7 @@ export function AppHeader({
                   type="button"
                   onClick={() => {
                     setMenuOpen(false);
-                    startCheckout();
+                    onUpgrade();
                   }}
                   className="flex w-full items-center gap-2 px-3.5 py-2.5 text-sm text-primary hover:bg-muted"
                 >

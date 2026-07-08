@@ -13,7 +13,6 @@ import {
   ShieldCheck,
   Trash2,
   User,
-  Zap,
   Sun,
   Moon,
   Monitor,
@@ -29,8 +28,9 @@ import {
   setMode,
   type ThemeMode,
 } from "@/lib/theme";
-import { openBillingPortal, startCheckout } from "@/lib/billing-client";
+import { openBillingPortal } from "@/lib/billing-client";
 import { PLANS } from "@/lib/plans";
+import { PlanPicker } from "@/components/app/upgrade-pro";
 
 function Section({
   icon: Icon,
@@ -231,26 +231,9 @@ export default function SettingsPage() {
             <>
               <p className="text-sm text-muted-foreground">
                 You are on the Free plan: {me?.limit ?? PLANS.free.cutoutsPerMonth}{" "}
-                cutouts a month. Pro gets {PLANS.pro.cutoutsPerMonth} a month for $
-                {PLANS.pro.priceMonthly} per month.
+                cutouts a month. Pro gets {PLANS.pro.cutoutsPerMonth} a month.
               </p>
-              <button
-                type="button"
-                disabled={billingBusy}
-                onClick={async () => {
-                  setBillingBusy(true);
-                  await startCheckout();
-                  setBillingBusy(false);
-                }}
-                className="mt-3 flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 disabled:opacity-60"
-              >
-                {billingBusy ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Zap className="h-4 w-4" />
-                )}
-                Upgrade to Pro
-              </button>
+              <PlanPicker className="mt-3 max-w-sm" />
             </>
           )}
         </Section>

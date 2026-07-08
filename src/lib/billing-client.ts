@@ -2,9 +2,18 @@
 
 import { toast } from "sonner";
 
-async function redirectTo(endpoint: string, failMessage: string) {
+async function redirectTo(
+  endpoint: string,
+  failMessage: string,
+  body?: Record<string, unknown>,
+) {
   try {
-    const res = await fetch(endpoint, { method: "POST" });
+    const res = await fetch(endpoint, {
+      method: "POST",
+      ...(body
+        ? { headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }
+        : {}),
+    });
     const data = await res.json();
     if (!res.ok || !data.url) {
       toast.error(data.error ?? failMessage);
@@ -16,8 +25,8 @@ async function redirectTo(endpoint: string, failMessage: string) {
   }
 }
 
-export function startCheckout() {
-  return redirectTo("/api/billing/checkout", "Could not start checkout");
+export function startCheckout(interval: "month" | "year" = "month") {
+  return redirectTo("/api/billing/checkout", "Could not start checkout", { interval });
 }
 
 export function openBillingPortal() {

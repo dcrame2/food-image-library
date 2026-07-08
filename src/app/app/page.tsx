@@ -16,6 +16,7 @@ import { ItemDetailSheet } from "@/components/app/item-detail-sheet";
 import { AddItemDialog } from "@/components/app/add-item-dialog";
 import { WelcomeToProDialog } from "@/components/app/welcome-to-pro-dialog";
 import { UpgradePro } from "@/components/app/upgrade-pro";
+import { UpgradeDialog } from "@/components/app/upgrade-dialog";
 import { UsageMeter } from "@/components/app/usage-meter";
 import { GridSkeleton, NoResults, EmptyPersonalLibrary } from "@/components/app/empty-state";
 
@@ -37,6 +38,7 @@ export default function LibraryPage() {
   const [showAdd, setShowAdd] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [showWelcomePro, setShowWelcomePro] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
   const [detailItem, setDetailItem] = useState<LibraryItem | null>(null);
 
   const loadItems = useCallback(async () => {
@@ -296,6 +298,7 @@ export default function LibraryPage() {
         onDeleteSelected={deleteSelected}
         onAdd={() => setShowAdd(true)}
         onOpenFilters={() => setShowFilters(true)}
+        onUpgrade={() => setShowUpgrade(true)}
         activeFilterCount={activeFilterCount}
         me={me}
       />
@@ -311,7 +314,7 @@ export default function LibraryPage() {
               {/* Hide the upsell while the welcome dialog is up: right after
                   checkout the webhook may not have flipped the plan yet. */}
               {me.plan !== "pro" && !showWelcomePro && (
-                <UpgradePro me={me} variant="card" />
+                <UpgradePro me={me} variant="card" onOpen={() => setShowUpgrade(true)} />
               )}
             </div>
           )}
@@ -326,7 +329,7 @@ export default function LibraryPage() {
 
           {me && me.plan !== "pro" && !showWelcomePro && (
             <div className="mb-3 md:hidden">
-              <UpgradePro me={me} variant="bar" />
+              <UpgradePro me={me} variant="bar" onOpen={() => setShowUpgrade(true)} />
             </div>
           )}
 
@@ -444,9 +447,12 @@ export default function LibraryPage() {
 
       {showWelcomePro && <WelcomeToProDialog onClose={() => setShowWelcomePro(false)} />}
 
+      {showUpgrade && <UpgradeDialog onClose={() => setShowUpgrade(false)} />}
+
       {showAdd && (
         <AddItemDialog
           onClose={() => setShowAdd(false)}
+          onUpgrade={() => setShowUpgrade(true)}
           me={me}
           collections={collections.map((c) => c.slug)}
           onAdded={(item) => {

@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import clsx from "clsx";
 import { Check, Loader2 } from "lucide-react";
-import { PLANS } from "@/lib/plans";
+import { PLANS, type BillingInterval } from "@/lib/plans";
+
+const YEARLY_SAVINGS = PLANS.pro.priceMonthly * 12 - PLANS.pro.priceYearly;
 
 const FREE_POINTS = [
   `${PLANS.free.cutoutsPerMonth} cutouts a month`,
@@ -25,6 +28,8 @@ export function PricingSection() {
   const [busy, setBusy] = useState(false);
   // Who is looking at the page? Drives both cards' CTAs.
   const [viewer, setViewer] = useState<Viewer>("loading");
+  // Yearly is the default: it is the better deal and the plan we want chosen.
+  const [billing, setBilling] = useState<BillingInterval>("year");
 
   useEffect(() => {
     fetch("/api/me", { cache: "no-store" })
@@ -51,7 +56,11 @@ export function PricingSection() {
     }
     setBusy(true);
     try {
-      const res = await fetch("/api/billing/checkout", { method: "POST" });
+      const res = await fetch("/api/billing/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ interval: billing }),
+      });
       if (res.status === 401) {
         window.location.href = "/login?mode=signup";
         return;
@@ -87,7 +96,42 @@ export function PricingSection() {
         </p>
       </div>
 
-      <div className="mt-12 grid gap-4 md:grid-cols-2">
+      <div className="mt-8 flex justify-center">
+        <div className="flex items-center rounded-full border border-border p-1">
+          {(
+            [
+              { id: "year", label: "Yearly" },
+              { id: "month", label: "Monthly" },
+            ] as const
+          ).map((opt) => (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => setBilling(opt.id)}
+              className={clsx(
+                "rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
+                billing === opt.id
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {opt.label}
+              {opt.id === "year" && (
+                <span
+                  className={clsx(
+                    "ml-1.5 text-xs",
+                    billing === "year" ? "opacity-80" : "text-primary",
+                  )}
+                >
+                  Save ${YEARLY_SAVINGS}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-8 grid gap-4 md:grid-cols-2">
         <div className="rounded-2xl border border-border bg-card/60 p-7">
           <h3 className="font-semibold">Free</h3>
           <p className="mt-3 text-4xl font-bold">
@@ -119,8 +163,13 @@ export function PricingSection() {
           </span>
           <h3 className="font-semibold text-primary">Pro</h3>
           <p className="mt-3 text-4xl font-bold">
-            ${PLANS.pro.priceMonthly}
+            ${billing === "year" ? PLANS.pro.priceYearly / 12 : PLANS.pro.priceMonthly}
             <span className="text-sm font-normal text-muted-foreground"> per month</span>
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {billing === "year"
+              ? `Billed as $${PLANS.pro.priceYearly} a year`
+              : "Billed monthly. Cancel anytime."}
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
             For anyone cutting out images all day. Creators, sellers, and busy teams.
