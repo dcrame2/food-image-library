@@ -13,8 +13,8 @@ export default function LandingPage() {
     <>
       <Hero />
       <AppDemo />
-      <Features />
       <HowItWorks />
+      <Features />
       <PricingSection />
       <Faq />
       <CtaFooter />

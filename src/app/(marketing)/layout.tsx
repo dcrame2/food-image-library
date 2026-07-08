@@ -39,7 +39,11 @@ export default function MarketingLayout({
     <div className='flex min-h-dvh flex-col'>
       <MarketingNav />
 
-      <main className='flex-1'>{children}</main>
+      {/* overflow-x-clip: contains decorative blurs/marquees that intentionally
+          bleed past the viewport edges, so the page never scrolls sideways on
+          mobile. clip (not hidden) does not create a scroll container, so the
+          sticky nav keeps working. */}
+      <main className='flex-1 overflow-x-clip'>{children}</main>
 
       <footer className='border-t border-border'>
         <div className='mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-6'>
