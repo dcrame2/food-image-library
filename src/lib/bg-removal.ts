@@ -4,13 +4,15 @@ import {
   isRemoveBgConfigured,
   RemoveBgQuotaExceededError,
 } from "./remove-bg";
+import { removeBgViaFal, isFalConfigured } from "./fal-bg";
 
 export type BgEngine = "auto" | "remove-bg" | "imgly" | "skip";
 
 export interface BgRemovalOptions {
   /**
    * Which engine to use:
-   *  - "auto" (default): remove.bg if API key is set, otherwise @imgly
+   *  - "auto" (default): fal.ai BiRefNet if configured (cents per image),
+   *    else remove.bg if configured, else local @imgly
    *  - "remove-bg": force remove.bg (errors if no key)
    *  - "imgly": force local @imgly (free, lower quality)
    *  - "skip": don't run bg-removal at all (source is already transparent)
@@ -58,6 +60,17 @@ export async function processBuffer(
 
   if (autoDetect && isAlreadyTransparent(input)) {
     return alphaBoost ? boostAlpha(input) : input;
+  }
+
+  // "auto" prefers BiRefNet via fal.ai: near-identical quality on products
+  // and food at a fraction of remove.bg's per-image cost.
+  if (engine === "auto" && isFalConfigured()) {
+    try {
+      return await removeBgViaFal(input);
+    } catch (err) {
+      console.warn("fal.ai removal failed, falling back:", err);
+      // fall through to remove.bg / imgly below
+    }
   }
 
   const resolvedEngine = engine === "auto" ? (isRemoveBgConfigured() ? "remove-bg" : "imgly") : engine;

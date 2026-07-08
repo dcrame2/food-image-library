@@ -41,7 +41,7 @@ export default function PrivacyPage() {
             Your data is stored with Supabase (database, authentication, and
             file storage). Payments run through Stripe. Image searches are
             processed through a search provider; background removal is
-            processed by remove.bg. Each provider handles data under
+            processed by AI providers (fal.ai and remove.bg). Each provider handles data under
             its own privacy policy.
           </p>
         </section>
