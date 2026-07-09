@@ -19,9 +19,11 @@ export interface BgRemovalOptions {
    */
   engine?: BgEngine;
   /**
-   * If true (default), auto-detects whether the source PNG is already transparent
-   * (alpha < 250 in any corner). If so, skips bg-removal — running an already-
-   * transparent image through any model often degrades quality.
+   * If true, auto-detects whether the source PNG is already transparent and, if
+   * so, skips bg-removal. Defaults to FALSE: in practice users never upload
+   * pre-cut transparent images, and the border-ring heuristic false-positives on
+   * white/padded backgrounds — silently skipping the cutout they actually wanted.
+   * Every image now runs through bg-removal unless this is explicitly enabled.
    */
   autoDetect?: boolean;
   /**
@@ -54,7 +56,7 @@ export async function processBuffer(
   input: Buffer,
   options: BgRemovalOptions = {},
 ): Promise<Buffer> {
-  const { engine = "auto", autoDetect = true, alphaBoost = true } = options;
+  const { engine = "auto", autoDetect = false, alphaBoost = true } = options;
 
   if (engine === "skip") return input;
 
