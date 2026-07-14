@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Download, Check, Trash2 } from "lucide-react";
 import clsx from "clsx";
@@ -61,6 +61,14 @@ function ItemCard({
   onDelete: (item: LibraryItem) => void;
 }) {
   const [loaded, setLoaded] = useState(false);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+
+  // Same two-tap confirm as the detail sheet; arms briefly, then relaxes.
+  useEffect(() => {
+    if (!confirmingDelete) return;
+    const timer = setTimeout(() => setConfirmingDelete(false), 2500);
+    return () => clearTimeout(timer);
+  }, [confirmingDelete]);
 
   return (
     <motion.div
@@ -122,12 +130,23 @@ function ItemCard({
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
+                  if (!confirmingDelete) {
+                    setConfirmingDelete(true);
+                    return;
+                  }
+                  setConfirmingDelete(false);
                   onDelete(item);
                 }}
-                className="pointer-events-auto flex h-7 w-7 items-center justify-center rounded-md bg-black/70 text-white hover:bg-destructive"
-                title="Delete from library"
+                className={clsx(
+                  "pointer-events-auto flex h-7 items-center justify-center gap-1 rounded-md text-white transition-colors",
+                  confirmingDelete
+                    ? "bg-destructive px-2 text-xs font-medium"
+                    : "w-7 bg-black/70 hover:bg-destructive",
+                )}
+                title={confirmingDelete ? "Tap again to delete" : "Delete from library"}
               >
                 <Trash2 className="h-3.5 w-3.5" />
+                {confirmingDelete && "Sure?"}
               </button>
             )}
             <button

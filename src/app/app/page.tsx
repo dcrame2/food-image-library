@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clsx from "clsx";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
@@ -12,7 +12,7 @@ import { AppHeader } from "@/components/app/app-header";
 import { FilterPanel, type Source } from "@/components/app/filter-panel";
 import { FilterDrawer } from "@/components/app/filter-drawer";
 import { ItemGrid } from "@/components/app/item-grid";
-import { ItemDetailSheet } from "@/components/app/item-detail-sheet";
+import { ItemDetailSheet, type ItemPatch } from "@/components/app/item-detail-sheet";
 import { AddItemDialog } from "@/components/app/add-item-dialog";
 import { WelcomeToProDialog } from "@/components/app/welcome-to-pro-dialog";
 import { UpgradePro } from "@/components/app/upgrade-pro";
@@ -40,6 +40,13 @@ export default function LibraryPage() {
   const [showWelcomePro, setShowWelcomePro] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [detailItem, setDetailItem] = useState<LibraryItem | null>(null);
+  /** Image handed to the add dialog by page-level paste or drag-drop. */
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [pageDragOver, setPageDragOver] = useState(false);
+  const dragDepth = useRef(0);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const overlayOpen = showAdd || showFilters || showWelcomePro || showUpgrade || Boolean(detailItem);
 
   const loadItems = useCallback(async () => {
     const [owned, starter] = await Promise.all([
@@ -86,6 +93,81 @@ export default function LibraryPage() {
     const timers = [1000, 3000, 6000].map((ms) => setTimeout(loadMe, ms));
     return () => timers.forEach(clearTimeout);
   }, [loadMe]);
+
+  // Paste an image anywhere in the library: opens the add dialog preloaded.
+  useEffect(() => {
+    const onPaste = (e: ClipboardEvent) => {
+      if (overlayOpen) return;
+      const target = e.target as HTMLElement | null;
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) return;
+      for (const entry of e.clipboardData?.items ?? []) {
+        if (entry.kind === "file" && entry.type.startsWith("image/")) {
+          const file = entry.getAsFile();
+          if (file) {
+            e.preventDefault();
+            setPendingFile(file);
+            setShowAdd(true);
+            return;
+          }
+        }
+      }
+    };
+    document.addEventListener("paste", onPaste);
+    return () => document.removeEventListener("paste", onPaste);
+  }, [overlayOpen]);
+
+  // Drag an image file onto the page: same thing, with a drop-target overlay.
+  useEffect(() => {
+    const hasFiles = (e: DragEvent) => Boolean(e.dataTransfer?.types.includes("Files"));
+    const onEnter = (e: DragEvent) => {
+      if (!hasFiles(e) || overlayOpen) return;
+      e.preventDefault();
+      dragDepth.current += 1;
+      setPageDragOver(true);
+    };
+    const onOver = (e: DragEvent) => {
+      if (hasFiles(e) && !overlayOpen) e.preventDefault();
+    };
+    const onLeave = () => {
+      dragDepth.current = Math.max(0, dragDepth.current - 1);
+      if (dragDepth.current === 0) setPageDragOver(false);
+    };
+    const onDrop = (e: DragEvent) => {
+      dragDepth.current = 0;
+      setPageDragOver(false);
+      if (!hasFiles(e) || overlayOpen) return;
+      e.preventDefault();
+      const file = e.dataTransfer?.files?.[0];
+      if (file && file.type.startsWith("image/")) {
+        setPendingFile(file);
+        setShowAdd(true);
+      }
+    };
+    window.addEventListener("dragenter", onEnter);
+    window.addEventListener("dragover", onOver);
+    window.addEventListener("dragleave", onLeave);
+    window.addEventListener("drop", onDrop);
+    return () => {
+      window.removeEventListener("dragenter", onEnter);
+      window.removeEventListener("dragover", onOver);
+      window.removeEventListener("dragleave", onLeave);
+      window.removeEventListener("drop", onDrop);
+    };
+  }, [overlayOpen]);
+
+  // "/" jumps to search, the way it does everywhere else on the internet.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (overlayOpen) return;
+      const el = document.activeElement;
+      if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA")) return;
+      e.preventDefault();
+      searchInputRef.current?.focus();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [overlayOpen]);
 
   const ownedItems = useMemo(() => items.filter((i) => i.owned), [items]);
   const starterItems = useMemo(() => items.filter((i) => !i.owned), [items]);
@@ -179,28 +261,38 @@ export default function LibraryPage() {
     }
   }
 
-  function confirmDelete(item: LibraryItem) {
-    toast(`Delete "${item.name}"?`, {
-      action: { label: "Delete", onClick: () => doDelete(item) },
-    });
-  }
-
-  async function handleRename(item: LibraryItem, name: string) {
-    const trimmed = name.trim();
-    if (!trimmed || trimmed === item.name) return;
-    const res = await fetch("/api/rename", {
+  async function handleUpdate(item: LibraryItem, patch: ItemPatch) {
+    const res = await fetch("/api/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: item.id, name: trimmed }),
+      body: JSON.stringify({ id: item.id, ...patch }),
     });
-    if (res.ok) {
-      setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, name: trimmed } : i)));
-      setDetailItem((prev) => (prev && prev.id === item.id ? { ...prev, name: trimmed } : prev));
-      toast.success("Renamed");
-    } else {
-      const data = await res.json().catch(() => null);
-      toast.error(data?.error ?? "Rename failed");
+    const data = await res.json().catch(() => null);
+    if (!res.ok || !data?.item) {
+      toast.error(data?.error ?? "Update failed");
+      return;
     }
+    const updated = data.item as LibraryItem;
+    setItems((prev) => prev.map((i) => (i.id === item.id ? updated : i)));
+    setDetailItem((prev) => (prev && prev.id === item.id ? updated : prev));
+    if (patch.name !== undefined) toast.success("Renamed");
+    else if (patch.collection !== undefined) {
+      toast.success(
+        updated.category === UNSORTED
+          ? "Moved to Unsorted"
+          : `Moved to ${collectionLabel(updated.category)}`,
+      );
+    }
+  }
+
+  /** Step the open detail sheet through the grid's current order. */
+  function navigateDetail(dir: -1 | 1) {
+    setDetailItem((prev) => {
+      if (!prev) return prev;
+      const idx = filteredItems.findIndex((i) => i.id === prev.id);
+      if (idx === -1) return prev;
+      return filteredItems[idx + dir] ?? prev;
+    });
   }
 
   // Bulk save: mobile shares every PNG to Photos in one sheet, desktop zips.
@@ -230,42 +322,36 @@ export default function LibraryPage() {
     setSelectedIds(new Set());
   }
 
-  // Bulk delete: only the user's own items can be removed.
-  function deleteSelected() {
+  // Bulk delete: only the user's own items can be removed. The header's
+  // delete button already two-tap confirms, so this runs immediately.
+  async function deleteSelected() {
     const targets = items.filter((i) => selectedIds.has(i.id) && i.owned);
     if (targets.length === 0) {
       toast.error("Starter cutouts can't be deleted.");
       return;
     }
-    toast(`Delete ${targets.length} cutout${targets.length > 1 ? "s" : ""}?`, {
-      action: {
-        label: "Delete",
-        onClick: async () => {
-          const delToast = toast.loading(`Deleting ${targets.length}...`);
-          const results = await Promise.all(
-            targets.map((item) =>
-              fetch("/api/delete", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: item.id }),
-              }).then((res) => ({ id: item.id, ok: res.ok })),
-            ),
-          );
-          const deleted = new Set(results.filter((r) => r.ok).map((r) => r.id));
-          setItems((prev) => prev.filter((i) => !deleted.has(i.id)));
-          setSelectedIds(new Set());
-          setSelectMode(false);
-          const failed = results.length - deleted.size;
-          if (failed > 0) {
-            toast.error(`Deleted ${deleted.size}, ${failed} failed`, { id: delToast });
-          } else {
-            toast.success(`Deleted ${deleted.size} cutout${deleted.size > 1 ? "s" : ""}`, {
-              id: delToast,
-            });
-          }
-        },
-      },
-    });
+    const delToast = toast.loading(`Deleting ${targets.length}...`);
+    const results = await Promise.all(
+      targets.map((item) =>
+        fetch("/api/delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: item.id }),
+        }).then((res) => ({ id: item.id, ok: res.ok })),
+      ),
+    );
+    const deleted = new Set(results.filter((r) => r.ok).map((r) => r.id));
+    setItems((prev) => prev.filter((i) => !deleted.has(i.id)));
+    setSelectedIds(new Set());
+    setSelectMode(false);
+    const failed = results.length - deleted.size;
+    if (failed > 0) {
+      toast.error(`Deleted ${deleted.size}, ${failed} failed`, { id: delToast });
+    } else {
+      toast.success(`Deleted ${deleted.size} cutout${deleted.size > 1 ? "s" : ""}`, {
+        id: delToast,
+      });
+    }
   }
 
   const filterPanelProps = {
@@ -301,7 +387,19 @@ export default function LibraryPage() {
         onUpgrade={() => setShowUpgrade(true)}
         activeFilterCount={activeFilterCount}
         me={me}
+        searchRef={searchInputRef}
       />
+
+      {pageDragOver && (
+        <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-background/80">
+          <div className="rounded-xl border-2 border-dashed border-primary bg-card px-8 py-6 text-center shadow-2xl">
+            <p className="text-sm font-semibold">Drop image to cut it out</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              We remove the background automatically.
+            </p>
+          </div>
+        </div>
+      )}
 
       <div className="flex flex-1 overflow-hidden">
         <aside className="hidden w-60 shrink-0 flex-col border-r border-border bg-card/50 md:flex">
@@ -423,7 +521,7 @@ export default function LibraryPage() {
               onToggleSelect={toggleSelect}
               onOpen={setDetailItem}
               onSave={handleSave}
-              onDelete={confirmDelete}
+              onDelete={doDelete}
             />
           )}
         </main>
@@ -438,11 +536,13 @@ export default function LibraryPage() {
 
       <ItemDetailSheet
         item={detailItem}
+        collections={collections.map((c) => c.slug)}
         onClose={() => setDetailItem(null)}
         onSave={handleSave}
         onCopy={handleCopy}
         onDelete={doDelete}
-        onRename={handleRename}
+        onUpdate={handleUpdate}
+        onNavigate={navigateDetail}
       />
 
       {showWelcomePro && <WelcomeToProDialog onClose={() => setShowWelcomePro(false)} />}
@@ -451,10 +551,15 @@ export default function LibraryPage() {
 
       {showAdd && (
         <AddItemDialog
-          onClose={() => setShowAdd(false)}
+          onClose={() => {
+            setShowAdd(false);
+            setPendingFile(null);
+          }}
           onUpgrade={() => setShowUpgrade(true)}
+          onQuotaChange={loadMe}
           me={me}
           collections={collections.map((c) => c.slug)}
+          initialFile={pendingFile}
           onAdded={(item) => {
             setItems((prev) => [item, ...prev]);
             setSource("mine");

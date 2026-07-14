@@ -200,7 +200,8 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json({ item: fromOwnedRow(row) });
+    // quotaUsed tells the client whether rejecting this cutout should refund.
+    return NextResponse.json({ item: fromOwnedRow(row), quotaUsed: quotaConsumed });
   } catch (err) {
     await refund();
     const message = err instanceof Error ? err.message : "Unknown error";

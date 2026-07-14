@@ -36,6 +36,8 @@ interface AppHeaderProps {
   onUpgrade: () => void;
   activeFilterCount: number;
   me: Me | null;
+  /** Attached to the desktop search input so "/" can focus it. */
+  searchRef?: React.RefObject<HTMLInputElement | null>;
 }
 
 export function AppHeader({
@@ -51,9 +53,21 @@ export function AppHeader({
   onUpgrade,
   activeFilterCount,
   me,
+  searchRef,
 }: AppHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  // Two-tap bulk delete: armed at a specific selection size, so changing the
+  // selection naturally disarms it; a timeout relaxes it too.
+  const [deleteArmedAt, setDeleteArmedAt] = useState<number | null>(null);
+  const confirmingDelete =
+    selectMode && selectedCount > 0 && deleteArmedAt === selectedCount;
   const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!confirmingDelete) return;
+    const timer = setTimeout(() => setDeleteArmedAt(null), 3000);
+    return () => clearTimeout(timer);
+  }, [confirmingDelete]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -68,13 +82,14 @@ export function AppHeader({
 
   const nearLimit = me && me.limit > 0 && me.used / me.limit >= 0.8;
 
-  const searchField = (
+  const searchField = (withRef: boolean) => (
     <>
       <Search className="pointer-events-none absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <input
+        ref={withRef ? searchRef : undefined}
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
-        placeholder="Search your cutouts"
+        placeholder="Search cutouts"
         className="w-full rounded-md border border-border bg-card py-2 pr-8 pl-8 text-sm outline-none focus:border-primary"
       />
       {query && (
@@ -113,7 +128,7 @@ export function AppHeader({
 
         {/* Search: inline on desktop, moves to its own row on mobile. */}
         <div className="relative hidden min-w-0 flex-1 sm:block sm:max-w-md">
-          {searchField}
+          {searchField(true)}
         </div>
 
         <div className="ml-auto flex shrink-0 items-center gap-2">
@@ -143,12 +158,31 @@ export function AppHeader({
             </button>
             <button
               type="button"
-              onClick={onDeleteSelected}
-              className="flex h-10 items-center gap-1.5 rounded-md border border-destructive/60 px-3 text-sm font-medium text-destructive transition-colors hover:bg-destructive hover:text-destructive-foreground"
-              aria-label={`Delete ${selectedCount} selected`}
+              onClick={() => {
+                if (!confirmingDelete) {
+                  setDeleteArmedAt(selectedCount);
+                  return;
+                }
+                setDeleteArmedAt(null);
+                onDeleteSelected();
+              }}
+              className={clsx(
+                "flex h-10 items-center gap-1.5 rounded-md border px-3 text-sm font-medium transition-colors",
+                confirmingDelete
+                  ? "border-destructive bg-destructive text-destructive-foreground"
+                  : "border-destructive/60 text-destructive hover:bg-destructive hover:text-destructive-foreground",
+              )}
+              aria-label={
+                confirmingDelete
+                  ? "Tap again to delete selected"
+                  : `Delete ${selectedCount} selected`
+              }
             >
               <Trash2 className="h-4 w-4" />
-              <span className="hidden sm:inline">Delete</span>
+              <span className="hidden sm:inline">
+                {confirmingDelete ? "Sure?" : "Delete"}
+              </span>
+              {confirmingDelete && <span className="sm:hidden">Sure?</span>}
             </button>
           </>
         )}
@@ -271,7 +305,7 @@ export function AppHeader({
       </div>
 
       {/* Mobile-only search row, sits below the top row. */}
-      <div className="relative mt-2.5 sm:hidden">{searchField}</div>
+      <div className="relative mt-2.5 sm:hidden">{searchField(false)}</div>
     </header>
   );
 }

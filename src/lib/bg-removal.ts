@@ -1,9 +1,5 @@
 import { PNG } from "pngjs";
-import {
-  removeBgFromBuffer,
-  isRemoveBgConfigured,
-  RemoveBgQuotaExceededError,
-} from "./remove-bg";
+import { removeBgFromBuffer, isRemoveBgConfigured } from "./remove-bg";
 import { removeBgViaFal, isFalConfigured } from "./fal-bg";
 
 export type BgEngine = "auto" | "remove-bg" | "imgly" | "skip";

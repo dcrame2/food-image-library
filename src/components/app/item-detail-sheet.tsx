@@ -2,18 +2,40 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, Copy, Trash2, Loader2, Check, Pencil } from "lucide-react";
+import {
+  X,
+  Download,
+  Copy,
+  Trash2,
+  Loader2,
+  Check,
+  Pencil,
+  ChevronLeft,
+  ChevronRight,
+  FolderOpen,
+  Plus,
+} from "lucide-react";
 import clsx from "clsx";
 import type { LibraryItem } from "@/lib/items";
 import { UNSORTED, collectionLabel } from "@/lib/collections";
 
+export interface ItemPatch {
+  name?: string;
+  collection?: string;
+  tags?: string[];
+}
+
 interface ItemDetailSheetProps {
   item: LibraryItem | null;
+  /** Existing collection slugs for the move-to-collection autocomplete. */
+  collections: string[];
   onClose: () => void;
   onSave: (item: LibraryItem) => Promise<void> | void;
   onCopy: (item: LibraryItem) => Promise<void> | void;
   onDelete: (item: LibraryItem) => Promise<void> | void;
-  onRename: (item: LibraryItem, name: string) => Promise<void> | void;
+  onUpdate: (item: LibraryItem, patch: ItemPatch) => Promise<void> | void;
+  /** Step to the previous (-1) or next (1) item in the current grid order. */
+  onNavigate: (dir: -1 | 1) => void;
 }
 
 function isIOS(): boolean {
@@ -29,22 +51,31 @@ function isIOS(): boolean {
  */
 export function ItemDetailSheet({
   item,
+  collections,
   onClose,
   onSave,
   onCopy,
   onDelete,
-  onRename,
+  onUpdate,
+  onNavigate,
 }: ItemDetailSheetProps) {
   useEffect(() => {
     if (!item) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      // Arrow keys step through the grid, but never while typing in a field.
+      const el = document.activeElement;
+      if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA")) return;
+      if (e.key === "ArrowLeft") onNavigate(-1);
+      if (e.key === "ArrowRight") onNavigate(1);
+    };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [item, onClose]);
+  }, [item, onClose, onNavigate]);
 
   return (
     <AnimatePresence>
@@ -62,11 +93,13 @@ export function ItemDetailSheet({
           <SheetBody
             key={item.id}
             item={item}
+            collections={collections}
             onClose={onClose}
             onSave={onSave}
             onCopy={onCopy}
             onDelete={onDelete}
-            onRename={onRename}
+            onUpdate={onUpdate}
+            onNavigate={onNavigate}
           />
         </div>
       )}
@@ -76,24 +109,36 @@ export function ItemDetailSheet({
 
 function SheetBody({
   item,
+  collections,
   onClose,
   onSave,
   onCopy,
   onDelete,
-  onRename,
+  onUpdate,
+  onNavigate,
 }: {
   item: LibraryItem;
+  collections: string[];
   onClose: () => void;
   onSave: (item: LibraryItem) => Promise<void> | void;
   onCopy: (item: LibraryItem) => Promise<void> | void;
   onDelete: (item: LibraryItem) => Promise<void> | void;
-  onRename: (item: LibraryItem, name: string) => Promise<void> | void;
+  onUpdate: (item: LibraryItem, patch: ItemPatch) => Promise<void> | void;
+  onNavigate: (dir: -1 | 1) => void;
 }) {
   const [saving, setSaving] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [editingName, setEditingName] = useState(false);
   const [nameDraft, setNameDraft] = useState(item.name);
   const [renaming, setRenaming] = useState(false);
+  const [editingCollection, setEditingCollection] = useState(false);
+  const [collectionDraft, setCollectionDraft] = useState("");
+  const [movingCollection, setMovingCollection] = useState(false);
+  const [tagDraft, setTagDraft] = useState("");
+  const [savingTags, setSavingTags] = useState(false);
+
+  const categoryLabel =
+    item.category === UNSORTED ? null : collectionLabel(item.category);
 
   async function commitRename() {
     const next = nameDraft.trim();
@@ -104,15 +149,43 @@ function SheetBody({
     }
     setRenaming(true);
     try {
-      await onRename(item, next);
+      await onUpdate(item, { name: next });
       setEditingName(false);
     } finally {
       setRenaming(false);
     }
   }
 
-  const categoryLabel =
-    item.category === UNSORTED ? null : collectionLabel(item.category);
+  async function commitCollection() {
+    const next = collectionDraft.trim();
+    if (next === (categoryLabel ?? "")) {
+      setEditingCollection(false);
+      return;
+    }
+    setMovingCollection(true);
+    try {
+      await onUpdate(item, { collection: next });
+      setEditingCollection(false);
+    } finally {
+      setMovingCollection(false);
+    }
+  }
+
+  async function saveTags(tags: string[]) {
+    setSavingTags(true);
+    try {
+      await onUpdate(item, { tags });
+    } finally {
+      setSavingTags(false);
+    }
+  }
+
+  function addTag() {
+    const tag = tagDraft.trim().toLowerCase();
+    setTagDraft("");
+    if (!tag || item.tags.includes(tag)) return;
+    saveTags([...item.tags, tag]);
+  }
 
   return (
     <motion.div
@@ -123,14 +196,33 @@ function SheetBody({
       className="relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-card pb-[env(safe-area-inset-bottom)] sm:max-w-md sm:rounded-2xl"
     >
       <div className="mx-auto mt-2 h-1 w-10 shrink-0 rounded-full bg-muted-foreground/30 sm:hidden" />
-      <button
-        type="button"
-        onClick={onClose}
-        className="absolute top-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white/80 hover:text-white"
-        aria-label="Close"
-      >
-        <X className="h-4.5 w-4.5" />
-      </button>
+      <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
+        {/* Desktop: step through the grid without closing the sheet. */}
+        <button
+          type="button"
+          onClick={() => onNavigate(-1)}
+          className="hidden h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white/80 hover:text-white sm:flex"
+          aria-label="Previous cutout"
+        >
+          <ChevronLeft className="h-4.5 w-4.5" />
+        </button>
+        <button
+          type="button"
+          onClick={() => onNavigate(1)}
+          className="hidden h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white/80 hover:text-white sm:flex"
+          aria-label="Next cutout"
+        >
+          <ChevronRight className="h-4.5 w-4.5" />
+        </button>
+        <button
+          type="button"
+          onClick={onClose}
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white/80 hover:text-white"
+          aria-label="Close"
+        >
+          <X className="h-4.5 w-4.5" />
+        </button>
+      </div>
 
       <div className="overflow-y-auto overscroll-contain">
         <div className="checkered-bg m-4 mb-0 overflow-hidden rounded-xl">
@@ -193,29 +285,123 @@ function SheetBody({
                   )}
                 </div>
               )}
-              <p className="mt-0.5 text-sm text-muted-foreground">
-                {categoryLabel && (
-                  <>
-                    {categoryLabel}
-                    <span className="mx-1.5 opacity-40">/</span>
-                  </>
-                )}
-                {item.owned ? "Your library" : "Starter pack"}
-              </p>
+
+              {item.owned ? (
+                editingCollection ? (
+                  <div className="mt-1.5 flex items-center gap-2">
+                    <input
+                      autoFocus
+                      value={collectionDraft}
+                      list="detail-collection-options"
+                      placeholder="Collection (empty = Unsorted)"
+                      onChange={(e) => setCollectionDraft(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") commitCollection();
+                        if (e.key === "Escape") setEditingCollection(false);
+                      }}
+                      className="min-w-0 flex-1 rounded-md border border-border bg-background px-2 py-1 text-sm outline-none focus:border-primary"
+                    />
+                    <datalist id="detail-collection-options">
+                      {collections.map((slug) => (
+                        <option key={slug} value={collectionLabel(slug)} />
+                      ))}
+                    </datalist>
+                    <button
+                      type="button"
+                      onClick={commitCollection}
+                      disabled={movingCollection}
+                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground hover:opacity-90 disabled:opacity-60"
+                      aria-label="Save collection"
+                    >
+                      {movingCollection ? (
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      ) : (
+                        <Check className="h-3.5 w-3.5" />
+                      )}
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCollectionDraft(categoryLabel ?? "");
+                      setEditingCollection(true);
+                    }}
+                    className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+                    title="Move to a collection"
+                  >
+                    <FolderOpen className="h-3.5 w-3.5" />
+                    {categoryLabel ?? "Add to a collection"}
+                    <Pencil className="h-3 w-3 opacity-60" />
+                  </button>
+                )
+              ) : (
+                <p className="mt-0.5 text-sm text-muted-foreground">
+                  {categoryLabel && (
+                    <>
+                      {categoryLabel}
+                      <span className="mx-1.5 opacity-40">/</span>
+                    </>
+                  )}
+                  Starter pack
+                </p>
+              )}
             </div>
           </div>
 
-          {item.tags.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-1.5">
+          {item.owned ? (
+            <div className="mt-3 flex flex-wrap items-center gap-1.5">
               {item.tags.map((t) => (
                 <span
                   key={t}
-                  className="rounded-full border border-border px-2 py-0.5 text-xs text-muted-foreground"
+                  className="flex items-center gap-1 rounded-full border border-border px-2 py-0.5 text-xs text-muted-foreground"
                 >
                   {t}
+                  <button
+                    type="button"
+                    disabled={savingTags}
+                    onClick={() => saveTags(item.tags.filter((x) => x !== t))}
+                    className="rounded-full p-0.5 hover:text-foreground disabled:opacity-50"
+                    aria-label={`Remove tag ${t}`}
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
                 </span>
               ))}
+              <div className="flex items-center gap-1 rounded-full border border-dashed border-border px-2 py-0.5">
+                {savingTags ? (
+                  <Loader2 className="h-3 w-3 animate-spin text-muted-foreground" />
+                ) : (
+                  <Plus className="h-3 w-3 text-muted-foreground" />
+                )}
+                <input
+                  value={tagDraft}
+                  onChange={(e) => setTagDraft(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === ",") {
+                      e.preventDefault();
+                      addTag();
+                    }
+                  }}
+                  onBlur={addTag}
+                  placeholder="Add tag"
+                  className="w-16 bg-transparent text-xs outline-none placeholder:text-muted-foreground/60 focus:w-24"
+                />
+              </div>
             </div>
+          ) : (
+            item.tags.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {item.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-border px-2 py-0.5 text-xs text-muted-foreground"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            )
           )}
 
           <div className="mt-5 grid grid-cols-2 gap-2">

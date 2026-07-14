@@ -36,7 +36,7 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const next = searchParams.get("next") ?? "/app";
 
-  const [mode, setMode] = useState<"signin" | "signup">(
+  const [mode, setMode] = useState<"signin" | "signup" | "reset">(
     searchParams.get("mode") === "signup" ? "signup" : "signin",
   );
   const [email, setEmail] = useState("");
@@ -77,6 +77,16 @@ function LoginForm() {
     setBusy("email");
     const supabase = createClient();
 
+    if (mode === "reset") {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`,
+      });
+      if (error) setError(error.message);
+      else setNotice("Check your email for a link to reset your password.");
+      setBusy(null);
+      return;
+    }
+
     if (mode === "signin") {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
@@ -116,30 +126,40 @@ function LoginForm() {
           <Logo markClassName="h-7 w-7" />
         </Link>
         <h1 className="mt-6 text-2xl font-semibold tracking-tight">
-          {mode === "signin" ? "Welcome back" : "Create your library"}
+          {mode === "signin"
+            ? "Welcome back"
+            : mode === "signup"
+              ? "Create your library"
+              : "Reset your password"}
         </h1>
         <p className="mt-1.5 text-sm text-muted-foreground">
           {mode === "signin"
             ? "Sign in to open your library."
-            : "Free to start. No card required."}
+            : mode === "signup"
+              ? "Free to start. No card required."
+              : "Enter your email and we will send you a reset link."}
         </p>
       </div>
 
-      <button
-        type="button"
-        onClick={signInWithGoogle}
-        disabled={busy !== null}
-        className="flex w-full items-center justify-center gap-2.5 rounded-lg border border-border bg-muted/60 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted disabled:opacity-60"
-      >
-        {busy === "google" ? <Loader2 className="h-4 w-4 animate-spin" /> : <GoogleIcon />}
-        Continue with Google
-      </button>
+      {mode !== "reset" && (
+        <>
+          <button
+            type="button"
+            onClick={signInWithGoogle}
+            disabled={busy !== null}
+            className="flex w-full items-center justify-center gap-2.5 rounded-lg border border-border bg-muted/60 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted disabled:opacity-60"
+          >
+            {busy === "google" ? <Loader2 className="h-4 w-4 animate-spin" /> : <GoogleIcon />}
+            Continue with Google
+          </button>
 
-      <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
-        <div className="h-px flex-1 bg-muted" />
-        or
-        <div className="h-px flex-1 bg-muted" />
-      </div>
+          <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
+            <div className="h-px flex-1 bg-muted" />
+            or
+            <div className="h-px flex-1 bg-muted" />
+          </div>
+        </>
+      )}
 
       <form onSubmit={submitEmail} className="space-y-3">
         <input
@@ -151,16 +171,34 @@ function LoginForm() {
           autoComplete="email"
           className="w-full rounded-lg border border-border bg-card px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground/60 focus:border-primary"
         />
-        <input
-          type="password"
-          required
-          minLength={6}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder={mode === "signup" ? "Password (6+ characters)" : "Password"}
-          autoComplete={mode === "signin" ? "current-password" : "new-password"}
-          className="w-full rounded-lg border border-border bg-card px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground/60 focus:border-primary"
-        />
+        {mode !== "reset" && (
+          <input
+            type="password"
+            required
+            minLength={6}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder={mode === "signup" ? "Password (6+ characters)" : "Password"}
+            autoComplete={mode === "signin" ? "current-password" : "new-password"}
+            className="w-full rounded-lg border border-border bg-card px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground/60 focus:border-primary"
+          />
+        )}
+
+        {mode === "signin" && (
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={() => {
+                setMode("reset");
+                setError(null);
+                setNotice(null);
+              }}
+              className="text-xs text-muted-foreground hover:text-foreground hover:underline"
+            >
+              Forgot password?
+            </button>
+          </div>
+        )}
 
         {error && <p className="text-sm text-destructive">{error}</p>}
         {notice && <p className="text-sm text-primary">{notice}</p>}
@@ -177,12 +215,16 @@ function LoginForm() {
           ) : (
             <Mail className="h-4 w-4" />
           )}
-          {mode === "signin" ? "Sign in with email" : "Sign up with email"}
+          {mode === "signin"
+            ? "Sign in with email"
+            : mode === "signup"
+              ? "Sign up with email"
+              : "Email me a reset link"}
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
-        {mode === "signin" ? "New here?" : "Already have an account?"}{" "}
+        {mode === "signin" ? "New here?" : mode === "signup" ? "Already have an account?" : ""}{" "}
         <button
           type="button"
           onClick={() => {
@@ -192,7 +234,7 @@ function LoginForm() {
           }}
           className="font-medium text-primary hover:underline"
         >
-          {mode === "signin" ? "Create an account" : "Sign in"}
+          {mode === "signin" ? "Create an account" : mode === "signup" ? "Sign in" : "Back to sign in"}
         </button>
       </p>
     </div>

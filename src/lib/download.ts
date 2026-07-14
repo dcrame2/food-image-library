@@ -1,5 +1,15 @@
 import JSZip from "jszip";
 import { downloadUrlFor, type LibraryItem } from "@/lib/items";
+import { slugify } from "@/lib/slugify";
+
+/**
+ * Filename for a saved cutout. Derived from the item's current name, not its
+ * stored slug: the slug is frozen at creation (it keys the storage path), so
+ * renamed items would otherwise download under their old name.
+ */
+function filenameFor(item: LibraryItem): string {
+  return `${slugify(item.name) || item.slug}.png`;
+}
 
 export type SaveResult = "shared" | "downloaded" | "cancelled" | "retry";
 export type SaveManyResult = "shared" | "zipped" | "cancelled" | "failed" | "retry";
@@ -19,7 +29,11 @@ const FILE_CACHE_MAX = 24;
 
 async function fileFor(url: string, filename: string): Promise<File> {
   const cached = fileCache.get(url);
-  if (cached) return cached;
+  if (cached) {
+    // Renames change the filename but not the URL: reuse the bytes, rewrap
+    // under the current name.
+    return cached.name === filename ? cached : new File([cached], filename, { type: "image/png" });
+  }
   const res = await fetch(url, { cache: "force-cache" });
   const blob = await res.blob();
   const file = new File([blob], filename, { type: "image/png" });
@@ -38,7 +52,7 @@ async function fileFor(url: string, filename: string): Promise<File> {
  * - Desktop: direct download via Supabase's ?download= URL.
  */
 export async function saveItem(item: LibraryItem): Promise<SaveResult> {
-  const filename = `${item.slug}.png`;
+  const filename = filenameFor(item);
 
   if (isTouchDevice() && typeof navigator.canShare === "function") {
     let shareSupported = false;
@@ -77,7 +91,7 @@ export async function saveManyItems(items: LibraryItem[]): Promise<SaveManyResul
     let shareSupported = false;
     try {
       const files = await Promise.all(
-        items.map((item) => fileFor(item.publicUrl, `${item.slug}.png`)),
+        items.map((item) => fileFor(item.publicUrl, filenameFor(item))),
       );
       if (navigator.canShare({ files })) {
         shareSupported = true;
@@ -100,7 +114,7 @@ export async function saveManyItems(items: LibraryItem[]): Promise<SaveManyResul
       items.map(async (item) => {
         const res = await fetch(item.publicUrl);
         const blob = await res.blob();
-        zip.file(`${item.category}/${item.slug}.png`, blob);
+        zip.file(`${item.category}/${filenameFor(item)}`, blob);
       }),
     );
     const blob = await zip.generateAsync({ type: "blob" });
@@ -124,9 +138,14 @@ export function triggerDownload(href: string, downloadName?: string) {
 
 export async function copyItemToClipboard(item: LibraryItem): Promise<boolean> {
   try {
-    const res = await fetch(item.publicUrl);
-    const blob = await res.blob();
-    await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+    // Safari revokes the clipboard permission if the user gesture "expires"
+    // while awaiting the fetch. Handing ClipboardItem the promise instead of
+    // the resolved blob keeps the write inside the gesture window.
+    const blobPromise = fetch(item.publicUrl).then((res) => {
+      if (!res.ok) throw new Error(`fetch failed: ${res.status}`);
+      return res.blob();
+    });
+    await navigator.clipboard.write([new ClipboardItem({ "image/png": blobPromise })]);
     return true;
   } catch {
     return false;
