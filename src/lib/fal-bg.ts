@@ -1,5 +1,3 @@
-import "server-only";
-
 /**
  * Background removal via fal.ai's BiRefNet v2 model.
  *
@@ -15,11 +13,14 @@ export function isFalConfigured(): boolean {
   return Boolean(process.env.FAL_KEY);
 }
 
-export async function removeBgViaFal(input: Buffer): Promise<Buffer> {
+export async function removeBgViaFal(
+  input: Buffer,
+  mime: string = "image/png",
+): Promise<Buffer> {
   const key = process.env.FAL_KEY;
   if (!key) throw new Error("FAL_KEY is not set");
 
-  const dataUri = `data:image/png;base64,${input.toString("base64")}`;
+  const dataUri = `data:${mime};base64,${input.toString("base64")}`;
 
   const res = await fetch(FAL_ENDPOINT, {
     method: "POST",
